@@ -1,0 +1,10 @@
+<div class="container border radius w-50">
+  <ul>
+    <li *ngFor="let post of posts">
+      <div class="container border radius w-50">
+        <h4>{{post.id}}: {{post.title}}</h4>
+        <p>{{post.body}}</p>
+      </div>
+    </li>
+  </ul>
+</div>

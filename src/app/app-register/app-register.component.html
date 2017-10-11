@@ -1,0 +1,54 @@
+<div class="container border border-top-0 radius w-25">
+  <form (ngSubmit)="onSubmit(user.name, user.surname, user.email, user.password)">
+    <br>
+
+    <div *ngIf="added === true">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Zarejestrowano pomyslnie!
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Imię:</label>
+      <input type="name" class="form-control" required id="name" name="name" [(ngModel)]="user.name" #name="ngModel">
+
+      <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">Imię wymagane!</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="surname">Nazwisko:</label>
+      <input type="surname" class="form-control" required id="surname" name="surname" [(ngModel)]="user.surname" #surname="ngModel">
+
+      <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+          <div *ngIf="surname.errors.required">Nazwisko wymagane!</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail:</label>
+      <input type="email" class="form-control" required id="email" name="email" [(ngModel)]="user.email" #email="ngModel">
+
+      <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors.required">E-mail wymagany!</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Hasło:</label>
+      <input type="password" class="form-control" required id="password" name="password" [(ngModel)]="user.password" #password="ngModel">
+
+      <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+          <div *ngIf="password.errors.required">Hasło wymagane!</div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary" [disabled]="!name.value && !surname.value && !email.value && !password.value" (click)="user.onReset()">Resetuj</button>
+    <button type="submit" class="btn btn-success" [disabled]="!name.value || !surname.value || !email.value || !password.value">Zarejestruj</button>
+  </form>
+  <br>
+</div>
