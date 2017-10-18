@@ -2,6 +2,7 @@ import { USERS } from './mock-users';
 
 export class User {
   constructor(
+    public id: number = 1,
     public name: string = '',
     public surname: string = '',
     public email: string = '',
