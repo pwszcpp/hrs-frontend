@@ -1,0 +1,44 @@
+<h1 class="nazwa">{{title}}</h1>
+<form class="rejestru" (ngSubmit)="onSubmit()">
+  <div class="alert alert-danger" *ngIf="addedUser == false">
+    Wprowadzono niepoprawne dane!
+  </div>
+  <div class="alert alert-success" *ngIf="addedUser == true">
+    Zarejestrowano użytkownika!
+  </div>
+
+  <div class="form-group"> <!-- Imię -->
+    <label for="Name">Podaj imię</label>
+    <input class="col-xs-4 form-control" type="text" required placeholder="Imię" id="inputName" name="name" [(ngModel)]="user.name" #name="ngModel">
+    <small id="nameSmall" class="form-text text-danger" *ngIf="name.invalid && (name.dirty || name.touched)">Podaj imię!</small>
+  </div>
+
+  <div class="form-group"> <!-- Nazwisko -->
+    <label for="Lastname">Podaj nazwisko</label>
+    <input class="col-xs-4 form-control" type="text" required placeholder="Nazwisko" id="inputLastname" name="surname" [(ngModel)]="user.surname" #surname="ngModel">
+    <small id="surnameSmall" class="form-text text-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">Podaj nazwisko!</small>
+  </div>
+
+  <div class="form-group"> <!-- Login -->
+    <label for="Login">Podaj login</label>
+    <input class="col-xs-4 form-control" type="text" required placeholder="Login" id="inputLogin" name="login" [(ngModel)]="user.login" #login="ngModel">
+    <small id="loginSmall" class="form-text text-danger" *ngIf="login.invalid && (login.dirty || login.touched)">Podaj login!</small>
+  </div>
+
+  <div class="form-group"> <!-- Email -->
+    <label for="Email">Podaj adres email</label>
+    <input class="col-xs-4 form-control" type="email" required placeholder="Adres Email" id="inputEmail" name="email" [(ngModel)]="user.email" #email="ngModel">
+    <small id="emailSmall" class="form-text text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">Podaj adres e-mail!</small>
+  </div>
+
+  <div class="form-group"> <!-- Hasło -->
+    <label for="Password">Podaj hasło</label>
+    <input class="col-xs-4 form-control" type="password" required placeholder="Hasło" id="inputPassword" name="password" [(ngModel)]="user.password" #password="ngModel">
+    <small id="passwordSmall" class="form-text text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">Podaj hasło!</small>
+  </div>
+
+  <div class="center">
+    <button type="submit" class="btn btn-primary btn-xs">Rejestruj</button>
+    <button type="submit" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
+  </div>
+</form>

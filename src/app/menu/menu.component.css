@@ -1,0 +1,25 @@
+.dropdown-menu
+{
+background-color:#3c424c;
+text-align:center;
+width: 200px;
+height: 100px;
+
+}
+.dropdown-submenu {
+	display:block;
+	position:block;
+	text-align:center;
+	background-color:#3c424c;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
+.dropdown-submenu:hover > ul
+{
+	display:block;
+}

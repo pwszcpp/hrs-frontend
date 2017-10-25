@@ -15,5 +15,34 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "users": [
+    {
+      "id": 1,
+      "email": "test@test.pl",
+      "password": "test",
+      "name": "Test",
+      "surname": "Test"
+    },
+    {
+      "id": 2,
+      "name": "Andrzej",
+      "surname": "Lotnisko",
+      "email": "andrzej@wp.pl",
+      "password": "andrzej",
+      "login": "andrzej"
+    }
+  ],
+  "instructions": [
+    {
+      "id": 1,
+      "topic": "123",
+      "company": "123",
+      "location": "123",
+      "dateFrom": "0123-12-03",
+      "dateTo": "1231-12-03",
+      "cost": 123123,
+      "manager": "1"
+    }
+  ]
 }

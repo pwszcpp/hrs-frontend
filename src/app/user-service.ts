@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 import { User } from './user';
-import { USERS } from './mock-users';
 
 @Injectable()
 export class UserService {
-  getUsers(): Promise<User[]> {
-    return Promise.resolve(USERS);
+  http: Http;
+
+  getUsers(url: string): Promise<User[]> {
+    return this.http.get(url)
+    .toPromise()
+    .then(res => res.json())
+    .catch(err => console.log(err));
   }
 }

@@ -1,0 +1,14 @@
+.nazwa {
+	font-size: 300%;
+  text-align: center;
+  padding-top: 50px;
+	padding-bottom:2px;
+}
+
+.login {
+  max-width:350px;
+  padding:60px 60px;
+  background-color:#F7F7F7;
+  margin:0 auto 0px;
+  margin-top:50px;
+}
