@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   }// onReset()
 
   onSubmit(): void {
-    if (this.checkUser) {
+    if (this.checkUser()) {
       this.addedUser = true;
       this.doPostUser();
     } else {

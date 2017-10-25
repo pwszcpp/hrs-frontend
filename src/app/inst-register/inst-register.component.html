@@ -1,5 +1,5 @@
 <h1 class="nazwa">Rejestracja szkolenia</h1>
-<form class="rejestrs" (ngSubmit)="onRegister()">
+<form class="rejestrs">
   <div class="alert alert-danger" *ngIf="addedInst == false">
     Błędnie wypełnione pola!
   </div>
@@ -52,7 +52,7 @@
   </div>
 
   <div class="center">
-    <button type="submit" class="btn btn-primary btn-xs">Rejestruj</button>
+    <button type="submit" class="btn btn-primary btn-xs" (click)="onRegister()">Rejestruj</button>
     <button type="submit" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
   </div>
 </form>

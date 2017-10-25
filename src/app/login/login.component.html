@@ -1,5 +1,5 @@
 <h1 class="nazwa">{{title}}</h1>
-<form class="login" (ngSubmit)="onSubmit()">
+<form class="login">
   <div class="alert alert-danger" *ngIf="loggedIn == false">
     Niepoprawne dane logowania!
   </div>
@@ -19,7 +19,7 @@
     <small id="passwordSmall" class="form-text text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">Podaj hasło!</small>
   </div>
   <div class="center">
-    <button type="submit" class="btn btn-primary btn-xs">Zaloguj</button>
+    <button type="submit" class="btn btn-primary btn-xs" (click)="onSubmit()">Zaloguj</button>
     <button type="button" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
   </div>
 </form>

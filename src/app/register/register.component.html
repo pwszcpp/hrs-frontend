@@ -1,5 +1,5 @@
 <h1 class="nazwa">{{title}}</h1>
-<form class="rejestru" (ngSubmit)="onSubmit()">
+<form class="rejestru">
   <div class="alert alert-danger" *ngIf="addedUser == false">
     Wprowadzono niepoprawne dane!
   </div>
@@ -38,7 +38,7 @@
   </div>
 
   <div class="center">
-    <button type="submit" class="btn btn-primary btn-xs">Rejestruj</button>
+    <button type="submit" class="btn btn-primary btn-xs" (click)="onSubmit()">Rejestruj</button>
     <button type="submit" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
   </div>
 </form>
