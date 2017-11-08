@@ -1,6 +1,12 @@
 # Test
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+
+## Installation
+Node: https://nodejs.org/en/
+Angular CLI: https://github.com/angular/angular-cli
+Angular Material Design: https://material.angular.io/
+JSON Server: https://www.npmjs.com/package/json-server
 
 ## Development server
 

@@ -1,10 +1,81 @@
-<div class="container border radius w-50">
-  <ul style="list-style-type: none;">
-    <li *ngFor="let post of posts">
-      <div class="container border radius">
-        <h4>{{post.id}}: {{post.title}}</h4>
-        <p>{{post.body}}</p>
-      </div>
-    </li>
-  </ul>
+<div class="container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Lp. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="topic">
+      <mat-header-cell *matHeaderCellDef> Temat szkolenia </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.topic}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="company">
+      <mat-header-cell *matHeaderCellDef> Nazwa firmy prowadzącej </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.company}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef> Miejsce szkolenia </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.location}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateFrom">
+      <mat-header-cell *matHeaderCellDef> Data rozpoczęcia </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dateFrom}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateTo">
+      <mat-header-cell *matHeaderCellDef> Data zakonczenia </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dateTo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cost">
+      <mat-header-cell *matHeaderCellDef> Koszt od osoby </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cost}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="manager">
+      <mat-header-cell *matHeaderCellDef> Zgoda menedżera </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.manager}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+    [length]="instDatabase.data.length"
+    [pageIndex]="0"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
 </div>
+
+<!-- <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Temat szkolenia</th>
+      <th>Nazwa firmy prowadzącej</th>
+      <th>Miejsce szkolenia</th>
+      <th>Data rozpoczęcia</th>
+      <th>Data zakonczenia</th>
+      <th>Cena od osoby</th>
+      <th>Zgoda menadżera</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let inst of instructions">
+      <th scope="row">{{inst.id}}</th>
+      <td>{{inst.topic}}</td>
+      <td>{{inst.company}}</td>
+      <td>{{inst.location}}</td>
+      <td>{{inst.dateFrom}}</td>
+      <td>{{inst.dateTo}}</td>
+      <td>{{inst.cost}}</td>
+      <td>{{inst.manager}}</td>
+    </tr>
+  </tbody>
+</table> -->

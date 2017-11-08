@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -41,7 +43,11 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [DataService, UserService],
   bootstrap: [AppComponent]
