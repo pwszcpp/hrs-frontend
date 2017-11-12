@@ -43,6 +43,56 @@
       "dateTo": "1231-12-03",
       "cost": 123123,
       "manager": "1"
+    },
+    {
+      "topic": "Test",
+      "company": "Test",
+      "location": "Test",
+      "dateFrom": "",
+      "dateTo": "2017-11-12",
+      "cost": 100,
+      "manager": "1",
+      "id": 2
+    },
+    {
+      "topic": "Test",
+      "company": "Test",
+      "location": "Test",
+      "dateFrom": "",
+      "dateTo": "2017-11-12",
+      "cost": 100,
+      "manager": "1",
+      "id": 3
+    },
+    {
+      "topic": "Test",
+      "company": "Test",
+      "location": "Test",
+      "dateFrom": "",
+      "dateTo": "2017-11-12",
+      "cost": 100,
+      "manager": "1",
+      "id": 4
+    },
+    {
+      "topic": "123",
+      "company": "123",
+      "location": "123",
+      "dateFrom": "2017-11-11",
+      "dateTo": "2017-11-19",
+      "cost": 123,
+      "manager": "0",
+      "id": 5
+    },
+    {
+      "topic": "123",
+      "company": "123",
+      "location": "123",
+      "dateFrom": "0123-12-03",
+      "dateTo": "0123-12-12",
+      "cost": 123,
+      "manager": "Tak",
+      "id": 6
     }
   ]
 }

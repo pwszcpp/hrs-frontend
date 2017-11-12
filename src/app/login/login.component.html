@@ -1,5 +1,6 @@
 <h1 class="nazwa">{{title}}</h1>
-<form class="login">
+
+<form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="alert alert-danger" *ngIf="loggedIn == false">
     Niepoprawne dane logowania!
   </div>
@@ -9,17 +10,22 @@
 
   <div class="form-group">
     <label for="email">E-mail:</label>
-    <input class="form-control" type="email" required placeholder="Adres Email" id="email" name="email" [(ngModel)]="user.email" #email="ngModel">
-    <small id="emailSmall" class="form-text text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">Podaj adres e-mail!</small>
+    <input class="form-control" type="email" placeholder="Adres Email" id="email" formControlName="email">
+    <div class="text-danger" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+      <small *ngIf="loginForm.get('email').errors">{{getValidErrors(loginForm.get('email'))}}</small>
+    </div>
   </div>
 
   <div class="form-group">
     <label for="password">Hasło:</label>
-    <input class="form-control" type="password" required placeholder="Hasło" id="password" name="password" [(ngModel)]="user.password" #password="ngModel">
-    <small id="passwordSmall" class="form-text text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">Podaj hasło!</small>
+    <input class="form-control" type="password" placeholder="Hasło" id="password" formControlName="password">
+    <div class="text-danger" *ngIf="loginForm.get('password').invalid && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+      <small *ngIf="loginForm.get('password').errors">{{getValidErrors(loginForm.get('password'))}}</small>
+    </div>
   </div>
+
   <div class="center">
-    <button type="submit" class="btn btn-primary btn-xs" (click)="onSubmit()">Zaloguj</button>
-    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
+    <button type="submit" class="btn btn-success btn-xs" [disabled]="loginForm.invalid">Zaloguj</button>
+    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()" [disabled]="!loginForm.get('email').value && !loginForm.get('password').value">Resetuj</button>
   </div>
 </form>

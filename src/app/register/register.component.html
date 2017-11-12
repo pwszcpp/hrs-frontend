@@ -1,44 +1,56 @@
 <h1 class="nazwa">{{title}}</h1>
-<form class="rejestru">
-  <div class="alert alert-danger" *ngIf="addedUser == false">
-    Wprowadzono niepoprawne dane!
-  </div>
+<form class="rejestru" [formGroup]="regForm" (ngSubmit)="onSubmit()">
   <div class="alert alert-success" *ngIf="addedUser == true">
     Zarejestrowano użytkownika!
   </div>
 
   <div class="form-group"> <!-- Imię -->
     <label for="Name">Podaj imię</label>
-    <input class="col-xs-4 form-control" type="text" required placeholder="Imię" id="inputName" name="name" [(ngModel)]="user.name" #name="ngModel">
-    <small id="nameSmall" class="form-text text-danger" *ngIf="name.invalid && (name.dirty || name.touched)">Podaj imię!</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Imię" id="inputName" formControlName="name">
+    <div class="text-danger" *ngIf="regForm.get('name').invalid && (regForm.get('name').dirty || regForm.get('name').touched)">
+      <small *ngIf="regForm.get('name').errors">{{getValidErrors(regForm.get('name'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Nazwisko -->
     <label for="Lastname">Podaj nazwisko</label>
-    <input class="col-xs-4 form-control" type="text" required placeholder="Nazwisko" id="inputLastname" name="surname" [(ngModel)]="user.surname" #surname="ngModel">
-    <small id="surnameSmall" class="form-text text-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">Podaj nazwisko!</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Nazwisko" id="inputLastname" formControlName="surname">
+    <div class="text-danger" *ngIf="regForm.get('surname').invalid && (regForm.get('surname').dirty || regForm.get('surname').touched)">
+        <small *ngIf="regForm.get('surname').errors">{{getValidErrors(regForm.get('surname'))}}</small>
+      </div>
   </div>
 
   <div class="form-group"> <!-- Login -->
     <label for="Login">Podaj login</label>
-    <input class="col-xs-4 form-control" type="text" required placeholder="Login" id="inputLogin" name="login" [(ngModel)]="user.login" #login="ngModel">
-    <small id="loginSmall" class="form-text text-danger" *ngIf="login.invalid && (login.dirty || login.touched)">Podaj login!</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Login" id="inputLogin" formControlName="login">
+    <div class="text-danger" *ngIf="regForm.get('login').invalid && (regForm.get('login').dirty || regForm.get('login').touched)">
+        <small *ngIf="regForm.get('login').errors">{{getValidErrors(regForm.get('login'))}}</small>
+      </div>
   </div>
 
   <div class="form-group"> <!-- Email -->
     <label for="Email">Podaj adres email</label>
-    <input class="col-xs-4 form-control" type="email" required placeholder="Adres Email" id="inputEmail" name="email" [(ngModel)]="user.email" #email="ngModel">
-    <small id="emailSmall" class="form-text text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">Podaj adres e-mail!</small>
+    <input class="col-xs-4 form-control" type="email" placeholder="Adres Email" id="inputEmail" formControlName="email">
+    <div class="text-danger" *ngIf="regForm.get('email').invalid && (regForm.get('email').dirty || regForm.get('email').touched)">
+        <small *ngIf="regForm.get('email').errors">{{getValidErrors(regForm.get('email'))}}</small>
+      </div>
   </div>
 
   <div class="form-group"> <!-- Hasło -->
     <label for="Password">Podaj hasło</label>
-    <input class="col-xs-4 form-control" type="password" required placeholder="Hasło" id="inputPassword" name="password" [(ngModel)]="user.password" #password="ngModel">
-    <small id="passwordSmall" class="form-text text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">Podaj hasło!</small>
+    <input class="col-xs-4 form-control" type="password" placeholder="Hasło" id="inputPassword" formControlName="password">
+    <div class="text-danger" *ngIf="regForm.get('password').invalid && (regForm.get('password').dirty || regForm.get('password').touched)">
+        <small *ngIf="regForm.get('password').errors">{{getValidErrors(regForm.get('password'))}}</small>
+      </div>
   </div>
 
   <div class="center">
-    <button type="submit" class="btn btn-primary btn-xs" (click)="onSubmit()">Rejestruj</button>
-    <button type="submit" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
+    <button type="submit" class="btn btn-primary btn-xs" [disabled]="regForm.invalid">
+      Rejestruj
+    </button>
+
+    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()" [disabled]="!regForm.get('name').value && !regForm.get('surname').value && !regForm.get('login').value && !regForm.get('email').value && !regForm.get('password').value">
+      Resetuj
+    </button>
   </div>
 </form>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
-
-import { User } from '../user';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -11,54 +10,52 @@ import { User } from '../user';
 export class RegisterComponent implements OnInit {
   title = 'Rejestracja użytkownika';
   addedUser: boolean;
-  user = new User();
-  users = [];
+  usersNumber: number;
   url = 'http://localhost:3000';
+  regForm: FormGroup;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.createForms();
     this.getUsers();
   }
 
+  createForms() {
+    this.regForm = this.fb.group({
+      name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      surname: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      login: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.required])]
+    });
+  }
+
+  getValidErrors(value: FormControl) {
+    return value.errors.required ? 'Wypełnienie pola jest wymagane!' : value.errors.email ?
+    'Niepoprawna forma e-mail!' : value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength : '';
+  }
+
   onReset(): void {
-    this.user.email = '';
-    this.user.name = '';
-    this.user.password = '';
-    this.user.surname = '';
-    this.user.login = '';
+    this.regForm.reset();
     this.addedUser = null;
   }// onReset()
 
   onSubmit(): void {
-    if (this.checkUser()) {
-      this.addedUser = true;
-      this.doPostUser();
-    } else {
-      this.addedUser = false;
-    }// if
+    this.addedUser = true;
+    this.doPostUser();
   }// onSubmit()
 
   getUsers(): any {
     this.http.get(this.url + '/users').subscribe(
-      res => this.users = res.json(),
+      res => this.usersNumber = res.json().length,
       err => console.log(err)
     );
   }// getUsers()
 
-  checkUser(): boolean {
-    if (
-      this.user.email === '' ||
-      this.user.name === '' ||
-      this.user.password === '' ||
-      this.user.surname === ''
-    ) { return false; }
-    return true;
-  }// checkUser()
-
   doPostUser(): void {
-    this.user.id = this.users.length + 1;
-    this.http.post(this.url + '/users', this.user).subscribe(
+    this.regForm['id'] = this.usersNumber + 1;
+    this.http.post(this.url + '/users', this.regForm.value).subscribe(
       res => console.log(res.json()),
       err => console.log(err)
     );

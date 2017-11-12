@@ -1,58 +1,76 @@
 <h1 class="nazwa">Rejestracja szkolenia</h1>
-<form class="rejestrs">
-  <div class="alert alert-danger" *ngIf="addedInst == false">
-    Błędnie wypełnione pola!
-  </div>
+<form class="rejestrs" (ngSubmit)="onRegister()" [formGroup]="instReg" novalidate>
   <div class="alert alert-success" *ngIf="addedInst == true">
     Dodado szkolenie!
   </div>
 
   <div class="form-group"> <!-- Temat Szkolenia -->
     <label for="topic">Temat szkolenia</label>
-    <input class="col-xs-4 form-control" type="text" required placeholder="Wprowadź temat" id="inputTemat" name="topic" [(ngModel)]="instruction.topic" #topic="ngModel">
-    <small id="topicSmall" class="form-text text-danger" *ngIf="topic.invalid && (topic.dirty || topic.touched)">Podaj temat szkolenia!</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Wprowadź temat" id="inputTemat" formControlName="topic">
+    <div class="text-danger" *ngIf="instReg.get('topic').invalid && (instReg.get('topic').dirty || instReg.get('topic').touched)">
+      <small *ngIf="instReg.get('topic').errors">{{getValidErrors(instReg.get('topic'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Nazwa firmy prowadzącej -->
     <label for="Firma">Nazwa firmy prowadzącej</label>
-    <input class="col-xs-4 form-control" type="text" required placeholder="Firma prowadząca" id="inputFirma" name="company" [(ngModel)]="instruction.company" #company="ngModel">
-    <small id="companySmall" class="form-text text-danger" *ngIf="company.invalid && (company.dirty || company.touched)">Podaj nazwę firmy prowadzącej!</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Firma prowadząca" id="inputFirma" formControlName="company">
+    <div class="text-danger" *ngIf="instReg.get('company').invalid && (instReg.get('company').dirty || instReg.get('company').touched)">
+      <small *ngIf="instReg.get('company').errors">{{getValidErrors(instReg.get('company'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Miejsce szkolenia -->
     <label for="Miejsce">Miejsce szkolenia</label>
-    <input class="col-xs-4 form-control" type="text" required placeholder="Miejsce" id="inputMiejsce" name="location" [(ngModel)]="instruction.location" #location="ngModel">
-    <small id="locationSmall" class="form-text text-danger" *ngIf="location.invalid && (location.dirty || location.touched)">Podaj miejsce szkolenia!</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Miejsce" id="inputMiejsce" formControlName="location">
+    <div class="text-danger" *ngIf="instReg.get('location').invalid && (instReg.get('location').dirty || instReg.get('location').touched)">
+      <small *ngIf="instReg.get('location').errors">{{getValidErrors(instReg.get('location'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Data od -->
     <label for="Dataod">Data szkolenia od</label>
-    <input class="col-xs-4 form-control" type="date" required placeholder="Data od" id="inputDataod" name="dateFrom" [(ngModel)]="instruction.dateFrom" #dateFrom="ngModel">
-    <small id="dateFromSmall" class="form-text text-danger" *ngIf="dateFrom.invalid && (dateFrom.dirty || dateFrom.touched)">Podaj datę rozpoczęcia!</small>
+    <input class="col-xs-4 form-control" type="date" placeholder="Data od" id="inputDataod" formControlName="dateFrom">
+    <div class="text-danger" *ngIf="instReg.get('dateFrom').invalid && (instReg.get('dateFrom').dirty || instReg.get('dateFrom').touched)">
+      <small *ngIf="instReg.get('dateFrom').errors">{{getValidErrors(instReg.get('dateFrom'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Data do -->
     <label for="Datado">Data szkolenia do</label>
-    <input class="col-xs-4 form-control" type="date" required placeholder="Data do" id="inputDatado" name="dateTo" [(ngModel)]="instruction.dateTo" #dateTo="ngModel">
-    <small id="dateToSmall" class="form-text text-danger" *ngIf="dateTo.invalid && (dateTo.dirty || dateTo.touched)">Podaj datę zakoczenia!</small>
+    <input class="col-xs-4 form-control" type="date" placeholder="Data do" id="inputDatado" formControlName="dateTo">
+    <div class="text-danger" *ngIf="instReg.get('dateTo').invalid && (instReg.get('dateTo').dirty || instReg.get('dateTo').touched)">
+      <small *ngIf="instReg.get('dateTo').errors">{{getValidErrors(instReg.get('dateTo'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Cena -->
     <label for="Cena">Cena od osoby</label>
-    <input class="col-xs-4 form-control" type="number" required placeholder="Cena od osoby" id="inputCena" name="cost" [(ngModel)]="instruction.cost" #cost="ngModel">
-    <small id="costSmall" class="form-text text-danger" *ngIf="cost.invalid && (cost.dirty || cost.touched)">Podaj koszt od osoby!</small>
+    <input class="col-xs-4 form-control" type="number" placeholder="Cena od osoby" id="inputCena" formControlName="cost">
+    <div class="text-danger" *ngIf="instReg.get('cost').invalid && (instReg.get('cost').dirty || instReg.get('cost').touched)">
+      <small *ngIf="instReg.get('cost').errors">{{getValidErrors(instReg.get('cost'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Zgoda menadżera -->
     <label for="Zgoda">Zgoda menadżera</label>
-    <select class="col-xs-4-select form-control" name="option" [(ngModel)]="instruction.manager">
-      <option value="1">Tak</option>
-      <option value="0">Nie</option>
+    <select class="col-xs-4-select form-control" formControlName="manager">
+      <option value="Tak">Tak</option>
+      <option value="Nie">Nie</option>
     </select>
+    <div class="text-danger" *ngIf="instReg.get('manager').invalid && (instReg.get('manager').dirty || instReg.get('manager').touched)">
+      <small *ngIf="instReg.get('manager').errors">{{getValidErrors(instReg.get('manager'))}}</small>
+    </div>
   </div>
 
   <div class="center">
-    <button type="submit" class="btn btn-primary btn-xs" (click)="onRegister()">Rejestruj</button>
-    <button type="submit" class="btn btn-primary btn-xs" (click)="onReset()">Resetuj</button>
+    <button type="submit" class="btn btn-primary btn-xs" [disabled]="instReg.invalid">
+      Rejestruj
+    </button>
+
+    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()"
+    [disabled]="!instReg.get('topic').value && !instReg.get('company').value && !instReg.get('location').value && !instReg.get('dateFrom').value && !instReg.get('dateTo').value && !instReg.get('cost').value && !instReg.get('manager').value">
+      Resetuj
+    </button>
   </div>
 </form>

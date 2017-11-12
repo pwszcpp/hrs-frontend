@@ -4,6 +4,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -25,11 +26,20 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private router: Router) {}
 
   ngOnInit() {
+    if (!localStorage.getItem('user')) {
+      this.router.navigate(['/login']);
+    }
+
     this.dataSource = new InstructionDataSource(this.instDatabase, this.paginator);
     // this.getInstructions();
+  }
+
+  onLogout() {
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 
   /* getInstructions(): any {

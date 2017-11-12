@@ -10,10 +10,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DataService } from './data-service';
 import { MenuComponent } from './menu/menu.component';
 import { MainComponent } from './main/main.component';
-import { UserService } from './user-service';
 import { InstRegisterComponent } from './inst-register/inst-register.component';
 
 const appRoutes: Routes = [
@@ -49,7 +47,7 @@ const appRoutes: Routes = [
     MatTableModule,
     MatPaginatorModule
   ],
-  providers: [DataService, UserService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

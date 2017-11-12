@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { User } from '../user';
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
   selector: 'app-login',
@@ -11,20 +13,36 @@ import { User } from '../user';
 
 export class LoginComponent implements OnInit {
   title = 'Logowanie';
-  user = new User;
   users = [];
   loggedIn: boolean;
   url = 'http://localhost:3000';
+  loginForm: FormGroup;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('user')) {
+      this.router.navigate(['/dashboard']);
+    }
+
+    this.createForms();
     this.getUsers();
   }
 
+  createForms() {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email, Validators.pattern(EMAIL_REGEX)])],
+      password: ['', Validators.required]
+    });
+  }
+
+  getValidErrors(value: FormControl) {
+    return value.errors.required ?
+    'Wypełnienie pola jest wymagane!' : value.errors.email ? 'Niepoprawna forma e-mail!' : '';
+  }
+
   onReset(): void {
-    this.user.email = '';
-    this.user.password = '';
+    this.loginForm.reset();
     this.loggedIn = null;
   }// onReset()
 
@@ -37,7 +55,7 @@ export class LoginComponent implements OnInit {
 
   checkUser(): boolean {
     for (let i = 0; i < this.users.length; i++) {
-      if (this.user.email === this.users[i].email && this.user.password === this.users[i].password) {
+      if (this.loginForm.get('email').value === this.users[i].email && this.loginForm.get('password').value === this.users[i].password) {
         return true;
       }
     }// for
@@ -45,15 +63,11 @@ export class LoginComponent implements OnInit {
   }// checkUser()
 
   onSubmit(): boolean {
-    if (this.user.email === '' || this.user.password === '') {
-      return this.loggedIn = false;
-    }
-
     if (this.checkUser()) {
-      console.log('Zalogowano!');
+      localStorage.setItem('user', this.loginForm.value);
+      this.router.navigate(['/dashboard']);
       return this.loggedIn = true;
     } else {
-      console.log('Nie udało się zalogować!');
       return this.loggedIn = false;
     }// if
   }// onSubmit()
