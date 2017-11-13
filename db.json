@@ -18,6 +18,13 @@
   },
   "users": [
     {
+      "id": 0,
+      "email": "admin@admin",
+      "password": "admin",
+      "name": "Administrator",
+      "surname": "Administrator"
+    },
+    {
       "id": 1,
       "email": "test@test.pl",
       "password": "test",

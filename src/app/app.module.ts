@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatFormFieldModule, MatTableModule, MatPaginatorModule, MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { MainComponent } from './main/main.component';
 import { InstRegisterComponent } from './inst-register/inst-register.component';
+import { TableDialogEditComponent } from './dashboard/table-dialog-edit/table-dialog-edit.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     MenuComponent,
     MainComponent,
-    InstRegisterComponent
+    InstRegisterComponent,
+    TableDialogEditComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -45,9 +47,11 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TableDialogEditComponent]
 })
 export class AppModule { }

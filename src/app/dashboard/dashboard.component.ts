@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -9,6 +9,8 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+
+import { TableDialogEditComponent } from './table-dialog-edit/table-dialog-edit.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +28,9 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, private router: Router, public dialog: MatDialog) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!localStorage.getItem('user')) {
       this.router.navigate(['/login']);
     }
@@ -37,7 +39,7 @@ export class DashboardComponent implements OnInit {
     // this.getInstructions();
   }
 
-  onLogout() {
+  onLogout(): void {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
   }
@@ -49,6 +51,12 @@ export class DashboardComponent implements OnInit {
     );
   }// getInstructions() */
 
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(TableDialogEditComponent, {
+      width: '300px',
+      data: { value: this.instDatabase.dataChange.value[id - 1], database: this.instDatabase }
+    });
+  }
 }
 
 export interface Instruction {
@@ -85,7 +93,6 @@ export class InstructionDataSource extends DataSource<any> {
     super();
   }
 
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Instruction[]> {
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
@@ -95,7 +102,6 @@ export class InstructionDataSource extends DataSource<any> {
     return Observable.merge(...displayDataChanges).map(() => {
       const data = this._exampleDatabase.data.slice();
 
-      // Grab the page's slice of data.
       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
       return data.splice(startIndex, this._paginator.pageSize);
     });

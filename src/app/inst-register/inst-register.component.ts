@@ -16,12 +16,12 @@ export class InstRegisterComponent implements OnInit {
 
   constructor(private http: Http, private fb: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getInstructions();
     this.createForms();
   }// ngOnInit()
 
-  createForms() {
+  createForms(): void  {
     this.instReg = this.fb.group({
       topic: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       company: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -33,7 +33,7 @@ export class InstRegisterComponent implements OnInit {
     });
   }
 
-  getValidErrors(value: FormControl) {
+  getValidErrors(value: FormControl): string {
     return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
     value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
     value.errors.min ? 'Liczba musi być większa niż 0!' :

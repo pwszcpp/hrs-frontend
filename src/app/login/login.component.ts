@@ -29,14 +29,14 @@ export class LoginComponent implements OnInit {
     this.getUsers();
   }
 
-  createForms() {
+  createForms(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email, Validators.pattern(EMAIL_REGEX)])],
       password: ['', Validators.required]
     });
   }
 
-  getValidErrors(value: FormControl) {
+  getValidErrors(value: FormControl): string {
     return value.errors.required ?
     'Wypełnienie pola jest wymagane!' : value.errors.email ? 'Niepoprawna forma e-mail!' : '';
   }
