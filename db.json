@@ -43,13 +43,13 @@
   "instructions": [
     {
       "id": 1,
-      "topic": "123",
-      "company": "123",
-      "location": "123",
-      "dateFrom": "0123-12-03",
-      "dateTo": "1231-12-03",
-      "cost": 123123,
-      "manager": "1"
+      "topic": "Edycja rekordu",
+      "company": "Brak",
+      "location": "Brak",
+      "dateFrom": "2017-11-15",
+      "dateTo": "2017-11-15",
+      "cost": "0",
+      "manager": "Tak"
     },
     {
       "topic": "Test",

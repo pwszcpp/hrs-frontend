@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Http } from '@angular/http';
 
 import { InstructionDatabase } from '../dashboard.component';
 
@@ -16,7 +17,8 @@ export class TableDialogEditComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TableDialogEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private http: Http) { }
 
   ngOnInit(): void {
     this.createForms();
@@ -50,5 +52,13 @@ export class TableDialogEditComponent implements OnInit {
     // console.log(this.dialForm.value);
     database.dataChange.value[id - 1] = this.dialForm.value;
     database.dataChange.value[id - 1].id = id;
+    this.doUpdateInst(id);
   }
+
+  doUpdateInst(id): void {
+    this.http.patch('http://localhost:3000/instructions/' + id, this.dialForm.value).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+  }// doUpdateInst()
 }

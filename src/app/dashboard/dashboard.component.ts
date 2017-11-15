@@ -19,8 +19,8 @@ import { TableDialogEditComponent } from './table-dialog-edit/table-dialog-edit.
 })
 
 export class DashboardComponent implements OnInit {
-  // instructions = [];
-  // url = 'http://localhost:3000';
+  instructions = [];
+  url = 'http://localhost:3000';
 
   displayedColumns = ['id', 'topic', 'company', 'location', 'dateFrom', 'dateTo', 'cost', 'manager'];
   dataSource: InstructionDataSource | null;
@@ -36,27 +36,35 @@ export class DashboardComponent implements OnInit {
     }
 
     this.dataSource = new InstructionDataSource(this.instDatabase, this.paginator);
-    // this.getInstructions();
-  }
+    this.getInstructions();
+  }// ngOnInit()
 
   onLogout(): void {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
-  }
+  }// onLogout()
 
-  /* getInstructions(): any {
+  getInstructions(): any {
     this.http.get(this.url + '/instructions').subscribe(
       res => this.instructions = res.json(),
       err => console.log(err)
     );
-  }// getInstructions() */
+  }// getInstructions()
+
+  addInstructions(): void {
+    for (let i = 0; i < this.instructions.length; i++) {
+      const addedData = this.instDatabase.data.slice();
+      addedData.push(this.instructions[i]);
+      this.instDatabase.dataChange.next(addedData);
+    }// for
+  }
 
   openDialog(id): void {
     const dialogRef = this.dialog.open(TableDialogEditComponent, {
       width: '300px',
       data: { value: this.instDatabase.dataChange.value[id - 1], database: this.instDatabase }
     });
-  }
+  }// openDialog()
 }
 
 export interface Instruction {
@@ -79,12 +87,12 @@ export class InstructionDatabase {
   get data(): Instruction[] { return this.dataChange.value; }
 
   constructor() {
-    for (let i = 0; i < 100; i++) {
+    /*for (let i = 0; i < 100; i++) {
       const addedData = this.data.slice();
       addedData.push({ id: i + 1, topic: 'Test', company: 'Test', location: 'Test',
       dateFrom: '2017-11-08', dateTo: '2017-11-10', cost: 200 + i, manager: 'Tak' });
       this.dataChange.next(addedData);
-     }
+     }*/
   }
 }
 
