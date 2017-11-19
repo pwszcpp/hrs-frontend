@@ -47,16 +47,17 @@ export class TableDialogEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onSubmit(id, database: InstructionDatabase): void {
-    // console.log(this.data);
-    // console.log(this.dialForm.value);
+  onSubmit(id: number, database: InstructionDatabase): void {
+    const temp = database.dataChange.value[id - 1].assign;
+
     database.dataChange.value[id - 1] = this.dialForm.value;
     database.dataChange.value[id - 1].id = id;
+    database.dataChange.value[id - 1].assign = temp;
     this.doUpdateInst(id);
   }
 
-  doUpdateInst(id): void {
-    this.http.patch('http://localhost:3000/instructions/' + id, this.dialForm.value).subscribe(
+  doUpdateInst(id: number): void {
+    this.http.put('http://localhost:3000/instructions/' + id, this.dialForm.value).subscribe(
       res => console.log(res),
       err => console.log(err)
     );

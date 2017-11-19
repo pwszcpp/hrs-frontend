@@ -49,49 +49,58 @@
       "dateFrom": "2017-11-15",
       "dateTo": "2017-11-15",
       "cost": "0",
-      "manager": "Tak"
+      "manager": "Tak",
+      "assign": [
+        0,
+        1
+      ]
     },
     {
-      "topic": "Test",
-      "company": "Test",
-      "location": "Test",
-      "dateFrom": "",
-      "dateTo": "2017-11-12",
-      "cost": 100,
-      "manager": "1",
-      "id": 2
-    },
-    {
-      "topic": "Test",
-      "company": "Test",
-      "location": "Test",
-      "dateFrom": "",
-      "dateTo": "2017-11-12",
-      "cost": 100,
-      "manager": "1",
-      "id": 3
-    },
-    {
-      "topic": "Test",
-      "company": "Test",
-      "location": "Test",
-      "dateFrom": "",
-      "dateTo": "2017-11-12",
-      "cost": 100,
-      "manager": "1",
-      "id": 4
-    },
-    {
-      "topic": "123",
-      "company": "123",
-      "location": "123",
-      "dateFrom": "2017-11-11",
+      "id": 2,
+      "topic": "Organizacja",
+      "company": "Brak",
+      "location": "Główna Hala",
+      "dateFrom": "2017-11-19",
       "dateTo": "2017-11-19",
-      "cost": 123,
-      "manager": "0",
-      "id": 5
+      "cost": "0",
+      "manager": "Tak",
+      "assign": []
     },
     {
+      "id": 3,
+      "topic": "4234512",
+      "company": "243634",
+      "location": "634224",
+      "dateFrom": "31476-05-31",
+      "dateTo": "54625-02-04",
+      "cost": "25",
+      "manager": "Nie",
+      "assign": []
+    },
+    {
+      "id": 4,
+      "topic": "Testowanie strony",
+      "company": "Test Service Company",
+      "location": "Oświęcim",
+      "dateFrom": "2017-11-20",
+      "dateTo": "2017-11-30",
+      "cost": "170",
+      "manager": "Tak",
+      "assign": []
+    },
+    {
+      "id": 5,
+      "topic": "672346",
+      "company": "425724",
+      "location": "4356432",
+      "dateFrom": "236376-03-31",
+      "dateTo": "34635-02-21",
+      "cost": "48248534",
+      "manager": "Tak",
+      "assign": []
+    },
+    {
+      "id": 6,
       "topic": "123",
       "company": "123",
       "location": "123",
@@ -99,7 +108,10 @@
       "dateTo": "0123-12-12",
       "cost": 123,
       "manager": "Tak",
-      "id": 6
+      "assign": [
+        1,
+        0
+      ]
     }
   ]
 }

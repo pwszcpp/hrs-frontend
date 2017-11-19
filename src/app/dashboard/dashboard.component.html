@@ -1,4 +1,4 @@
-<div class="container mat-elevation-z8">
+<div class="mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource" class="table table-striped table-responsive">
 
     <ng-container matColumnDef="id">
@@ -41,6 +41,11 @@
       <mat-cell *matCellDef="let element" (click)="openDialog(element.id)"> {{element.manager}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="assign">
+      <mat-header-cell *matHeaderCellDef> Uczestnictwo </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="changeAssign(element.id, element.assign)"> {{checkAssignInstruction(element.assign)}} </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
@@ -49,9 +54,7 @@
     [length]="instDatabase.data.length"
     [pageIndex]="0"
     [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 25, 100]">
+    [pageSizeOptions]="[5, 10, 25, 50, 100]">
   </mat-paginator>
 </div>
 <br>
-<button class="btn btn-danger" type="button" (click)="onLogout()">Wyloguj</button>
-<button class="btn btn-primary" type="button" (click)="addInstructions()">Załaduj szkolenia</button>

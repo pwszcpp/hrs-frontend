@@ -14,6 +14,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class LoginComponent implements OnInit {
   title = 'Logowanie';
   users = [];
+  user: any;
   loggedIn: boolean;
   url = 'http://localhost:3000';
   loginForm: FormGroup;
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
   checkUser(): boolean {
     for (let i = 0; i < this.users.length; i++) {
       if (this.loginForm.get('email').value === this.users[i].email && this.loginForm.get('password').value === this.users[i].password) {
+        this.user = this.users[i];
         return true;
       }
     }// for
@@ -64,7 +66,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): boolean {
     if (this.checkUser()) {
-      localStorage.setItem('user', this.loginForm.value);
+      localStorage.setItem('user', this.user['id']);
       this.router.navigate(['/dashboard']);
       return this.loggedIn = true;
     } else {

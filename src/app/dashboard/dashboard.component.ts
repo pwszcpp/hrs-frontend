@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import { TableDialogEditComponent } from './table-dialog-edit/table-dialog-edit.component';
+import { Instruction } from '../instruction';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,10 +20,10 @@ import { TableDialogEditComponent } from './table-dialog-edit/table-dialog-edit.
 })
 
 export class DashboardComponent implements OnInit {
-  instructions = [];
+  instructions: Instruction[];
   url = 'http://localhost:3000';
 
-  displayedColumns = ['id', 'topic', 'company', 'location', 'dateFrom', 'dateTo', 'cost', 'manager'];
+  displayedColumns = ['id', 'topic', 'company', 'location', 'dateFrom', 'dateTo', 'cost', 'manager', 'assign'];
   dataSource: InstructionDataSource | null;
   instDatabase = new InstructionDatabase();
 
@@ -44,10 +45,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }// onLogout()
 
-  getInstructions(): any {
-    this.http.get(this.url + '/instructions').subscribe(
+  getInstructions() {
+    return this.http.get(this.url + '/instructions').subscribe(
       res => this.instructions = res.json(),
-      err => console.log(err)
+      err => console.log(err),
+      () => this.addInstructions()
     );
   }// getInstructions()
 
@@ -59,40 +61,52 @@ export class DashboardComponent implements OnInit {
     }// for
   }
 
-  openDialog(id): void {
+  openDialog(id: number): void {
     const dialogRef = this.dialog.open(TableDialogEditComponent, {
       width: '300px',
       data: { value: this.instDatabase.dataChange.value[id - 1], database: this.instDatabase }
     });
   }// openDialog()
-}
 
-export interface Instruction {
-  id: number;
-  topic: string;
-  company: string;
-  location: string;
-  dateFrom: string;
-  dateTo: string;
-  cost: number;
-  manager: string;
-}
+  checkAssignInstruction(assigns: any[]): string {
+    const userId = +localStorage.getItem('user'); // + - zamiana na liczbę
 
-/* const data: Instruction[] = [
-  { id: 1, topic: 'Test', company: 'Test', location: 'Test', dateFrom: '2017-11-08', dateTo: '2017-11-10', cost: 200, manager: 'Tak' },
-]; */
+    return assigns.includes(userId) ? 'Tak' : 'Nie';
+  }// checkAssignInstruction()
+
+  changeAssign(id: number, assigns: any[]): void {
+    const userId = +localStorage.getItem('user');
+    const inst = new Instruction(
+      this.instDatabase.dataChange.value[id - 1].id,
+      this.instDatabase.dataChange.value[id - 1].topic,
+      this.instDatabase.dataChange.value[id - 1].company,
+      this.instDatabase.dataChange.value[id - 1].location,
+      this.instDatabase.dataChange.value[id - 1].dateFrom,
+      this.instDatabase.dataChange.value[id - 1].dateTo,
+      this.instDatabase.dataChange.value[id - 1].cost,
+      this.instDatabase.dataChange.value[id - 1].manager,
+      this.instDatabase.dataChange.value[id - 1].assign,
+    );
+
+    if (!assigns.includes(userId)) {
+      assigns.push(userId);
+    } else {
+      assigns.splice(assigns.indexOf(userId), 1);
+    }// if
+
+    inst.assign = assigns;
+    this.http.put(this.url + '/instructions/' + id, inst).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+  }// changeAssign
+}
 
 export class InstructionDatabase {
   dataChange: BehaviorSubject<Instruction[]> = new BehaviorSubject<Instruction[]>([]);
   get data(): Instruction[] { return this.dataChange.value; }
 
   constructor() {
-    /*for (let i = 0; i < 100; i++) {
-      const addedData = this.data.slice();
-      addedData.push({ id: i + 1, topic: 'Test', company: 'Test', location: 'Test',
-      dateFrom: '2017-11-08', dateTo: '2017-11-10', cost: 200 + i, manager: 'Tak' });
-      this.dataChange.next(addedData);
-     }*/
   }
 }
 
