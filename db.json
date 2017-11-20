@@ -38,6 +38,14 @@
       "email": "andrzej@wp.pl",
       "password": "andrzej",
       "login": "andrzej"
+    },
+    {
+      "name": "Test",
+      "surname": "Test",
+      "login": "test",
+      "email": "test@test",
+      "password": "test",
+      "id": 4
     }
   ],
   "instructions": [
@@ -52,7 +60,8 @@
       "manager": "Tak",
       "assign": [
         0,
-        1
+        1,
+        4
       ]
     },
     {
@@ -75,7 +84,9 @@
       "dateTo": "54625-02-04",
       "cost": "25",
       "manager": "Nie",
-      "assign": []
+      "assign": [
+        4
+      ]
     },
     {
       "id": 4,
@@ -97,7 +108,9 @@
       "dateTo": "34635-02-21",
       "cost": "48248534",
       "manager": "Tak",
-      "assign": []
+      "assign": [
+        4
+      ]
     },
     {
       "id": 6,
@@ -110,6 +123,46 @@
       "manager": "Tak",
       "assign": [
         1,
+        0,
+        4
+      ]
+    },
+    {
+      "id": 7,
+      "topic": "Edycja kodu",
+      "company": "Code Company",
+      "location": "Warszawa",
+      "dateFrom": "2017-11-23",
+      "dateTo": "2017-11-24",
+      "cost": 50,
+      "manager": "Tak",
+      "assign": [
+        4
+      ]
+    },
+    {
+      "id": 8,
+      "topic": "Angular 4",
+      "company": "Angular",
+      "location": "Gdańsk",
+      "dateFrom": "2017-11-30",
+      "dateTo": "2017-12-03",
+      "cost": 1200,
+      "manager": "Tak",
+      "assign": [
+        4
+      ]
+    },
+    {
+      "id": 9,
+      "topic": "Testowanie kodu",
+      "company": "Brak",
+      "location": "Lokalne komputery",
+      "dateFrom": "2017-11-20",
+      "dateTo": "2017-11-21",
+      "cost": 0,
+      "manager": "Tak",
+      "assign": [
         0
       ]
     }

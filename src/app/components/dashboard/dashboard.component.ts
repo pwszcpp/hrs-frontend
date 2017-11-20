@@ -1,17 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
-import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatDialog } from '@angular/material';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
 
 import { TableDialogEditComponent } from './table-dialog-edit/table-dialog-edit.component';
-import { Instruction } from '../instruction';
+import { Instruction } from '../../classes/instruction';
+import { InstructionDataSource } from './classes/instructionDataSource';
+import { InstructionDatabase } from './classes/InstructionDatabase';
 
 @Component({
   selector: 'app-dashboard',
@@ -100,34 +95,4 @@ export class DashboardComponent implements OnInit {
       err => console.log(err)
     );
   }// changeAssign
-}
-
-export class InstructionDatabase {
-  dataChange: BehaviorSubject<Instruction[]> = new BehaviorSubject<Instruction[]>([]);
-  get data(): Instruction[] { return this.dataChange.value; }
-
-  constructor() {
-  }
-}
-
-export class InstructionDataSource extends DataSource<any> {
-  constructor(private _exampleDatabase: InstructionDatabase, private _paginator: MatPaginator) {
-    super();
-  }
-
-  connect(): Observable<Instruction[]> {
-    const displayDataChanges = [
-      this._exampleDatabase.dataChange,
-      this._paginator.page,
-    ];
-
-    return Observable.merge(...displayDataChanges).map(() => {
-      const data = this._exampleDatabase.data.slice();
-
-      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-      return data.splice(startIndex, this._paginator.pageSize);
-    });
-  }
-
-  disconnect() {}
 }

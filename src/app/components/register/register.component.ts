@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
-    this.getUsers();
   }
 
   createForms() {
@@ -43,21 +42,25 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.addedUser = true;
-    this.doPostUser();
+    this.getUsers();
   }// onSubmit()
 
   getUsers(): any {
     this.http.get(this.url + '/users').subscribe(
       res => this.usersNumber = res.json().length,
-      err => console.log(err)
+      err => console.log(err),
+      () => this.doPostUser()
     );
   }// getUsers()
 
   doPostUser(): void {
-    this.regForm['id'] = this.usersNumber + 1;
+    const body = this.regForm.value;
+
+    body['id'] = this.usersNumber + 1;
     this.http.post(this.url + '/users', this.regForm.value).subscribe(
       res => console.log(res.json()),
-      err => console.log(err)
+      err => console.log(err),
+      () => this.regForm.reset()
     );
   }
 }

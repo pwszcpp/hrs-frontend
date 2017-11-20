@@ -7,13 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatTableModule, MatPaginatorModule, MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MenuComponent } from './menu/menu.component';
-import { MainComponent } from './main/main.component';
-import { InstRegisterComponent } from './inst-register/inst-register.component';
-import { TableDialogEditComponent } from './dashboard/table-dialog-edit/table-dialog-edit.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { MainComponent } from './components/main/main.component';
+import { InstRegisterComponent } from './components/inst-register/inst-register.component';
+import { TableDialogEditComponent } from './components/dashboard/table-dialog-edit/table-dialog-edit.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},

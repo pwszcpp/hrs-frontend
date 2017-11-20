@@ -17,7 +17,6 @@ export class InstRegisterComponent implements OnInit {
   constructor(private http: Http, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getInstructions();
     this.createForms();
   }// ngOnInit()
 
@@ -47,21 +46,27 @@ export class InstRegisterComponent implements OnInit {
 
   onRegister(): void {
     this.addedInst = true;
-    this.doPostInstruction();
+    this.getInstructions();
   }// onRegister
 
   doPostInstruction(): void {
-    this.instReg['id'] = this.instNumber + 1;
-    this.http.post(this.url + '/instructions', this.instReg.value).subscribe(
+    const body = this.instReg.value;
+
+    body['id'] = this.instNumber + 1;
+    body['assign'] = [];
+
+    this.http.post(this.url + '/instructions', body).subscribe(
       res => console.log(res.json()),
-      err => console.log(err)
+      err => console.log(err),
+      () => this.instReg.reset()
     );
   }// doPostInstruction()
 
   getInstructions(): any {
     this.http.get(this.url + '/instructions').subscribe(
       res => this.instNumber = res.json().length,
-      err => console.log(err)
+      err => console.log(err),
+      () => this.doPostInstruction()
     );
   }// getInstructions()
 }

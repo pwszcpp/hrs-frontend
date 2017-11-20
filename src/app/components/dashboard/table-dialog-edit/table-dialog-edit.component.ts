@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 
-import { InstructionDatabase } from '../dashboard.component';
+import { InstructionDatabase } from '../classes/InstructionDatabase';
 
 @Component({
   selector: 'app-table-dialog-edit',
