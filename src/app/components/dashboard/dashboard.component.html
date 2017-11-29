@@ -1,6 +1,45 @@
-<div class="mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource" class="table table-striped table-responsive">
+<p-growl life="1000"></p-growl>
 
+<h1 class="nazwa">{{title}}</h1>
+
+<p-dataTable class="text-center" [value]="instructions" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="inst" (onRowSelect)="openDialog($event.data.id)">
+  <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
+    <ng-template let-i="rowIndex" pTemplate="body">
+      <span>{{i + 1}}</span>
+    </ng-template>
+  </p-column>
+
+  <p-column field="topic" header="Temat szkolenia" [sortable]="true"></p-column> <!-- Temat -->
+
+  <p-column field="company" header="Firma prowadząca" [sortable]="true"></p-column> <!-- Nazwa firmy -->
+  <p-column field="location" header="Miejsce szkolenia" [sortable]="true"></p-column> <!-- Lokacja -->
+  <p-column field="dateFrom" header="Data rozpoczecia" [sortable]="true"></p-column> <!-- Data od -->
+  <p-column field="dateTo" header="Data zakonczenia" [sortable]="true"></p-column> <!-- Data do -->
+
+  <p-column header="Koszt od osoby" [sortable]="true"> <!-- Koszt -->
+    <ng-template let-cost="rowData" pTemplate="body">
+      <span>{{cost.cost}} zł</span>
+    </ng-template>
+  </p-column>
+
+  <p-column field="manager" header="Zgoda managera" [sortable]="true"></p-column> <!-- Menadzer -->
+
+  <p-column header="Uczestnictwo" [sortable]="true"> <!-- Uczestnictwo -->
+    <ng-template let-inst="rowData" pTemplate="body">
+      <button pButton type="button" *ngIf="!checkAssignInstruction(inst.assign)" label="Zapisz się" class="ui-button-success" (click)="changeAssign(inst.id, inst.assign)"></button>
+      <button pButton type="button" *ngIf="checkAssignInstruction(inst.assign)" label="Wypisz się" class="ui-button-danger" (click)="changeAssign(inst.id, inst.assign)"></button>
+    </ng-template>
+  </p-column>
+
+  <p-column header="Faktura">
+    <ng-template let-inst="rowData" pTemplate="body">
+      <button pButton type="button" icon="fa-file-pdf-o" (click)="getPdf(inst)" pTooltip="Pobierz PDF" tooltipPosition="left"></button>
+    </ng-template>
+  </p-column>
+</p-dataTable>
+
+<!-- <div class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" class="table table-striped table-responsive table-condensed">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> Lp. </mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="openDialog(element.id)"> {{element.id}} </mat-cell>
@@ -57,4 +96,4 @@
     [pageSizeOptions]="[5, 10, 25, 50, 100]">
   </mat-paginator>
 </div>
-<br>
+<br> -->

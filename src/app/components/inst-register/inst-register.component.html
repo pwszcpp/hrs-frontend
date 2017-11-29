@@ -1,9 +1,6 @@
+<p-growl></p-growl>
 <h1 class="nazwa">Rejestracja szkolenia</h1>
 <form class="rejestrs" (ngSubmit)="onRegister()" [formGroup]="instReg" novalidate>
-  <div class="alert alert-success" *ngIf="addedInst == true">
-    Dodado szkolenie!
-  </div>
-
   <div class="form-group"> <!-- Temat Szkolenia -->
     <label for="topic">Temat szkolenia</label>
     <input class="col-xs-4 form-control" type="text" placeholder="Wprowadź temat" id="inputTemat" formControlName="topic">

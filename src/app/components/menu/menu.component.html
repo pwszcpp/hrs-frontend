@@ -4,7 +4,8 @@
   <div class="collapse navbar-collapse" id="navbarsExample03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">Logowanie<span class="sr-only"></span></a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!getUser()">Logowanie<span class="sr-only"></span></a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="getUser()">Dashboard<span class="sr-only"></span></a>
       </li>
       <div class="container">
         <div class="dropdown">
@@ -12,7 +13,7 @@
           <ul class="dropdown-menu">
             <li><a tabindex="-1" class="bg-inverse text-white" routerLink="/register" routerLinkActive="active">Rejestracja użytkownika</a></li>
             <li><a tabindex="-1" class="bg-inverse text-white" routerLink="/inst-register" routerLinkActive="active">Rejestracja szkolenia</a></li>
-            <li><a tabindex="-1" class="bg-inverse text-white" routerLink="/dashboard" routerLinkActive="active">Szkolenia</a></li>
+            <!-- <li><a tabindex="-1" class="bg-inverse text-white" routerLink="/dashboard" routerLinkActive="active">Szkolenia</a></li> -->
             <li class="dropdown-submenu">
               <a tabindex="-1" href="#" class="nav-link dropdown-toggle">cos dalej<span class="caret"></span></a>
               <ul class="dropdown-menu">

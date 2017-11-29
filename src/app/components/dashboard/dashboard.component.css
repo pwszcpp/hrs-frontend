@@ -1,0 +1,55 @@
+.nazwa {
+	font-size: 300%;
+  text-align: center;
+  padding-top: 50px;
+	padding-bottom:2px;
+}
+
+/* @media only screen and (max-width: 760px) {
+  #tabelka table,
+  #tabelka thead,
+  #tabelka tbody,
+  #tabelka th,
+  #tabelka td,
+
+  #tabelka tr {
+    display: block;
+    border: 1px solid #ccc;
+  }
+
+  #tabelka thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  #tabelka td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align:left;
+  }
+
+  #tabelka td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align:left;
+    font-weight: bold;
+  }
+
+  #tabelka td:nth-of-type(1):before { content: "Lp."; }
+  #tabelka td:nth-of-type(2):before { content: "Temat szkolenia"; }
+  #tabelka td:nth-of-type(3):before { content: "Nazwa firmy"; }
+  #tabelka td:nth-of-type(4):before { content: "Miejsce szkolenia"; }
+  #tabelka td:nth-of-type(5):before { content: "Data rozpoczęcia"; }
+  #tabelka td:nth-of-type(6):before { content: "Data zakończenia"; }
+  #tabelka td:nth-of-type(7):before { content: "Cena od osoby"; }
+  #tabelka td:nth-of-type(8):before { content: "Zgoda menadżera"; }
+  #tabelka td:nth-of-type(9):before { content: "Uczestnictwo"; }
+} */

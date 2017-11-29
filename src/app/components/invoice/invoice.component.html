@@ -1,0 +1,70 @@
+<div id="content">
+  <div id="faktura">
+    <div>
+      <div id="box1">
+        <p>Pieczęć firmy<br></p>
+      </div>
+      <div id="box2">
+        <p><b><span contenteditable>Faktura Nr</span> </b></p>
+      </div>
+      <div id="box3">
+        Sprzedawca: {{instruction.company}} <b></b> <br>
+        <span contenteditable>Adres: </span> <b></b><br>
+        <span contenteditable>NIP: </span> <b></b>
+      </div>
+      <div id="box4">
+        <span contenteditable>Nabywca: </span> <b></b><br>
+        <span contenteditable>Adres: </span> <b></b><br>
+        <span contenteditable>NIP: </span> <b></b>
+      </div>
+      <div id="box5">
+        <span contenteditable>Sposob płatności: </span> <b></b><br>
+        <span contenteditable>Termin płatności: </span> <b></b><br>
+      </div>
+      <div id="box6">
+        <span contenteditable>Bank: </span> <b></b><br>
+        <span contenteditable>Numer konta: </span> <b></b>
+      </div>
+    </div>
+    <div>
+      <br>
+      <table border="1" id="tabelafaktura">
+        <thead>
+          <tr>
+            <th>Lp.</th>
+            <th>Temat szkolenia</th>
+            <th>Nazwa firmy prowadzącej</th>
+            <th>Miejsce szkolenia</th>
+            <th>Data rozpoczęcia</th>
+            <th>Data zakończenia</th>
+            <th>Cena od osoby</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{instruction.topic}}</td>
+            <td>{{instruction.company}}</td>
+            <td>{{instruction.location}}</td>
+            <td>{{instruction.dateFrom}}</td>
+            <td>{{instruction.dateTo}}</td>
+            <td>{{instruction.cost}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="box7">
+      <p>Razem do zapłaty: {{getTotalCost()}} zł<b></b></p>
+    </div>
+    <div class="container">
+      <div id="box8">
+        <p>Podpis odbiorcy</p>
+      </div>
+      <div id="box9">
+        <p>Podpis wystawiającego</p>
+      </div>
+    </div>
+  </div>
+</div>
+<button pButton type="button" icon="fa-download" (click)="download()"></button>
+<button pButton type="button" icon="fa-print" (click)="print()"></button>

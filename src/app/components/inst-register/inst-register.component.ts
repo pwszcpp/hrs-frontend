@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-inst-register',
   templateUrl: './inst-register.component.html',
-  styleUrls: ['./inst-register.component.css']
+  styleUrls: ['./inst-register.component.css'],
+  providers: [MessageService]
 })
 
 export class InstRegisterComponent implements OnInit {
@@ -14,7 +16,7 @@ export class InstRegisterComponent implements OnInit {
   addedInst: boolean;
   instReg: FormGroup;
 
-  constructor(private http: Http, private fb: FormBuilder) { }
+  constructor(private http: Http, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.createForms();
@@ -46,6 +48,7 @@ export class InstRegisterComponent implements OnInit {
 
   onRegister(): void {
     this.addedInst = true;
+    this.messageService.add({severity: 'success', summary: 'Rejestracja szkolenia', detail: 'Zarejestrowano szkolenie!'});
     this.getInstructions();
   }// onRegister
 

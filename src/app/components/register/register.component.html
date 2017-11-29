@@ -1,9 +1,6 @@
+<p-growl></p-growl>
 <h1 class="nazwa">{{title}}</h1>
 <form class="rejestru" [formGroup]="regForm" (ngSubmit)="onSubmit()">
-  <div class="alert alert-success" *ngIf="addedUser == true">
-    Zarejestrowano użytkownika!
-  </div>
-
   <div class="form-group"> <!-- Imię -->
     <label for="Name">Podaj imię</label>
     <input class="col-xs-4 form-control" type="text" placeholder="Imię" id="inputName" formControlName="name">

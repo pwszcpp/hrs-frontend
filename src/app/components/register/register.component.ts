@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [MessageService]
 })
 export class RegisterComponent implements OnInit {
   title = 'Rejestracja użytkownika';
@@ -14,7 +16,7 @@ export class RegisterComponent implements OnInit {
   url = 'http://localhost:3000';
   regForm: FormGroup;
 
-  constructor(private http: Http, private fb: FormBuilder) { }
+  constructor(private http: Http, private fb: FormBuilder, private messageService: MessageService) { }
 
   ngOnInit() {
     this.createForms();
@@ -42,6 +44,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.addedUser = true;
+    this.messageService.add({severity: 'success', summary: 'Rejestracja', detail: 'Zarejestrowano użytkownika!'});
     this.getUsers();
   }// onSubmit()
 

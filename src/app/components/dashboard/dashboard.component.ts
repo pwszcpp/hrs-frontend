@@ -2,21 +2,27 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { MatPaginator, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 import { TableDialogEditComponent } from './table-dialog-edit/table-dialog-edit.component';
 import { Instruction } from '../../classes/instruction';
 import { InstructionDataSource } from './classes/instructionDataSource';
 import { InstructionDatabase } from './classes/InstructionDatabase';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [MessageService]
 })
 
 export class DashboardComponent implements OnInit {
-  instructions: Instruction[];
+  title = 'Szkolenia';
+  instructions: Instruction[] = [];
   url = 'http://localhost:3000';
+  inst: Instruction;
+  displayDialog: boolean;
 
   displayedColumns = ['id', 'topic', 'company', 'location', 'dateFrom', 'dateTo', 'cost', 'manager', 'assign'];
   dataSource: InstructionDataSource | null;
@@ -24,7 +30,11 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private http: Http, private router: Router, public dialog: MatDialog) {}
+  constructor(private http: Http,
+    private router: Router,
+    public dialog: MatDialog,
+    private messageService: MessageService,
+    private dataService: DataService) {}
 
   ngOnInit(): void {
     if (!localStorage.getItem('user')) {
@@ -63,10 +73,10 @@ export class DashboardComponent implements OnInit {
     });
   }// openDialog()
 
-  checkAssignInstruction(assigns: any[]): string {
+  checkAssignInstruction(assigns: any[]): boolean {
     const userId = +localStorage.getItem('user'); // + - zamiana na liczbę
 
-    return assigns.includes(userId) ? 'Tak' : 'Nie';
+    return assigns.includes(userId) ? true : false;
   }// checkAssignInstruction()
 
   changeAssign(id: number, assigns: any[]): void {
@@ -80,13 +90,15 @@ export class DashboardComponent implements OnInit {
       this.instDatabase.dataChange.value[id - 1].dateTo,
       this.instDatabase.dataChange.value[id - 1].cost,
       this.instDatabase.dataChange.value[id - 1].manager,
-      this.instDatabase.dataChange.value[id - 1].assign,
+      this.instDatabase.dataChange.value[id - 1].assign
     );
 
     if (!assigns.includes(userId)) {
       assigns.push(userId);
+      this.messageService.add({severity: 'success', summary: 'Uczestnictwo', detail: 'Zapisano na szkolenie.'});
     } else {
       assigns.splice(assigns.indexOf(userId), 1);
+      this.messageService.add({severity: 'warn', summary: 'Uczestnictwo', detail: 'Wypisano ze szkolenia'});
     }// if
 
     inst.assign = assigns;
@@ -95,4 +107,13 @@ export class DashboardComponent implements OnInit {
       err => console.log(err)
     );
   }// changeAssign
+
+  getPdf(value: Instruction) {
+    this.dataService.setInstruction(value);
+    this.router.navigate(['/invoice']);
+  }// getPdf()
+
+  consoleLog(value: any) {
+    console.log(value);
+  }// consoleLog()
 }
