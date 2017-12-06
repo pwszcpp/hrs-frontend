@@ -1,55 +1,5 @@
-<p-growl life="1000"></p-growl>
-
-<h1 class="nazwa">{{title}}</h1>
-
-<p-dataTable class="text-center" [value]="instructions" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="inst" (onRowSelect)="dataService.setDialogVisible(true)">
-  <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
-    <ng-template let-i="rowIndex" pTemplate="body">
-      <span>{{i + 1}}</span>
-    </ng-template>
-  </p-column>
-
-  <p-column field="topic" header="Temat szkolenia" [sortable]="true"></p-column> <!-- Temat -->
-
-  <p-column field="company" header="Firma prowadząca" [sortable]="true"></p-column> <!-- Nazwa firmy -->
-  <p-column field="location" header="Miejsce szkolenia" [sortable]="true"></p-column> <!-- Lokacja -->
-  <p-column field="dateFrom" header="Data rozpoczecia" [sortable]="true"></p-column> <!-- Data od -->
-  <p-column field="dateTo" header="Data zakonczenia" [sortable]="true"></p-column> <!-- Data do -->
-
-  <p-column header="Koszt od osoby" [sortable]="true"> <!-- Koszt -->
-    <ng-template let-cost="rowData" pTemplate="body">
-      <span>{{cost.cost}} zł</span>
-    </ng-template>
-  </p-column>
-
-  <p-column field="manager" header="Zgoda managera" [sortable]="true"></p-column> <!-- Menadzer -->
-
-  <p-column header="Uczestnictwo" [sortable]="true"> <!-- Uczestnictwo -->
-    <ng-template let-inst="rowData" pTemplate="body">
-      <button pButton type="button" *ngIf="!checkAssignInstruction(inst.assign)" label="Zapisz się" class="ui-button-success" (click)="changeAssign(inst.id, inst.assign)"></button>
-      <button pButton type="button" *ngIf="checkAssignInstruction(inst.assign)" label="Wypisz się" class="ui-button-danger" (click)="changeAssign(inst.id, inst.assign)"></button>
-    </ng-template>
-  </p-column>
-
-  <p-column header="Faktura">
-    <ng-template let-inst="rowData" pTemplate="body">
-      <button pButton type="button" icon="fa-file-pdf-o" (click)="getPdf(inst)" pTooltip="Pobierz PDF" tooltipPosition="left"></button>
-    </ng-template>
-  </p-column>
-
-  <p-footer>
-    <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getInstructions()"></button>
-      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj szkolenie" (click)="dataService.setInstDialogVisible(true)"></button>
-    </div>
-  </p-footer>
-</p-dataTable>
-
-<app-table-row-edit [inst]="inst" *ngIf="dataService.getDialogVisible()"></app-table-row-edit>
-<app-inst-register *ngIf="dataService.getInstDialogVisible()"></app-inst-register>
-
-<!-- <p-dialog header="Edycja rekordu" [visible]="displayDialog" [responsive]="true" modal="modal" (onHide)="closeDialog()">
-  form [formGroup]="dialForm" *ngIf="displayDialog" novaldiate>
+<p-dialog header="Edycja rekordu" [visible]="dataService.getDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setDialogVisible(false)">
+  <form [formGroup]="dialForm" novaldiate>
     <div class="form-group">
       <label for="topic">Temat szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{inst.topic}}" id="topic" formControlName="topic">
@@ -108,7 +58,10 @@
         <small *ngIf="dialForm.get('manager').errors">{{getValidErrors(dialForm.get('manager'))}}</small>
       </div>
     </div>
-  </form> -->
 
-  <!-- <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Anuluj"></button>
-</p-dialog> -->
+    <p-footer>
+      <button type="button" pButton icon="fa-check" [disabled]="dialForm.invalid" (click)="onSubmit()" label="Zapisz"></button>
+      <button type="button" pButton icon="fa-close" (click)="dataService.setDialogVisible(false)" label="Anuluj"></button>
+    </p-footer>
+  </form>
+</p-dialog>

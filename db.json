@@ -50,14 +50,14 @@
   ],
   "instructions": [
     {
-      "id": 1,
-      "topic": "Edycja rekordu",
+      "topic": "Zmiana biblioteki",
       "company": "Brak",
-      "location": "Brak",
-      "dateFrom": "2017-11-15",
-      "dateTo": "2017-11-15",
+      "location": "Miejsce Pracy",
+      "dateFrom": "2017-12-03",
+      "dateTo": "2017-12-03",
       "cost": "0",
       "manager": "Tak",
+      "id": 1,
       "assign": [
         1,
         4
@@ -76,13 +76,13 @@
     },
     {
       "id": 3,
-      "topic": "4234512",
-      "company": "243634",
-      "location": "634224",
-      "dateFrom": "31476-05-31",
-      "dateTo": "54625-02-04",
-      "cost": "25",
-      "manager": "Nie",
+      "topic": "Testowanie strony",
+      "company": "Test Service Company",
+      "location": "Oświęcim",
+      "dateFrom": "2017-11-20",
+      "dateTo": "2017-11-30",
+      "cost": "170",
+      "manager": "Tak",
       "assign": [
         4
       ]
@@ -99,27 +99,27 @@
       "assign": []
     },
     {
-      "id": 5,
-      "topic": "672346",
-      "company": "425724",
-      "location": "4356432",
-      "dateFrom": "236376-03-31",
-      "dateTo": "34635-02-21",
-      "cost": "48248534",
+      "topic": "Test Dialogu 2",
+      "company": "Brak",
+      "location": "Lokalny komputer",
+      "dateFrom": "2017-11-30",
+      "dateTo": "2017-12-01",
+      "cost": "0",
       "manager": "Tak",
+      "id": 5,
       "assign": [
         4
       ]
     },
     {
-      "id": 6,
-      "topic": "123",
-      "company": "123",
-      "location": "123",
-      "dateFrom": "0123-12-03",
-      "dateTo": "0123-12-12",
-      "cost": 123,
+      "topic": "PrimeNG",
+      "company": "PrimeNG",
+      "location": "Brak",
+      "dateFrom": "2017-11-30",
+      "dateTo": "2017-12-03",
+      "cost": "12",
       "manager": "Tak",
+      "id": 6,
       "assign": [
         1,
         4
@@ -161,6 +161,159 @@
       "cost": 0,
       "manager": "Tak",
       "assign": []
+    },
+    {
+      "topic": "Test dialogu",
+      "company": "Brak",
+      "location": "Brak",
+      "dateFrom": "2017-12-03",
+      "dateTo": "2017-12-03",
+      "cost": 0,
+      "manager": "Nie",
+      "id": 10,
+      "assign": []
+    }
+  ],
+  "vacations": [
+    {
+      "id": 1,
+      "userId": 0,
+      "name": "Admin",
+      "surname": "Admin",
+      "dateFrom": "2017.12.05",
+      "dateTo": "2017.12.06",
+      "accept": 1,
+      "createdDate": "2017.12.04"
+    },
+    {
+      "id": 2,
+      "userId": 0,
+      "name": "Administrator",
+      "surname": "Administrator",
+      "dateFrom": "5.12.2017",
+      "dateTo": "10.12.2017",
+      "accept": 0,
+      "createdDate": "5"
+    },
+    {
+      "id": 3,
+      "userId": 0,
+      "name": "Administrator",
+      "surname": "Administrator",
+      "dateFrom": "26.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": true,
+      "createdDate": "26"
+    },
+    {
+      "id": 4,
+      "userId": 0,
+      "name": "Administrator",
+      "surname": "Administrator",
+      "dateFrom": "19.12.2017",
+      "dateTo": "20.12.2017",
+      "accept": false,
+      "createdDate": "19"
+    },
+    {
+      "id": 5,
+      "userId": 0,
+      "name": "Administrator",
+      "surname": "Administrator",
+      "dateFrom": "25.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": null,
+      "createdDate": "25.11.2017"
+    },
+    {
+      "id": 6,
+      "userId": 0,
+      "name": "Administrator",
+      "surname": "Administrator",
+      "dateFrom": "19.12.2017",
+      "dateTo": "20.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 7,
+      "userId": 1,
+      "name": "Test",
+      "surname": "Test",
+      "dateFrom": "14.12.2017",
+      "dateTo": "15.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "name": "Test",
+      "surname": "Test",
+      "dateFrom": "27.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "name": "Test",
+      "surname": "Test",
+      "dateFrom": "28.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 10,
+      "userId": 1,
+      "name": "Test",
+      "surname": "Test",
+      "dateFrom": "29.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 11,
+      "userId": 1,
+      "name": "Test",
+      "surname": "Test",
+      "dateFrom": "30.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 12,
+      "userId": 1,
+      "name": "Test",
+      "surname": "Test",
+      "dateFrom": "31.12.2017",
+      "dateTo": "31.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 13,
+      "userId": 2,
+      "name": "Andrzej",
+      "surname": "Lotnisko",
+      "dateFrom": "13.12.2017",
+      "dateTo": "21.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
+    },
+    {
+      "id": 14,
+      "userId": 2,
+      "name": "Andrzej",
+      "surname": "Lotnisko",
+      "dateFrom": "8.12.2017",
+      "dateTo": "12.12.2017",
+      "accept": null,
+      "createdDate": "4.11.2017"
     }
   ]
 }

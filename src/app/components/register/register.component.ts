@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/components/common/messageservice';
 

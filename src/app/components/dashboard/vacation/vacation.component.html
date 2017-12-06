@@ -1,0 +1,40 @@
+<p-growl></p-growl>
+<h1 class="nazwa">{{title}}</h1>
+
+<p-dataTable class="text-center" [value]="vacations" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]">
+  <p-column *ngIf="admin.includes(user)" header="Pracownik" [sortable]="true">
+    <ng-template let-data="rowData" pTemplate="body">
+      {{data.name}} {{data.surname}}
+    </ng-template>
+  </p-column>
+
+  <p-column field="createdDate" header="Stworzono" [sortable]="true"></p-column>
+  <p-column field="dateFrom" header="Od" [sortable]="true"></p-column>
+  <p-column field="dateTo" header="Do" [sortable]="true"></p-column>
+
+  <p-column header="Status">
+    <ng-template let-data="rowData" pTemplate="body">
+        <span *ngIf="data.accept" style="color: green">{{getAccept(data.accept)}}</span>
+        <span *ngIf="getAccept(data.accept).includes('Nie')" style="color: red">{{getAccept(data.accept)}}</span>
+        <span *ngIf="getAccept(data.accept).includes('Cz') && !adminMode" style="color: grey;">{{getAccept(data.accept)}}</span>
+
+        <button type="button" class="ui-button-success" pButton icon="fa-check" label="Zatwierdź" *ngIf="getAccept(data.accept).includes('Cz')  && adminMode" (click)="setStatus(data.id, data, true)"></button>
+        <button type="button" class="ui-button-danger" pButton icon="fa-times" label="Odrzuć" *ngIf="getAccept(data.accept).includes('Cz')  && adminMode" (click)="setStatus(data.id, data, false)"></button>
+    </ng-template>
+  </p-column>
+
+  <p-footer>
+    <div class="ui-helper-clearfix">
+      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getVacations()"></button>
+      <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode && admin.includes(user)" (click)="setAdminMode(true)"></button>
+      <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode  && admin.includes(user)" (click)="setAdminMode(false)"></button>
+
+      <p-calendar [(ngModel)]="date" [locale]="pl" selectionMode="range" dateFormat="dd.mm.yy" showButtonBar="true"
+        [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" [minDate]="minDate" readonlyInput="true" pTooltip="Dodaj urlop" placeholder="Rozpocznij urlop">
+        <p-footer>
+          <button type="button" pButton label="Dodaj urlop" icon="fa-plus" (click)="onCreate()"></button>
+        </p-footer>
+      </p-calendar>
+    </div>
+  </p-footer>
+</p-dataTable>

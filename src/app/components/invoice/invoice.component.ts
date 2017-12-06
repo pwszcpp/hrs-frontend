@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Instruction } from '../../classes/instruction';
-import { DataService } from '../../data.service';
+import { DataService } from '../../services/data.service';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
 
