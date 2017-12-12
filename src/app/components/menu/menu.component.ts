@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  constructor(private router: Router) { }
+  user: number = +localStorage.getItem('user');
+
+  constructor(
+    private router: Router,
+    public dataService: DataService
+  ) {
+  }
 
   ngOnInit() {
+  }
+
+  ngDoCheck() {
+    this.user = +localStorage.getItem('user');
   }
 
   onLogout(): void {

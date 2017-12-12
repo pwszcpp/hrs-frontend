@@ -14,7 +14,7 @@ import { User } from '../../../classes/user';
 })
 
 export class VacationComponent implements OnInit {
-  admin: number[] = [0];
+  admin: number[] = [1];
   adminMode: boolean;
 
   title = 'Urlopy';

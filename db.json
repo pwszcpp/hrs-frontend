@@ -18,26 +18,29 @@
   },
   "users": [
     {
-      "id": 0,
+      "id": 1,
       "email": "admin@admin",
       "password": "admin",
       "name": "Administrator",
-      "surname": "Administrator"
-    },
-    {
-      "id": 1,
-      "email": "test@test.pl",
-      "password": "test",
-      "name": "Test",
-      "surname": "Test"
+      "surname": "Administrator",
+      "salary": 1500
     },
     {
       "id": 2,
+      "email": "test@test.pl",
+      "password": "test",
+      "name": "Test",
+      "surname": "Test",
+      "salary": 0
+    },
+    {
+      "id": 3,
       "name": "Andrzej",
       "surname": "Lotnisko",
       "email": "andrzej@wp.pl",
       "password": "andrzej",
-      "login": "andrzej"
+      "login": "andrzej",
+      "salary": 0
     },
     {
       "name": "Test",
@@ -45,7 +48,422 @@
       "login": "test",
       "email": "test@test",
       "password": "test",
-      "id": 4
+      "id": 4,
+      "salary": 2700
+    },
+    {
+      "id": 5,
+      "name": "Sebastian",
+      "surname": "Makowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 23089
+    },
+    {
+      "id": 6,
+      "name": "Michał",
+      "surname": "Sobczak",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 9597
+    },
+    {
+      "id": 7,
+      "name": "Paulina",
+      "surname": "Kaczmarek",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 18627
+    },
+    {
+      "id": 8,
+      "name": "Kazimiera",
+      "surname": "Michalski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 22922
+    },
+    {
+      "id": 9,
+      "name": "Marzena",
+      "surname": "Woźniak",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 3696
+    },
+    {
+      "id": 10,
+      "name": "Magdalena",
+      "surname": "Ostrowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 10229
+    },
+    {
+      "id": 11,
+      "name": "Irena",
+      "surname": "Kalinowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 24120
+    },
+    {
+      "id": 12,
+      "name": "Grzegorz",
+      "surname": "Wysocki",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 12705
+    },
+    {
+      "id": 13,
+      "name": "Stefania",
+      "surname": "Kozłowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 5770
+    },
+    {
+      "id": 14,
+      "name": "Zofia",
+      "surname": "Pawlak",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 17858
+    },
+    {
+      "id": 15,
+      "name": "Halina",
+      "surname": "Baranowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 15592
+    },
+    {
+      "id": 16,
+      "name": "Marta",
+      "surname": "Król",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 5759
+    },
+    {
+      "id": 17,
+      "name": "Magdalena",
+      "surname": "Wróblewski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 13526
+    },
+    {
+      "id": 18,
+      "name": "Dawid",
+      "surname": "Adamczyk",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 19231
+    },
+    {
+      "id": 19,
+      "name": "Marek",
+      "surname": "Zakrzewski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 18622
+    },
+    {
+      "id": 20,
+      "name": "Stanisław",
+      "surname": "Jakubowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 18777
+    },
+    {
+      "id": 21,
+      "name": "Wiesława",
+      "surname": "Wróblewski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 20252
+    },
+    {
+      "id": 22,
+      "name": "Mirosław",
+      "surname": "Wilk",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 22546
+    },
+    {
+      "id": 23,
+      "name": "Maciej",
+      "surname": "Kowalczyk",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 9393
+    },
+    {
+      "id": 24,
+      "name": "Aleksandra",
+      "surname": "Malinowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 17810
+    },
+    {
+      "id": 25,
+      "name": "Dawid",
+      "surname": "Maciejewski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 14152
+    },
+    {
+      "id": 26,
+      "name": "Stefania",
+      "surname": "Kalinowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 15602
+    },
+    {
+      "id": 27,
+      "name": "Ewa",
+      "surname": "Kaczmarek",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 3320
+    },
+    {
+      "id": 28,
+      "name": "Beata",
+      "surname": "Szulc",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 12015
+    },
+    {
+      "id": 29,
+      "name": "Marcin",
+      "surname": "Głowacki",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 12822
+    },
+    {
+      "id": 30,
+      "name": "Beata",
+      "surname": "Makowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 11765
+    },
+    {
+      "id": 31,
+      "name": "Stanisława",
+      "surname": "Wróbel",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 9914
+    },
+    {
+      "id": 32,
+      "name": "Henryk",
+      "surname": "Czerwiński",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 12354
+    },
+    {
+      "id": 33,
+      "name": "Sebastian",
+      "surname": "Czerwiński",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 7612
+    },
+    {
+      "id": 34,
+      "name": "Daniel",
+      "surname": "Kowalczyk",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 17783
+    },
+    {
+      "id": 35,
+      "name": "Edward",
+      "surname": "Wysocki",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 5565
+    },
+    {
+      "id": 36,
+      "name": "Elżbieta",
+      "surname": "Szulc",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 8350
+    },
+    {
+      "id": 37,
+      "name": "Waldemar",
+      "surname": "Jasiński",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 17509
+    },
+    {
+      "id": 38,
+      "name": "Artur",
+      "surname": "Górski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 13574
+    },
+    {
+      "id": 39,
+      "name": "Dawid",
+      "surname": "Jakubowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 21357
+    },
+    {
+      "id": 40,
+      "name": "Aleksandra",
+      "surname": "Marciniak",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 19230
+    },
+    {
+      "id": 41,
+      "name": "Magdalena",
+      "surname": "Głowacki",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 13693
+    },
+    {
+      "id": 42,
+      "name": "Ewa",
+      "surname": "Wilk",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 8953
+    },
+    {
+      "id": 43,
+      "name": "Krzysztof",
+      "surname": "Jabłoński",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 17992
+    },
+    {
+      "id": 44,
+      "name": "Karolina",
+      "surname": "Jankowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 21084
+    },
+    {
+      "id": 45,
+      "name": "Jarosław",
+      "surname": "Jankowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 7085
+    },
+    {
+      "id": 46,
+      "name": "Teresa",
+      "surname": "Baranowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 15651
+    },
+    {
+      "id": 47,
+      "name": "Leszek",
+      "surname": "Chmielewski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 8164
+    },
+    {
+      "id": 48,
+      "name": "Iwona",
+      "surname": "Andrzejewski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 3007
+    },
+    {
+      "id": 49,
+      "name": "Marian",
+      "surname": "Pawłowski",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 9057
+    },
+    {
+      "id": 50,
+      "name": "Kamil",
+      "surname": "Jabłoński",
+      "email": "email@email",
+      "login": "login",
+      "password": "password",
+      "salary": 23483
     }
   ],
   "instructions": [

@@ -60,6 +60,7 @@ export class RegisterComponent implements OnInit {
     const body = this.regForm.value;
 
     body['id'] = this.usersNumber + 1;
+    body['salary'] = 0;
     this.http.post(this.url + '/users', this.regForm.value).subscribe(
       res => console.log(res.json()),
       err => console.log(err),

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/components/common/messageservice';
 import {
   DataTableModule,
   SharedModule,
@@ -29,6 +30,7 @@ import { TableRowEditComponent } from './components/dashboard/table-row-edit/tab
 import { VacationComponent } from './components/dashboard/vacation/vacation.component';
 import { LoginRouteGuard } from './login-route-guard';
 import { LoginService } from './services/login.service';
+import { UsersComponent } from './components/users/users.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
   // { path: 'inst-register', component: InstRegisterComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'invoice', component: InvoiceComponent },
-  { path: 'vacation', component: VacationComponent }
+  { path: 'vacation', component: VacationComponent },
+  { path: 'users', component: UsersComponent }
 ];
 
 @NgModule({
@@ -52,7 +55,8 @@ const appRoutes: Routes = [
     InstRegisterComponent,
     InvoiceComponent,
     TableRowEditComponent,
-    VacationComponent
+    VacationComponent,
+    UsersComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -73,7 +77,7 @@ const appRoutes: Routes = [
     TooltipModule,
     CalendarModule
   ],
-  providers: [DataService, CookieService, LoginRouteGuard, LoginService],
+  providers: [DataService, CookieService, LoginRouteGuard, LoginService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

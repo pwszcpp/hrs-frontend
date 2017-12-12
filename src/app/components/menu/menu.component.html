@@ -10,6 +10,9 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="/vacation" routerLinkActive="active" *ngIf="getUser()">Urlop<span class="sr-only"></span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/users" routerLinkActive="active" *ngIf="dataService.isAdmin(user)">Pracownicy<span class="sr-only"></span></a>
+      </li>
       <div class="container">
         <div class="dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rejestracja</a><span class="caret"></span>
