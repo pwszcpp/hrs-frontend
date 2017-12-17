@@ -1,10 +1,10 @@
 <p-dialog header="Edycja rekordu" [visible]="dataService.getDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setDialogVisible(false)">
   <form [formGroup]="dialForm" novaldiate>
     <div class="form-group">
-      <label for="topic">Temat szkolenia:</label>
-      <input class="col-xs-4 form-control" type="text" placeholder="{{inst.topic}}" id="topic" formControlName="topic">
-      <div class="text-danger" *ngIf="dialForm.get('topic').invalid && (dialForm.get('topic').dirty || dialForm.get('topic').touched)">
-        <small *ngIf="dialForm.get('topic').errors">{{getValidErrors(dialForm.get('topic'))}}</small>
+      <label for="theme">Temat szkolenia:</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="{{inst.theme}}" id="topic" formControlName="theme">
+      <div class="text-danger" *ngIf="dialForm.get('theme').invalid && (dialForm.get('theme').dirty || dialForm.get('theme').touched)">
+        <small *ngIf="dialForm.get('theme').errors">{{getValidErrors(dialForm.get('theme'))}}</small>
       </div>
     </div>
 
@@ -25,18 +25,18 @@
     </div>
 
     <div class="form-group">
-      <label for="dateFrom">Data rozpoczecia szkolenia:</label>
-      <input class="col-xs-4 form-control" type="date" id="dateFrom" formControlName="dateFrom">
-      <div class="text-danger" *ngIf="dialForm.get('dateFrom').invalid && (dialForm.get('dateFrom').dirty || dialForm.get('dateFrom').touched)">
-        <small *ngIf="dialForm.get('dateFrom').errors">{{getValidErrors(dialForm.get('dateFrom'))}}</small>
+      <label for="startDate">Data rozpoczecia szkolenia:</label>
+      <input class="col-xs-4 form-control" type="date" id="startDate" formControlName="startDate">
+      <div class="text-danger" *ngIf="dialForm.get('startDate').invalid && (dialForm.get('startDate').dirty || dialForm.get('startDate').touched)">
+        <small *ngIf="dialForm.get('startDate').errors">{{getValidErrors(dialForm.get('startDate'))}}</small>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="dateTo">Data zakonczenia szkolenia:</label>
-      <input class="col-xs-4 form-control" type="date" id="dateTo" formControlName="dateTo">
-      <div class="text-danger" *ngIf="dialForm.get('dateTo').invalid && (dialForm.get('dateTo').dirty || dialForm.get('dateTo').touched)">
-          <small *ngIf="dialForm.get('dateTo').errors">{{getValidErrors(dialForm.get('dateTo'))}}</small>
+      <label for="endDate">Data zakonczenia szkolenia:</label>
+      <input class="col-xs-4 form-control" type="date" id="endDate" formControlName="endDate">
+      <div class="text-danger" *ngIf="dialForm.get('endDate').invalid && (dialForm.get('endDate').dirty || dialForm.get('endDate').touched)">
+          <small *ngIf="dialForm.get('endDate').errors">{{getValidErrors(dialForm.get('endDate'))}}</small>
         </div>
     </div>
 
@@ -49,13 +49,13 @@
     </div>
 
     <div class="form-group">
-      <label for="manager">Zgoda menadżera:</label>
-      <select class="col-xs-4-select form-control" id="manager" formControlName="manager">
-        <option value="Tak">Tak</option>
-        <option value="Nie">Nie</option>
+      <label for="consent">Zgoda menadżera:</label>
+      <select class="col-xs-4-select form-control" id="consent" formControlName="consent">
+        <option value="true">Tak</option>
+        <option value="false">Nie</option>
       </select>
-      <div class="text-danger" *ngIf="dialForm.get('manager').invalid && (dialForm.get('manager').dirty || dialForm.get('manager').touched)">
-        <small *ngIf="dialForm.get('manager').errors">{{getValidErrors(dialForm.get('manager'))}}</small>
+      <div class="text-danger" *ngIf="dialForm.get('consent').invalid && (dialForm.get('consent').dirty || dialForm.get('consent').touched)">
+        <small *ngIf="dialForm.get('consent').errors">{{getValidErrors(dialForm.get('consent'))}}</small>
       </div>
     </div>
 

@@ -4,53 +4,48 @@ import { MessageService } from 'primeng/components/common/messageservice';
 
 import { DataService } from '../../services/data.service';
 import { User } from '../../classes/user';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Salary } from '../../classes/salary';
+// import * as pdfMake from 'pdfmake/build/pdfmake';
+// import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  selector: 'app-salary',
+  templateUrl: './salary.component.html',
+  styleUrls: ['./salary.component.css']
 })
-export class UsersComponent implements OnInit {
+export class SalaryComponent implements OnInit {
   title = 'Pracownicy';
-  user = +localStorage.getItem('user');
-  users: User[];
-  selectedUsers: User[] = [];
+  users: Salary[];
+  selectedUsers: Salary[] = [];
 
   constructor(
     private dataService: DataService,
     private router: Router,
     private messageService: MessageService
   ) {
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    // pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
   ngOnInit() {
-    if (!this.dataService.isAdmin(this.user)) {
-      this.router.navigate(['dashboard']);
-    }// if
-
-    this.getUsers();
+    this.getSalary();
   }// ngOnInit()
 
-  getUsers(): void {
-    this.dataService.getUsersArray().subscribe(
+  getSalary(): void {
+    this.dataService.getSalaryArray().subscribe(
       res => this.users = res,
       err => console.log(err)
     );
-  }// getUsers()
+  }// getSalary()
 
-  onEdit(event: User): void {
-    const body = event;
-    body.salary = +event.salary;
-    this.dataService.putIntoServer(event.id, body, 'user').subscribe(
+  onEdit(event: Salary): void {
+    this.dataService.updateSalary(event.id, event).subscribe(
       () => {},
-      err => console.log(err),
-      () => this.getUsers()
+      err => this.messageService.add({severity: 'error', summary: 'Edycja wynagrodzenia', detail: 'Nie udało się edytować wynagrodzenia!'}),
+      () => this.messageService.add({severity: 'success', summary: 'Edycja wynagrodzenia', detail: 'Edytowano wynagrodzenie!'})
     );
   }// onEdit()
 
-  getPdf(): boolean {
+  /* getPdf(): boolean {
     if (this.selectedUsers.length === 0) {
       this.messageService.add({severity: 'warn', summary: 'Pobieranie PDF', detail: 'Brak zaznaczonych pracowników!'});
       return false;
@@ -101,5 +96,5 @@ export class UsersComponent implements OnInit {
     };
     pdfMake.createPdf(dd).open({}, window);
     return true;
-  }// getPdf()
+  }// getPdf() */
 }

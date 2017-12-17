@@ -5,76 +5,51 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { Vacation } from '../../../classes/vacation';
 import { DataService } from '../../../services/data.service';
 import { User } from '../../../classes/user';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-vacation',
   templateUrl: './vacation.component.html',
   styleUrls: ['./vacation.component.css'],
-  providers: [MessageService]
 })
 
 export class VacationComponent implements OnInit {
-  admin: number[] = [1];
-  adminMode: boolean;
-
   title = 'Urlopy';
   vacations: Vacation[] = [];
-  adminModeVacations: Vacation[] = [];
   date: Date[];
   minDate = new Date();
   maxDate = new Date();
   pl: any;
-  user = +localStorage.getItem('user');
+  userID: number;
 
   constructor(
     private router: Router,
     public dataService: DataService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private loginService: LoginService
+  ) {
+    this.setPolishCalendar();
+    this.minDate.setDate(this.minDate.getDate() + 1);
+  }
 
   ngOnInit() {
-    if (!localStorage.getItem('user')) {
+    if (!this.loginService.isLoggedIn()) {
       this.router.navigate(['/login']);
     }// if
 
     this.getVacations();
-    this.setPolishCalendar();
-
-    this.adminMode = false;
-    this.minDate.setDate(this.minDate.getDate() + 1);
+    this.dataService.getUserID().subscribe(
+      res => this.userID = res,
+      err => console.log(err)
+    );
   }// ngOnInit()
 
   getVacations(): void {
     this.dataService.getVacationsArray().subscribe(
-      res => this.adminModeVacations = res, // res.forEach(data => data.userId === this.user ? this.vacations.push(data) : {}),
-      err => console.log(err),
-      () => {
-        this.vacations = this.getAdminModeArray(false);
-      }
+      res => this.vacations = res,
+      err => console.log(err)
     );
   }// getVacations()
-
-  getAdminModeArray(val: boolean): Vacation[] {
-    const array = [];
-
-    if (!val) {
-      for (let i = 0; i < this.adminModeVacations.length; i++) {
-        if (this.adminModeVacations[i].userId === this.user) {
-          array.push(this.adminModeVacations[i]);
-        }// if
-      }// for
-
-      return array;
-    } else {
-      for (let i = 0; i < this.adminModeVacations.length; i++) {
-        if (this.adminModeVacations[i].accept === null) {
-          array.push(this.adminModeVacations[i]);
-        }// if
-      }// for
-
-      return array;
-    }
-  }// testArray()
 
   setPolishCalendar(): void {
     this.pl = {
@@ -92,8 +67,8 @@ export class VacationComponent implements OnInit {
 
   isInArray(): boolean {
     for (let i = 0; i < this.vacations.length; i++) {
-      if (this.vacations[i].dateFrom === this.date[0].toLocaleDateString() &&
-      this.vacations[i].dateTo === this.date[1].toLocaleDateString()) {
+      if (this.vacations[i].start_date === this.dataService.convertDate(this.date[0]) &&
+      this.vacations[i].end_date === this.dataService.convertDate(this.date[1])) {
         return true;
       }// if
     }// for
@@ -103,32 +78,26 @@ export class VacationComponent implements OnInit {
 
   onCreate(): void {
     if (this.date != null && this.date[0] != null && this.date[1] != null && !this.isInArray()) {
-      let users: User[] = [];
       const today = new Date();
+      const body = new Vacation(
+        0,
+        this.userID,
+        26,
+        13,
+        7,
+        this.dataService.convertDate(today),
+        this.dataService.convertDate(this.date[0]),
+        this.dataService.convertDate(this.date[1]),
+        false,
+        null
+      );
 
-      this.dataService.getUsersArray().subscribe(
-        res => users = res,
-        err => console.log(err),
+      this.dataService.postVacation(body).subscribe(
+        () => {},
+        err => this.messageService.add({severity: 'error', summary: 'Dodawanie urlopu', detail: 'Nie udało się dodać urlopu!'}),
         () => {
-          const user = users.find(x => x.id === +localStorage.getItem('user'));
-          const temp = new Vacation(
-            this.adminModeVacations.length + 1,
-            +localStorage.getItem('user'),
-            user.name,
-            user.surname,
-            this.date[0].toLocaleDateString(),
-            this.date[1].toLocaleDateString(),
-            null,
-            today.getDate().toString() + '.' + today.getMonth().toString() + '.' + today.getFullYear().toString()
-          );
-
-          this.dataService.postIntoServer(temp, 'vacation').subscribe(
-            () => {},
-            err => console.log(err),
-            () => {
-              this.getVacations();
-            }
-          );
+          this.messageService.add({severity: 'success', summary: 'Dodawanie urlopu', detail: 'Dodano urlop!'});
+          this.getVacations();
         }
       );
     } else
@@ -143,7 +112,7 @@ export class VacationComponent implements OnInit {
     return val ? 'Zaakceptowano' : val == null ? 'Czeka na rozpatrzenie' : 'Nie zaakceptowano';
   }// getAccept()
 
-  setAdminMode(value: boolean): void {
+  /* setAdminMode(value: boolean): void {
     this.adminMode = value;
     this.vacations = this.getAdminModeArray(value);
   }// setAdminMode()
@@ -163,5 +132,5 @@ export class VacationComponent implements OnInit {
     } else {
       this.messageService.add({severity: 'warn', summary: 'Zmiana statusu urlopu', detail: 'Nie możesz zatwierdzać własnych urlopów!'});
     }
-  }// setStatus()
+  }// setStatus() */
 }

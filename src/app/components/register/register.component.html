@@ -19,9 +19,9 @@
 
   <div class="form-group"> <!-- Login -->
     <label for="Login">Podaj login</label>
-    <input class="col-xs-4 form-control" type="text" placeholder="Login" id="inputLogin" formControlName="login">
-    <div class="text-danger" *ngIf="regForm.get('login').invalid && (regForm.get('login').dirty || regForm.get('login').touched)">
-        <small *ngIf="regForm.get('login').errors">{{getValidErrors(regForm.get('login'))}}</small>
+    <input class="col-xs-4 form-control" type="text" placeholder="Login" id="inputLogin" formControlName="username">
+    <div class="text-danger" *ngIf="regForm.get('username').invalid && (regForm.get('username').dirty || regForm.get('username').touched)">
+        <small *ngIf="regForm.get('username').errors">{{getValidErrors(regForm.get('username'))}}</small>
       </div>
   </div>
 
@@ -46,7 +46,7 @@
       Rejestruj
     </button>
 
-    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()" [disabled]="!regForm.get('name').value && !regForm.get('surname').value && !regForm.get('login').value && !regForm.get('email').value && !regForm.get('password').value">
+    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()" [disabled]="!regForm.get('name').value && !regForm.get('surname').value && !regForm.get('username').value && !regForm.get('email').value && !regForm.get('password').value">
       Resetuj
     </button>
   </div>

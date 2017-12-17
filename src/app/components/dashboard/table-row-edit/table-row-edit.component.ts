@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../../../services/data.service';
 import { Instruction } from '../../../classes/instruction';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-table-row-edit',
@@ -14,7 +15,8 @@ export class TableRowEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public dataService: DataService
+    public dataService: DataService,
+    public messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -23,13 +25,13 @@ export class TableRowEditComponent implements OnInit {
 
   createForms(): void {
     this.dialForm = this.fb.group({
-      topic: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      theme: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       company: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       location: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      dateFrom: ['', Validators.required],
-      dateTo: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
       cost: ['', Validators.compose([Validators.required, Validators.min(0)])],
-      manager: ['', Validators.required],
+      consent: ['', Validators.required],
     });
   }// createForms()
 
@@ -41,23 +43,27 @@ export class TableRowEditComponent implements OnInit {
   }// getValidErrors()
 
   onSubmit(): void {
-    const temp = this.inst.assign;
-    const tempId = this.inst.id;
+    const body = new Instruction(
+      this.inst.id,
+      this.dialForm.get('theme').value,
+      this.dialForm.get('company').value,
+      this.dialForm.get('location').value,
+      this.dialForm.get('startDate').value,
+      this.dialForm.get('endDate').value,
+      this.dialForm.get('cost').value,
+      this.dialForm.get('consent').value,
+      this.inst.cancelled,
+      this.inst.no_of_seats
+    );
 
-    this.inst = this.dialForm.value;
-    this.inst.id = tempId;
-    this.inst.assign = temp;
-    this.doUpdateInst(tempId, this.inst);
-  }// onSubmit()
-
-  doUpdateInst(id: number, body: any): void {
-    this.dataService.putIntoServer(id, body).subscribe(
+    this.dataService.updateInstruction(this.inst.id, body).subscribe(
       () => {},
-      err => console.log(err),
+      err => this.messageService.add({severity: 'error', summary: 'Edycja szkolenia', detail: 'Nie udało się edytować szkolenia!'}),
       () => {
         this.dialForm.reset();
+        this.messageService.add({severity: 'success', summary: 'Edycja szkolenia', detail: 'Pomyslnie edytowano szkolenie!'});
         this.dataService.setDialogVisible(false);
-      }
+      },
     );
-  }// doUpdateInst()
+  }// onSubmit()
 }

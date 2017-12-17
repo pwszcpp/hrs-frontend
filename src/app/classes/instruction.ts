@@ -1,13 +1,14 @@
 export class Instruction {
   constructor(
     public id?: number,
-    public topic?: string,
+    public theme?: string,
     public company?: string,
     public location?: string,
-    public dateFrom?: string,
-    public dateTo?: string,
+    public startDate?: string,
+    public endDate?: string,
     public cost?: number,
-    public manager?: boolean,
-    public assign?: any[]
+    public consent?: boolean,
+    public cancelled?: number,
+    public no_of_seats?: number
   ) {}
 }

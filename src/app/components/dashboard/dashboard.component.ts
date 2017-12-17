@@ -1,75 +1,90 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 import { Instruction } from '../../classes/instruction';
 import { DataService } from '../../services/data.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [MessageService]
 })
 
 export class DashboardComponent implements OnInit {
   title = 'Szkolenia';
   instructions: Instruction[] = [];
-  url = 'http://localhost:3000';
+  instructionsAssign = [];
   inst: Instruction;
 
   constructor(
-    private http: Http,
     private router: Router,
-    private messageService: MessageService,
-    public dataService: DataService
-  ) {}
+    public dataService: DataService,
+    private loginService: LoginService,
+    private messageService: MessageService
+  ) {
+    this.getInstructions();
+    this.getInstructionsAssign();
+  }// constructor()
 
   ngOnInit(): void {
-    if (!localStorage.getItem('user')) {
+    if (!this.loginService.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
-
-    this.getInstructions();
   }// ngOnInit()
-
-  onLogout(): void {
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-  }// onLogout()
 
   getInstructions(): void {
     this.dataService.getInstructionsArray().subscribe(
       res => this.instructions = res,
       err => console.log(err)
     );
-  }// getInstructions()
+  }// getInstruction()
 
-  checkAssignInstruction(assigns: any[]): boolean {
-    const userId = +localStorage.getItem('user'); // + - zamiana na liczbę
-
-    return assigns.includes(userId) ? true : false;
-  }// checkAssignInstruction()
-
-  changeAssign(id: number, assigns: any[]): void {
-    const userId = +localStorage.getItem('user');
-    const tempInst = this.instructions[id - 1];
-
-    if (!assigns.includes(userId)) {
-      assigns.push(userId);
-      this.messageService.add({severity: 'success', summary: 'Uczestnictwo', detail: 'Zapisano na szkolenie.'});
-    } else {
-      assigns.splice(assigns.indexOf(userId), 1);
-      this.messageService.add({severity: 'warn', summary: 'Uczestnictwo', detail: 'Wypisano ze szkolenia'});
-    }// if
-
-    tempInst.assign = assigns;
-    this.dataService.putIntoServer(id, tempInst).subscribe();
-  }// changeAssign
+  getInstructionsAssign(): void {
+    this.dataService.getInstructionAssignArray().subscribe(
+      res => this.instructionsAssign = res,
+      err => console.log(err)
+    );
+  }// getInstructionsAssign()
 
   getPdf(value: Instruction) {
     this.dataService.setInstruction(value);
     this.router.navigate(['/invoice']);
   }// getPdf()
+
+  isAssigned(id: number): boolean {
+    return this.instructionsAssign.includes(+id);
+  }// isTrue()
+
+  refresh(): void {
+    this.getInstructions();
+    this.getInstructionsAssign();
+  }// refresh()
+
+  changeAssign(id: number, bool: boolean): void {
+    if (bool) {
+      this.dataService.changeInstructionAssign(id, bool).subscribe(
+        () => {},
+        err => {
+          this.messageService.add({severity: 'error', summary: 'Szkolenie', detail: 'Nie udało się zapisać na szkolenie!'});
+        },
+        () => {
+          this.messageService.add({severity: 'success', summary: 'Szkolenie', detail: 'Zapisano na szkolenie!'});
+          this.getInstructionsAssign();
+        }
+      );
+    } else {
+      this.dataService.changeInstructionAssign(id, bool).subscribe(
+        () => {},
+        err => {
+          this.messageService.add({severity: 'error', summary: 'Szkolenie', detail: 'Nie udało się wypisać ze szkolenia!'});
+        },
+        () => {
+          this.messageService.add({severity: 'warn', summary: 'Szkolenie', detail: 'Wypisano ze szkolenia!'});
+          this.getInstructionsAssign();
+        }
+      );
+    }
+  }// changeAssign()
 }

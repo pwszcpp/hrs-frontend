@@ -1,4 +1,4 @@
-<p-growl life="1000"></p-growl>
+<p-growl></p-growl>
 
 <h1 class="nazwa">{{title}}</h1>
 
@@ -9,25 +9,35 @@
     </ng-template>
   </p-column>
 
-  <p-column field="topic" header="Temat szkolenia" [sortable]="true"></p-column> <!-- Temat -->
+  <p-column field="theme" header="Temat szkolenia" [sortable]="true"></p-column> <!-- Temat -->
 
   <p-column field="company" header="Firma prowadząca" [sortable]="true"></p-column> <!-- Nazwa firmy -->
   <p-column field="location" header="Miejsce szkolenia" [sortable]="true"></p-column> <!-- Lokacja -->
-  <p-column field="dateFrom" header="Data rozpoczecia" [sortable]="true"></p-column> <!-- Data od -->
-  <p-column field="dateTo" header="Data zakonczenia" [sortable]="true"></p-column> <!-- Data do -->
+  <p-column field="startDate" header="Data rozpoczecia" [sortable]="true"></p-column> <!-- Data od -->
+  <p-column field="endDate" header="Data zakonczenia" [sortable]="true"></p-column> <!-- Data do -->
 
   <p-column header="Koszt od osoby" [sortable]="true"> <!-- Koszt -->
-    <ng-template let-cost="rowData" pTemplate="body">
-      <span>{{cost.cost}} zł</span>
+    <ng-template let-data="rowData" pTemplate="body">
+      <span>{{data.cost}} zł</span>
     </ng-template>
   </p-column>
 
-  <p-column field="manager" header="Zgoda managera" [sortable]="true"></p-column> <!-- Menadzer -->
+  <p-column field="consent" header="Zgoda managera" [sortable]="true"> <!-- Menadzer -->
+    <ng-template let-data="rowData" pTemplate="body">
+      <span *ngIf="data.consent" style="color: green;">Tak</span>
+      <span *ngIf="!data.consent" style="color: red;">Nie</span>
+    </ng-template>
+  </p-column>
 
   <p-column header="Uczestnictwo" [sortable]="true"> <!-- Uczestnictwo -->
-    <ng-template let-inst="rowData" pTemplate="body">
-      <button pButton type="button" *ngIf="!checkAssignInstruction(inst.assign)" label="Zapisz się" class="ui-button-success" (click)="changeAssign(inst.id, inst.assign)"></button>
-      <button pButton type="button" *ngIf="checkAssignInstruction(inst.assign)" label="Wypisz się" class="ui-button-danger" (click)="changeAssign(inst.id, inst.assign)"></button>
+    <ng-template let-data="rowData" pTemplate="body">
+      <div *ngIf="data.no_of_seats > 0">
+        <button pButton type="button" *ngIf="!isAssigned(data.id)" label="Zapisz się" class="ui-button-success" (click)="changeAssign(data.id, true)"></button>
+        <button pButton type="button" *ngIf="isAssigned(data.id)" label="Wypisz się" class="ui-button-danger" (click)="changeAssign(data.id, false)"></button>
+      </div>
+      <div *ngIf="data.no_of_seats <= 0">
+        <span style="color: grey;">Brak wolnych miejsc</span>
+      </div>
     </ng-template>
   </p-column>
 
@@ -39,7 +49,7 @@
 
   <p-footer>
     <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getInstructions()"></button>
+      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="refresh()"></button>
       <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj szkolenie" (click)="dataService.setInstDialogVisible(true)"></button>
     </div>
   </p-footer>

@@ -4,14 +4,14 @@
   <div class="collapse navbar-collapse" id="navbarsExample03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!getUser()">Logowanie<span class="sr-only"></span></a>
-        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="getUser()">Dashboard<span class="sr-only"></span></a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!loginService.isLoggedIn()">Logowanie<span class="sr-only"></span></a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Dashboard<span class="sr-only"></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/vacation" routerLinkActive="active" *ngIf="getUser()">Urlop<span class="sr-only"></span></a>
+        <a class="nav-link" routerLink="/vacation" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Urlop<span class="sr-only"></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/users" routerLinkActive="active" *ngIf="dataService.isAdmin(user)">Pracownicy<span class="sr-only"></span></a>
+        <a class="nav-link" routerLink="/users" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Pracownicy<span class="sr-only"></span></a>
       </li>
       <div class="container">
         <div class="dropdown">
@@ -39,5 +39,5 @@
       </div>
     </ul>
   </div>
-  <button class="btn btn-danger" type="button" (click)="onLogout()" *ngIf="getUser()">Wyloguj</button>
+  <button class="btn btn-danger" type="button" (click)="loginService.logout()" *ngIf="loginService.isLoggedIn()">Wyloguj</button>
 </nav>

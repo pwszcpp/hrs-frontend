@@ -30,7 +30,8 @@ import { TableRowEditComponent } from './components/dashboard/table-row-edit/tab
 import { VacationComponent } from './components/dashboard/vacation/vacation.component';
 import { LoginRouteGuard } from './login-route-guard';
 import { LoginService } from './services/login.service';
-import { UsersComponent } from './components/users/users.component';
+import { SalaryComponent } from './components/salary/salary.component';
+import { ContractorComponent } from './components/contractor/contractor.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'invoice', component: InvoiceComponent },
   { path: 'vacation', component: VacationComponent },
-  { path: 'users', component: UsersComponent }
+  { path: 'users', component: SalaryComponent }
 ];
 
 @NgModule({
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
     InvoiceComponent,
     TableRowEditComponent,
     VacationComponent,
-    UsersComponent
+    SalaryComponent,
+    ContractorComponent
   ],
   imports: [
     RouterModule.forRoot(

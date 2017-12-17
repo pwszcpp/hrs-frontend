@@ -12,9 +12,11 @@ import * as html2canvas from 'html2canvas';
 export class InvoiceComponent implements OnInit {
   instruction: Instruction;
   example = new Instruction(1, 'Przykład', 'Przykładowa',
-  'Przykładowa', '2017/5/11', '2017/5/20', 120, true, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  'Przykładowa', '2017/5/11', '2017/5/20', 120, true, 1);
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService
+  ) { }
 
   @ViewChild('app-invoice') el: ElementRef;
 
@@ -30,7 +32,7 @@ export class InvoiceComponent implements OnInit {
     this.instruction = this.dataService.getInstruction();
   }// getInstruction()
 
-  getTotalCost(): number {
+  /* getTotalCost(): number {
     let cost = 0;
 
     for (let i = 0; i < this.instruction.assign.length; i++) {
@@ -38,7 +40,7 @@ export class InvoiceComponent implements OnInit {
     }// for
 
     return cost;
-  }// getTotalCost()
+  }// getTotalCost() */
 
   download() {
     html2canvas(document.getElementById('content')).then(function(canvas) {
