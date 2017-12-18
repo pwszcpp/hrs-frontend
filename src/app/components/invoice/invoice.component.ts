@@ -11,8 +11,8 @@ import * as html2canvas from 'html2canvas';
 })
 export class InvoiceComponent implements OnInit {
   instruction: Instruction;
-  example = new Instruction(1, 'Przykład', 'Przykładowa',
-  'Przykładowa', '2017/5/11', '2017/5/20', 120, true, 1);
+  example = new Instruction('Przykład', 'Przykładowa',
+  'Przykładowa', '2017/5/11', '2017/5/20', 120, true, 1, 1, 1);
 
   constructor(
     private dataService: DataService

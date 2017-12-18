@@ -1,5 +1,6 @@
-<h1 class="nazwa">{{title}}</h1>
 <p-growl></p-growl>
+
+<h1 class="nazwa">{{title}}</h1>
 
 <p-dataTable class="text-center" [editable]="true" [value]="users" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]"
   [(selection)]="selectedUsers" dataKey="id"> <!-- (onEditComplete)="onEdit($event.data)" [headerCheckboxToggleAllPages]="true"> -->
@@ -14,9 +15,9 @@
 
   <p-column field="users_id" header="Pracownik (id)" [sortable]="true"></p-column> <!-- Pracownik -->
   <!-- <p-column field="email" header="E-mail" [sortable]="true"></p-column> <! E-mail > -->
-  <p-column field="employment_arrangement" header="Zatrudnienie" [sortable]="true"></p-column>
+  <p-column field="employment_arrangement" header="Rodzaj zatrudnienia" [sortable]="true"></p-column>
   <p-column field="base_salary" header="Pensja" [sortable]="true"> <!-- [editable]="true"> --></p-column>
-  <p-column field="seniority" header="Seniority" [sortable]="true"></p-column>
+  <p-column field="seniority" header="Staż pracy" [sortable]="true"></p-column>
   <p-column field="salary_supplement" header="Dodatek" [sortable]="true"> <!-- [editable]="true"> --></p-column>
   <p-column field="employment_status" header="Status" [sortable]="true"></p-column>
 

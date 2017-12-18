@@ -7,12 +7,9 @@
         <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!loginService.isLoggedIn()">Logowanie<span class="sr-only"></span></a>
         <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Dashboard<span class="sr-only"></span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/vacation" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Urlop<span class="sr-only"></span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/users" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Pracownicy<span class="sr-only"></span></a>
-      </li>
+      <li class="nav-item active"><a class="nav-link" routerLink="/vacation" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Urlop<span class="sr-only"></span></a></li>
+      <li class="nav-item active"><a class="nav-link" routerLink="/users" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Pracownicy<span class="sr-only"></span></a></li>
+      <li class="nav-item active"><a class="nav-link" routerLink="/contractors" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Kontrahenci<span class="sr-only"></span></a></li>
       <div class="container">
         <div class="dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rejestracja</a><span class="caret"></span>

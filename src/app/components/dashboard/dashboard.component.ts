@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { MenuItem } from 'primeng/primeng';
 
 import { Instruction } from '../../classes/instruction';
 import { DataService } from '../../services/data.service';
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit {
   instructions: Instruction[] = [];
   instructionsAssign = [];
   inst: Instruction;
+  items: MenuItem[];
 
   constructor(
     private router: Router,
@@ -32,6 +34,13 @@ export class DashboardComponent implements OnInit {
     if (!this.loginService.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
+
+    this.items = [
+      {label: 'Dodaj', icon: 'fa-plus', command: (event) => this.dataService.setInstDialogVisible(true)},
+      {label: 'Edytuj', icon: 'fa-pencil', command: (event) => this.dataService.setDialogVisible(true)},
+      {label: 'Odswież', icon: 'fa-refresh', command: (event) => { this.getInstructions(); this.getInstructionsAssign(); }},
+      // {label: 'Pobierz PDF', icon: 'fa-file-pdf-o', command: (event) => this.getPdf(this.inst)}
+    ];
   }// ngOnInit()
 
   getInstructions(): void {

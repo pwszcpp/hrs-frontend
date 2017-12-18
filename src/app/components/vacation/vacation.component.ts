@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 
-import { Vacation } from '../../../classes/vacation';
-import { DataService } from '../../../services/data.service';
-import { User } from '../../../classes/user';
-import { LoginService } from '../../../services/login.service';
+import { Vacation } from '../../classes/vacation';
+import { DataService } from '../../services/data.service';
+import { User } from '../../classes/user';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-vacation',
@@ -80,7 +80,6 @@ export class VacationComponent implements OnInit {
     if (this.date != null && this.date[0] != null && this.date[1] != null && !this.isInArray()) {
       const today = new Date();
       const body = new Vacation(
-        0,
         this.userID,
         26,
         13,
@@ -89,7 +88,8 @@ export class VacationComponent implements OnInit {
         this.dataService.convertDate(this.date[0]),
         this.dataService.convertDate(this.date[1]),
         false,
-        null
+        null,
+        null,
       );
 
       this.dataService.postVacation(body).subscribe(

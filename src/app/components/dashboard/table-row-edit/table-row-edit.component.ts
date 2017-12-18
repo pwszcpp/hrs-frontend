@@ -44,7 +44,6 @@ export class TableRowEditComponent implements OnInit {
 
   onSubmit(): void {
     const body = new Instruction(
-      this.inst.id,
       this.dialForm.get('theme').value,
       this.dialForm.get('company').value,
       this.dialForm.get('location').value,
@@ -53,7 +52,8 @@ export class TableRowEditComponent implements OnInit {
       this.dialForm.get('cost').value,
       this.dialForm.get('consent').value,
       this.inst.cancelled,
-      this.inst.no_of_seats
+      this.inst.no_of_seats,
+      this.inst.id,
     );
 
     this.dataService.updateInstruction(this.inst.id, body).subscribe(

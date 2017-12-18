@@ -1,0 +1,73 @@
+<p-dialog header="Dodawanie kontrahenta" [visible]="dataService.getContractorDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setContractorDialogVisible(false)">
+  <form [formGroup]="conReg" novalidate>
+    <div class="form-group"> <!-- Nazwa -->
+      <label for="name">Nazwa</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="Nazwa kontrahenta" id="name" formControlName="name">
+      <div class="text-danger" *ngIf="conReg.get('name').invalid && (conReg.get('name').dirty || conReg.get('name').touched)">
+        <small *ngIf="conReg.get('name').errors">{{getValidErrors(conReg.get('name'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Adres -->
+      <label for="address">Adres</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="Adres" id="address" formControlName="address">
+      <div class="text-danger" *ngIf="conReg.get('address').invalid && (conReg.get('address').dirty || conReg.get('address').touched)">
+        <small *ngIf="conReg.get('address').errors">{{getValidErrors(conReg.get('address'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- NIP -->
+      <label for="nip_number">Numer NIP</label>
+      <input class="col-xs-4 form-control" type="number" placeholder="Numer NIP" id="nip_number" formControlName="nip_number">
+      <div class="text-danger" *ngIf="conReg.get('nip_number').invalid && (conReg.get('nip_number').dirty || conReg.get('nip_number').touched)">
+        <small *ngIf="conReg.get('nip_number').errors">{{getValidErrors(conReg.get('nip_number'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- REGON -->
+      <label for="regon_number">Numer REGON</label>
+      <input class="col-xs-4 form-control" type="number" placeholder="Numer REGON" id="regon_number" formControlName="regon_number">
+      <div class="text-danger" *ngIf="conReg.get('regon_number').invalid && (conReg.get('regon_number').dirty || conReg.get('regon_number').touched)">
+        <small *ngIf="conReg.get('regon_number').errors">{{getValidErrors(conReg.get('regon_number'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Numer konta bankowego -->
+      <label for="bank_account_number">Numer konta bankowego</label>
+      <input class="col-xs-4 form-control" type="number" placeholder="Numer konta bankowego" id="bank_account_number" formControlName="bank_account_number">
+      <div class="text-danger" *ngIf="conReg.get('bank_account_number').invalid && (conReg.get('bank_account_number').dirty || conReg.get('bank_account_number').touched)">
+        <small *ngIf="conReg.get('bank_account_number').errors">{{getValidErrors(conReg.get('bank_account_number'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Forma płatnosci -->
+      <label for="payment_form">Forma płatnosci</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="Forma płatnosci" id="payment_form" formControlName="payment_form">
+      <div class="text-danger" *ngIf="conReg.get('payment_form').invalid && (conReg.get('payment_form').dirty || conReg.get('payment_form').touched)">
+        <small *ngIf="conReg.get('payment_form').errors">{{getValidErrors(conReg.get('payment_form'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Vat? -->
+      <label for="vat">Vat</label>
+      <select class="col-xs-4-select form-control" formControlName="active_taxpayer_VAT_tax">
+        <option value="true">Tak</option>
+        <option value="false">Nie</option>
+      </select>
+      <div class="text-danger" *ngIf="conReg.get('active_taxpayer_VAT_tax').invalid && (conReg.get('active_taxpayer_VAT_tax').dirty || conReg.get('active_taxpayer_VAT_tax').touched)">
+        <small *ngIf="conReg.get('active_taxpayer_VAT_tax').errors">{{getValidErrors(conReg.get('active_taxpayer_VAT_tax'))}}</small>
+      </div>
+    </div>
+
+    <p-footer>
+      <button type="button" pButton icon="fa-check" [disabled]="conReg.invalid" (click)="onRegister()" label="Dodaj"></button>
+
+      <button type="button" pButton (click)="onReset()" label="Resetuj" icon="fa-eraser"
+      [disabled]="!conReg.get('name').value && !conReg.get('address').value && !conReg.get('nip_number').value && !conReg.get('regon_number').value &&
+        !conReg.get('bank_account_number').value && !conReg.get('payment_form').value && !conReg.get('active_taxpayer_VAT_tax').value">
+      </button>
+
+      <button type="button" pButton icon="fa-close" (click)="dataService.setContractorDialogVisible(false)" label="Anuluj"></button>
+    </p-footer>
+  </form>
+</p-dialog>

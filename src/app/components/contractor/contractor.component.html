@@ -1,3 +1,35 @@
-<p>
-  contractor works!
-</p>
+<p-growl></p-growl>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+<app-add-contractor *ngIf="dataService.getContractorDialogVisible()"></app-add-contractor>
+
+<h1 class="nazwa">{{title}}</h1>
+
+<p-dataTable class="text-center" [value]="contractors" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedContractor" [contextMenu]="cm">
+  <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
+    <ng-template let-i="rowIndex" pTemplate="body">
+      <span>{{i + 1}}</span>
+    </ng-template>
+  </p-column>
+
+  <p-column field="name" header="Nazwa" [sortable]="true"></p-column> <!-- Nazwa -->
+
+  <p-column field="address" header="Adres" [sortable]="true"></p-column> <!-- Adres -->
+  <p-column field="nip_number" header="Numer NIP" [sortable]="true"></p-column> <!-- NIP -->
+  <p-column field="regon_number" header="Numer REGON" [sortable]="true"></p-column> <!-- REGON -->
+  <p-column field="bank_account_number" header="Numer konta" [sortable]="true"></p-column> <!-- Numer konta bankowego -->
+  <p-column field="payment_form" header="Forma płatnosci"></p-column> <!-- Forma płatnosci -->
+
+  <p-column header="VAT?"> <!-- VAT? -->
+    <ng-template let-data="rowData" pTemplate="body">
+      <span *ngIf="data.active_taxpayer_VAT_tax">Tak</span>
+      <span *ngIf="!data.active_taxpayer_VAT_tax">Nie</span>
+    </ng-template>
+  </p-column>
+
+  <p-footer>
+    <div class="ui-helper-clearfix">
+      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getContractors()"></button>
+      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj kontrahenta" (click)="dataService.setContractorDialogVisible(true)"></button>
+    </div>
+  </p-footer>
+</p-dataTable>

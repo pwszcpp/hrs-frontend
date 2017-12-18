@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+.nazwa {
+	font-size: 300%;
+  text-align: center;
+  padding-top: 50px;
+	padding-bottom:2px;
+}

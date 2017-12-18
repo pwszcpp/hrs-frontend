@@ -14,7 +14,8 @@ import {
   GrowlModule,
   DialogModule,
   TooltipModule,
-  CalendarModule
+  CalendarModule,
+  ContextMenuModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -27,11 +28,12 @@ import { InstRegisterComponent } from './components/dashboard/inst-register/inst
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { DataService } from './services/data.service';
 import { TableRowEditComponent } from './components/dashboard/table-row-edit/table-row-edit.component';
-import { VacationComponent } from './components/dashboard/vacation/vacation.component';
+import { VacationComponent } from './components/vacation/vacation.component';
 import { LoginRouteGuard } from './login-route-guard';
 import { LoginService } from './services/login.service';
 import { SalaryComponent } from './components/salary/salary.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
+import { AddContractorComponent } from './components/contractor/add-contractor/add-contractor.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'invoice', component: InvoiceComponent },
   { path: 'vacation', component: VacationComponent },
-  { path: 'users', component: SalaryComponent }
+  { path: 'users', component: SalaryComponent },
+  { path: 'contractors', component: ContractorComponent }
 ];
 
 @NgModule({
@@ -58,7 +61,8 @@ const appRoutes: Routes = [
     TableRowEditComponent,
     VacationComponent,
     SalaryComponent,
-    ContractorComponent
+    ContractorComponent,
+    AddContractorComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -77,7 +81,8 @@ const appRoutes: Routes = [
     GrowlModule,
     DialogModule,
     TooltipModule,
-    CalendarModule
+    CalendarModule,
+    ContextMenuModule
   ],
   providers: [DataService, CookieService, LoginRouteGuard, LoginService, MessageService],
   bootstrap: [AppComponent]
