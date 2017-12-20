@@ -1,16 +1,16 @@
 <p-growl></p-growl>
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="vacations" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]">
+<p-dataTable class="text-center" [value]="vacations.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]">
   <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>
     </ng-template>
   </p-column>
 
-  <p-column header="Pracownik (id)">
+  <p-column header="Pracownik">
     <ng-template let-data="rowData" pTemplate="body">
-      <span>{{data.users_id}}</span>
+      <span>{{data.user.username}}</span>
     </ng-template>
   </p-column>
 
@@ -20,7 +20,7 @@
 
   <p-column header="Status">
     <ng-template let-data="rowData" pTemplate="body">
-        <span *ngIf="data.agreed" style="color: green" pTooltip="Powód: {{data.disagree_reason}}">{{getAccept(data.agreed)}}</span>
+        <span *ngIf="data.agreed" style="color: green">{{getAccept(data.agreed)}}</span>
         <span *ngIf="!data.agreed && data.disagree_reason != null" style="color: red" pTooltip="Powód: {{data.disagree_reason}}">{{getAccept(data.agreed)}}</span>
         <span *ngIf="data.disagree_reason == null" style="color: grey;">Czeka na rozpatrzenie</span>
 

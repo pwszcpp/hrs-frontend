@@ -23,7 +23,8 @@ export class DataService {
   instruction: Instruction;
   dialog: boolean;
   instDialog: boolean;
-  contractorDialog: boolean;
+  contractorAddDialog: boolean;
+  contractorEditDialog: boolean;
 
   constructor(
     private httpClient: HttpClient,
@@ -55,13 +56,21 @@ export class DataService {
     this.instDialog = value;
   }// setDialogVisible()
 
-  getContractorDialogVisible(): boolean {
-    return this.contractorDialog;
-  }// getDialogVisible()
+  getContractorAddDialogVisible(): boolean {
+    return this.contractorAddDialog;
+  }// getContractorAddDialogVisible()
 
-  setContractorDialogVisible(value: boolean): void {
-    this.contractorDialog = value;
-  }// setDialogVisible()
+  setContractorAddDialogVisible(value: boolean): void {
+    this.contractorAddDialog = value;
+  }// setContractorAddDialogVisible()
+
+  getContractorEditDialogVisible(): boolean {
+    return this.contractorEditDialog;
+  }// getContractorEditDialogVisible()
+
+  setContractorEditDialogVisible(value: boolean): void {
+    this.contractorEditDialog = value;
+  }// setContractorEditDialogVisible()
 
   convertDate(date: Date): string {
     return date.toLocaleDateString().slice(6, 10) + '-' +
@@ -98,9 +107,9 @@ export class DataService {
     return this.http.put(this.url + this.uSalary + '/' + id, body, new RequestOptions({withCredentials: true}));
   }// updateSalary()
 
-  updateContractor(id: number, body: Salary): any {
+  updateContractor(id: number, body: Contractor): any {
     return this.http.put(this.url + this.uContractor + '/' + id, body, new RequestOptions({withCredentials: true}));
-  }// updateSalary()
+  }// updateContractor()
 
   deleteUser(id: number): any {
     return this.http.delete(this.url + this.uUsers + '/' + id, new RequestOptions({withCredentials: true}));
@@ -113,6 +122,10 @@ export class DataService {
   deleteSalary(id: number): any {
     return this.http.delete(this.url + this.uSalary + '/' + id, new RequestOptions({withCredentials: true}));
   }// deleteContractor()
+
+  deleteInstruction(id: number): any {
+    return this.http.delete(this.url + this.uInst + '/' + id, new RequestOptions({withCredentials: true}));
+  }// deleteInstruction()
 
   deleteContractor(id: number): any {
     return this.http.delete(this.url + this.uContractor + '/' + id, new RequestOptions({withCredentials: true}));

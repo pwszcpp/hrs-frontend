@@ -1,11 +1,11 @@
 <p-growl></p-growl>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
 <app-inst-register *ngIf="dataService.getInstDialogVisible()"></app-inst-register>
-<app-table-row-edit [inst]="inst" *ngIf="dataService.getDialogVisible()"></app-table-row-edit>
+<app-table-row-edit [inst]="selectedInctruction" *ngIf="dataService.getDialogVisible()"></app-table-row-edit>
 
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="instructions" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="inst" [contextMenu]="cm"> <!-- (onRowSelect)="dataService.setDialogVisible(true)"> -->
+<p-dataTable class="text-center" [value]="instructions.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedInctruction" [contextMenu]="cm"> <!-- (onRowSelect)="dataService.setDialogVisible(true)"> -->
   <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>
@@ -50,10 +50,10 @@
     </ng-template>
   </p-column> -->
 
-  <!-- <p-footer>
+  <p-footer>
     <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="refresh()"></button>
+      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="onRefresh()"></button>
       <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj szkolenie" (click)="dataService.setInstDialogVisible(true)"></button>
     </div>
-  </p-footer> -->
+  </p-footer>
 </p-dataTable>

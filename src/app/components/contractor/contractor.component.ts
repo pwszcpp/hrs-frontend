@@ -13,7 +13,7 @@ import { Contractor } from '../../classes/contractor';
 })
 export class ContractorComponent implements OnInit {
   title = 'Kontrahenci';
-  contractors: Contractor[];
+  contractors: Contractor[] = [];
   items: MenuItem[];
   selectedContractor: Contractor;
 
@@ -27,9 +27,8 @@ export class ContractorComponent implements OnInit {
     this.getContractors();
 
     this.items = [
-      {label: 'Dodaj', icon: 'fa-plus', command: (event) => this.dataService.setContractorDialogVisible(true)},
-      {label: 'Usun', icon: 'fa-close', command: (event) => this.onDelete(this.selectedContractor.id)},
-      {label: 'Odswiez', icon: 'fa-refresh', command: (event) => this.getContractors()}
+      {label: 'Edytuj', icon: 'fa-pencil', command: (event) => this.dataService.setContractorEditDialogVisible(true)},
+      {label: 'Usun', icon: 'fa-close', command: (event) => this.onDelete()}
     ];
   }
 
@@ -40,8 +39,8 @@ export class ContractorComponent implements OnInit {
     );
   }// getContractors()
 
-  onDelete(id: number): void {
-    this.dataService.deleteContractor(id).subscribe(
+  onDelete(): void {
+    this.dataService.deleteContractor(this.selectedContractor.id).subscribe(
       () => {},
       err => this.messageService.add({severity: 'error', summary: 'Usuwanie kontrahenta', detail: 'Nie udało się usunąć kontrahenta!'}),
       () => {

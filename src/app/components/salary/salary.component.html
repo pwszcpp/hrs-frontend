@@ -2,8 +2,8 @@
 
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [editable]="true" [value]="users" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]"
-  [(selection)]="selectedUsers" dataKey="id"> <!-- (onEditComplete)="onEdit($event.data)" [headerCheckboxToggleAllPages]="true"> -->
+<p-dataTable class="text-center" [value]="salaries.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]"
+  [(selection)]="selectedUsers" dataKey="id"> <!-- [editable]="true" (onEditComplete)="onEdit($event.data)" [headerCheckboxToggleAllPages]="true"> -->
 
   <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -13,7 +13,12 @@
     </ng-template>
   </p-column>
 
-  <p-column field="users_id" header="Pracownik (id)" [sortable]="true"></p-column> <!-- Pracownik -->
+  <p-column header="Pracownik (id)" [sortable]="true"> <!-- Pracownik -->
+    <ng-template let-data="rowData" pTemplate="body">
+      <span>{{data.user.username}}</span>
+    </ng-template>
+  </p-column>
+
   <!-- <p-column field="email" header="E-mail" [sortable]="true"></p-column> <! E-mail > -->
   <p-column field="employment_arrangement" header="Rodzaj zatrudnienia" [sortable]="true"></p-column>
   <p-column field="base_salary" header="Pensja" [sortable]="true"> <!-- [editable]="true"> --></p-column>

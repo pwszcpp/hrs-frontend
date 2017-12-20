@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { DataService } from '../../../services/data.service';
+import { Instruction } from '../../../classes/instruction';
 
 @Component({
   selector: 'app-inst-register',
@@ -47,7 +48,19 @@ export class InstRegisterComponent implements OnInit {
   }// onReset()
 
   onRegister(): void {
-    this.dataService.postInstruction(this.instReg.value).subscribe(
+    const body = new Instruction(
+      this.instReg.get('theme').value,
+      this.instReg.get('company').value,
+      this.instReg.get('location').value,
+      this.instReg.get('startDate').value,
+      this.instReg.get('endDate').value,
+      this.instReg.get('cost').value,
+      this.instReg.get('consent').value,
+      1,
+      this.instReg.get('no_of_seats').value
+    );
+
+    this.dataService.postInstruction(body).subscribe(
       () => {},
       err => {
         this.messageService.add({severity: 'error', summary: 'Rejestracja szkolenia', detail: 'Nie udało się zarejestrować szkolenia!'});

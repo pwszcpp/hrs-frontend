@@ -70,10 +70,10 @@
     <p-footer>
       <button type="button" pButton icon="fa-check" [disabled]="instReg.invalid" (click)="onRegister()" label="Dodaj"></button>
 
-      <button type="button" pButton (click)="onReset()" label="Resetuj" icon="fa-eraser"
+      <!-- <button type="button" pButton (click)="onReset()" label="Resetuj" icon="fa-eraser"
       [disabled]="!instReg.get('theme').value && !instReg.get('company').value && !instReg.get('location').value && !instReg.get('startDate').value &&
         !instReg.get('endDate').value && !instReg.get('cost').value && !instReg.get('consent').value && !instReg.get('no_of_seats').value">
-      </button>
+      </button> -->
 
       <button type="button" pButton icon="fa-close" (click)="dataService.setInstDialogVisible(false)" label="Anuluj"></button>
     </p-footer>

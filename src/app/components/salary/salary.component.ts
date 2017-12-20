@@ -15,8 +15,9 @@ import { Salary } from '../../classes/salary';
 })
 export class SalaryComponent implements OnInit {
   title = 'Pracownicy';
-  users: Salary[];
+  salaries: Salary[] = [];
   selectedUsers: Salary[] = [];
+  usersUsernames: string[] = [];
 
   constructor(
     private dataService: DataService,
@@ -32,7 +33,7 @@ export class SalaryComponent implements OnInit {
 
   getSalary(): void {
     this.dataService.getSalaryArray().subscribe(
-      res => this.users = res,
+      res => this.salaries = res,
       err => console.log(err)
     );
   }// getSalary()

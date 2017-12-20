@@ -12,7 +12,7 @@
       <li class="nav-item active"><a class="nav-link" routerLink="/contractors" routerLinkActive="active" *ngIf="loginService.isLoggedIn()">Kontrahenci<span class="sr-only"></span></a></li>
       <div class="container">
         <div class="dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rejestracja</a><span class="caret"></span>
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="loginService.isLoggedIn()">Rejestracja</a><span class="caret"></span>
           <ul class="dropdown-menu">
             <li><a tabindex="-1" class="bg-inverse text-white" routerLink="/register" routerLinkActive="active">Rejestracja użytkownika</a></li>
             <!-- <li><a tabindex="-1" class="bg-inverse text-white" routerLink="/inst-register" routerLinkActive="active">Rejestracja szkolenia</a></li> -->

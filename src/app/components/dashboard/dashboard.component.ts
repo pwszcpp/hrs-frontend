@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   title = 'Szkolenia';
   instructions: Instruction[] = [];
   instructionsAssign = [];
-  inst: Instruction;
+  selectedInctruction: Instruction;
   items: MenuItem[];
 
   constructor(
@@ -36,9 +36,8 @@ export class DashboardComponent implements OnInit {
     }
 
     this.items = [
-      {label: 'Dodaj', icon: 'fa-plus', command: (event) => this.dataService.setInstDialogVisible(true)},
       {label: 'Edytuj', icon: 'fa-pencil', command: (event) => this.dataService.setDialogVisible(true)},
-      {label: 'Odswież', icon: 'fa-refresh', command: (event) => { this.getInstructions(); this.getInstructionsAssign(); }},
+      {label: 'Usun', icon: 'fa-trash', command: (event) => this.onDelete()},
       // {label: 'Pobierz PDF', icon: 'fa-file-pdf-o', command: (event) => this.getPdf(this.inst)}
     ];
   }// ngOnInit()
@@ -66,20 +65,32 @@ export class DashboardComponent implements OnInit {
     return this.instructionsAssign.includes(+id);
   }// isTrue()
 
-  refresh(): void {
+  onRefresh(): void {
     this.getInstructions();
     this.getInstructionsAssign();
-  }// refresh()
+  }// onRefresh()
+
+  onDelete(): void {
+    this.dataService.deleteInstruction(this.selectedInctruction.id).subscribe(
+      () => {},
+      err => this.messageService.add({severity: 'error', summary: 'Usuwanie szkolenia', detail: 'Nie udało się usunąć szkolenia!'}),
+      () => {
+        this.messageService.add({severity: 'success', summary: 'Usuwanie szkolenia', detail: 'Usunięto szkolenie!'});
+        this.getInstructions();
+        this.getInstructionsAssign();
+      }
+    );
+  }// onDelete()
 
   changeAssign(id: number, bool: boolean): void {
     if (bool) {
       this.dataService.changeInstructionAssign(id, bool).subscribe(
         () => {},
         err => {
-          this.messageService.add({severity: 'error', summary: 'Szkolenie', detail: 'Nie udało się zapisać na szkolenie!'});
+          this.messageService.add({severity: 'error', summary: 'Zapis na szkolenie', detail: 'Nie udało się zapisać na szkolenie!'});
         },
         () => {
-          this.messageService.add({severity: 'success', summary: 'Szkolenie', detail: 'Zapisano na szkolenie!'});
+          this.messageService.add({severity: 'success', summary: 'Zapis na szkolenie', detail: 'Zapisano na szkolenie!'});
           this.getInstructionsAssign();
         }
       );
@@ -87,10 +98,10 @@ export class DashboardComponent implements OnInit {
       this.dataService.changeInstructionAssign(id, bool).subscribe(
         () => {},
         err => {
-          this.messageService.add({severity: 'error', summary: 'Szkolenie', detail: 'Nie udało się wypisać ze szkolenia!'});
+          this.messageService.add({severity: 'error', summary: 'Zapis na szkolenie', detail: 'Nie udało się wypisać ze szkolenia!'});
         },
         () => {
-          this.messageService.add({severity: 'warn', summary: 'Szkolenie', detail: 'Wypisano ze szkolenia!'});
+          this.messageService.add({severity: 'warn', summary: 'Zapis na szkolenie', detail: 'Wypisano ze szkolenia!'});
           this.getInstructionsAssign();
         }
       );

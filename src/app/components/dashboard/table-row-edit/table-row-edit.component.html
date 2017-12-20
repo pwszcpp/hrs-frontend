@@ -42,10 +42,29 @@
 
     <div class="form-group">
       <label for="cost">Koszt od osoby:</label>
-      <input class="col-xs-4 form-control" type="text" placeholder="{{inst.cost}}" id="cost" formControlName="cost">
+      <input class="col-xs-4 form-control" type="number" placeholder="{{inst.cost}}" id="cost" formControlName="cost">
       <div class="text-danger" *ngIf="dialForm.get('cost').invalid && (dialForm.get('cost').dirty || dialForm.get('cost').touched)">
           <small *ngIf="dialForm.get('cost').errors">{{getValidErrors(dialForm.get('cost'))}}</small>
         </div>
+    </div>
+
+    <div class="form-group">
+      <label for="no_of_seats">Ilosc miejsc:</label>
+      <input class="col-xs-4 form-control" type="number" placeholder="{{inst.no_of_seats}}" id="no_of_seats" formControlName="no_of_seats">
+      <div class="text-danger" *ngIf="dialForm.get('no_of_seats').invalid && (dialForm.get('no_of_seats').dirty || dialForm.get('no_of_seats').touched)">
+          <small *ngIf="dialForm.get('no_of_seats').errors">{{getValidErrors(dialForm.get('no_of_seats'))}}</small>
+        </div>
+    </div>
+
+    <div class="form-group"> <!-- Anulowano -->
+      <label for="cancelled">Anulowano</label>
+      <select class="col-xs-4-select form-control" id="cancelled" formControlName="cancelled">
+        <option value="0">Tak</option>
+        <option value="1">Nie</option>
+      </select>
+      <div class="text-danger" *ngIf="dialForm.get('cancelled').invalid && (dialForm.get('cancelled').dirty || dialForm.get('cancelled').touched)">
+        <small *ngIf="dialForm.get('cancelled').errors">{{getValidErrors(dialForm.get('cancelled'))}}</small>
+      </div>
     </div>
 
     <div class="form-group">
@@ -60,7 +79,7 @@
     </div>
 
     <p-footer>
-      <button type="button" pButton icon="fa-check" [disabled]="dialForm.invalid" (click)="onSubmit()" label="Zapisz"></button>
+      <button type="button" pButton icon="fa-check" [disabled]="dialForm.pristine || dialForm.invalid" (click)="onSubmit()" label="Zapisz"></button>
       <button type="button" pButton icon="fa-close" (click)="dataService.setDialogVisible(false)" label="Anuluj"></button>
     </p-footer>
   </form>

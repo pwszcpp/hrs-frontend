@@ -1,10 +1,11 @@
 <p-growl></p-growl>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
-<app-add-contractor *ngIf="dataService.getContractorDialogVisible()"></app-add-contractor>
+<app-add-contractor *ngIf="dataService.getContractorAddDialogVisible()"></app-add-contractor>
+<app-edit-conctractor [contractor]="selectedContractor" *ngIf="dataService.getContractorEditDialogVisible()"></app-edit-conctractor>
 
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="contractors" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedContractor" [contextMenu]="cm">
+<p-dataTable class="text-center" [value]="contractors.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedContractor" [contextMenu]="cm">
   <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>
@@ -29,7 +30,7 @@
   <p-footer>
     <div class="ui-helper-clearfix">
       <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getContractors()"></button>
-      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj kontrahenta" (click)="dataService.setContractorDialogVisible(true)"></button>
+      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj kontrahenta" (click)="dataService.setContractorAddDialogVisible(true)"></button>
     </div>
   </p-footer>
 </p-dataTable>

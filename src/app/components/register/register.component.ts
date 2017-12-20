@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { DataService } from '../../services/data.service';
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,20 +17,30 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private dataService: DataService
+    private dataService: DataService,
+    private loginService: LoginService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    if (!this.loginService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }// if
+
     this.createForms();
   }
 
   createForms() {
     this.regForm = this.fb.group({
-      name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      surname: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      // name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      // surname: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required])]
+      password: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      position: ['', Validators.compose([Validators.required])],
+      taxOffice: ['', Validators.compose([Validators.required])],
+      employmentStartDate: ['', Validators.compose([Validators.required])]
     });
   }
 

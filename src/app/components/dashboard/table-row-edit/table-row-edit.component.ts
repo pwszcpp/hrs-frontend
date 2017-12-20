@@ -25,13 +25,15 @@ export class TableRowEditComponent implements OnInit {
 
   createForms(): void {
     this.dialForm = this.fb.group({
-      theme: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      company: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      location: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      cost: ['', Validators.compose([Validators.required, Validators.min(0)])],
-      consent: ['', Validators.required],
+      theme: [''],
+      company: [''],
+      location: [''],
+      startDate: [''],
+      endDate: [''],
+      cost: [''],
+      consent: [''],
+      cancelled: ['', Validators.required],
+      no_of_seats: ['']
     });
   }// createForms()
 
@@ -44,16 +46,15 @@ export class TableRowEditComponent implements OnInit {
 
   onSubmit(): void {
     const body = new Instruction(
-      this.dialForm.get('theme').value,
-      this.dialForm.get('company').value,
-      this.dialForm.get('location').value,
-      this.dialForm.get('startDate').value,
-      this.dialForm.get('endDate').value,
-      this.dialForm.get('cost').value,
-      this.dialForm.get('consent').value,
-      this.inst.cancelled,
-      this.inst.no_of_seats,
-      this.inst.id,
+      (this.dialForm.get('theme').value !== '' ? this.dialForm.get('theme').value : this.inst.theme),
+      (this.dialForm.get('company').value !== '' ? this.dialForm.get('company').value : this.inst.company),
+      (this.dialForm.get('location').value !== '' ? this.dialForm.get('location').value : this.inst.location),
+      (this.dialForm.get('startDate').value !== '' ? this.dialForm.get('startDate').value : this.inst.startDate),
+      (this.dialForm.get('endDate').value !== '' ? this.dialForm.get('endDate').value : this.inst.endDate),
+      (this.dialForm.get('cost').value !== '' ? this.dialForm.get('cost').value : this.inst.cost),
+      (this.dialForm.get('consent').value !== '' ? this.dialForm.get('consent').value : this.inst.consent),
+      this.dialForm.get('cancelled').value,
+      (this.dialForm.get('no_of_seats').value !== '' ? this.dialForm.get('no_of_seats').value : this.inst.no_of_seats),
     );
 
     this.dataService.updateInstruction(this.inst.id, body).subscribe(
