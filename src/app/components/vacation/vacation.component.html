@@ -1,7 +1,7 @@
 <p-growl></p-growl>
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="vacations.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]">
+<p-dataTable class="text-center" [value]="vacations" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]">
   <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>
@@ -20,20 +20,24 @@
 
   <p-column header="Status">
     <ng-template let-data="rowData" pTemplate="body">
+      <div *ngIf="!adminMode">
         <span *ngIf="data.agreed" style="color: green">{{getAccept(data.agreed)}}</span>
-        <span *ngIf="!data.agreed && data.disagree_reason != null" style="color: red" pTooltip="Powód: {{data.disagree_reason}}">{{getAccept(data.agreed)}}</span>
-        <span *ngIf="data.disagree_reason == null" style="color: grey;">Czeka na rozpatrzenie</span>
+        <span *ngIf="!data.agreed && data.disagree_reason != ''" style="color: red" pTooltip="Powód: {{data.disagree_reason}}">{{getAccept(data.agreed)}}</span>
+        <span *ngIf="!data.agreed && data.disagree_reason == ''" style="color: grey;">Czeka na rozpatrzenie</span>
+      </div>
 
-        <!-- <button type="button" class="ui-button-success" pButton icon="fa-check" label="Zatwierdź" *ngIf="getAccept(data.agreed).includes('Cz')" (click)="setStatus(data.id, data, true)"></button>
-        <button type="button" class="ui-button-danger" pButton icon="fa-times" label="Odrzuć" *ngIf="getAccept(data.agreed).includes('Cz')" (click)="setStatus(data.id, data, false)"></button> -->
+      <div *ngIf="adminMode">
+        <button type="button" class="ui-button-success" pButton icon="fa-check" label="Zatwierdź" *ngIf="getAccept(data.disagree_reason).includes('')" (click)="setStatus(data, true)"></button>
+        <button type="button" class="ui-button-danger" pButton icon="fa-times" label="Odrzuć" *ngIf="getAccept(data.disagree_reason).includes('')" (click)="setStatus(data, false)"></button>
+      </div>
     </ng-template>
   </p-column>
 
   <p-footer>
     <div class="ui-helper-clearfix">
       <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getVacations()"></button>
-      <!-- <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode && admin.includes(user)" (click)="setAdminMode(true)"></button>
-      <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode  && admin.includes(user)" (click)="setAdminMode(false)"></button> -->
+      <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode" (click)="setAdminMode(true)"></button>
+      <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode" (click)="setAdminMode(false)"></button>
 
       <p-calendar [(ngModel)]="date" [locale]="pl" selectionMode="range" dateFormat="yy-mm-dd" showButtonBar="true"
         [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" [minDate]="minDate" readonlyInput="true" pTooltip="Dodaj urlop" placeholder="Rozpocznij urlop">
@@ -44,3 +48,13 @@
     </div>
   </p-footer>
 </p-dataTable>
+
+<p-dialog header="Odrzucenie urlopu" [(visible)]="dialog" modal="modal" [responsive]="true" (onHide)="dialog = false">
+  <label for="disagree_reason">Powód</label>
+  <input #reason class="col-xs-4 form-control" type="text" placeholder="Powód odrzucenia urlopu" id="disagree_reason">
+
+  <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="createWithDisagreeReason(reason.value)" label="Wyslij"></button>
+      <button type="button" pButton icon="fa-close" (click)="dialog = false" label="Anuluj"></button>
+    </p-footer>
+</p-dialog>

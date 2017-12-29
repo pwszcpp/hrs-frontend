@@ -18,19 +18,29 @@ export class DataService {
   uVacation = '/leave';
   uSalary = '/salary';
   uContractor = '/contractors';
-  admin: number[] = [1];
+  userID: number;
+  reload: boolean;
 
   instruction: Instruction;
   dialog: boolean;
   instDialog: boolean;
   contractorAddDialog: boolean;
   contractorEditDialog: boolean;
+  salaryAddDialog: boolean;
 
   constructor(
     private httpClient: HttpClient,
     private http: Http,
     public messageService: MessageService
   ) {}
+
+  setReload(value: boolean): void {
+    this.reload = value;
+  }// setReload()
+
+  getReload(): boolean {
+    return this.reload;
+  }// setReload()
 
   setInstruction(value: Instruction) {
     this.instruction = value;
@@ -72,9 +82,22 @@ export class DataService {
     this.contractorEditDialog = value;
   }// setContractorEditDialogVisible()
 
+  getSalaryAddDialogVisible(value: boolean): boolean {
+    return this.salaryAddDialog;
+  }// getSalaryAddDialogVisible()
+
+  setSalaryAddDialogVisible(value: boolean): void {
+    this.salaryAddDialog = value;
+  }// setSalaryAddDialogVisible()
+
   convertDate(date: Date): string {
-    return date.toLocaleDateString().slice(6, 10) + '-' +
+    if (date.toLocaleDateString()[1] !== '.') {
+      return date.toLocaleDateString().slice(6, 10) + '-' +
       date.toLocaleDateString().slice(3, 5) + '-' +  date.toLocaleDateString().slice(0, 2);
+    } else {
+      return date.toLocaleDateString().slice(5, 9) + '-' +
+      date.toLocaleDateString().slice(2, 4) + '-' + '0' + date.toLocaleDateString().slice(0, 1);
+    }
   }// convertDate()
 
   // -------------------------------------------- INTEGRACJA Z BACKENDEM --------------------------------------------
@@ -111,6 +134,10 @@ export class DataService {
     return this.http.put(this.url + this.uContractor + '/' + id, body, new RequestOptions({withCredentials: true}));
   }// updateContractor()
 
+  updateVacation(id: number, body: Vacation): any {
+    return this.http.put(this.url + this.uVacation + '/' + id, body, new RequestOptions({withCredentials: true}));
+  }// updateVacation()
+
   deleteUser(id: number): any {
     return this.http.delete(this.url + this.uUsers + '/' + id, new RequestOptions({withCredentials: true}));
   }// deleteContractor()
@@ -143,6 +170,10 @@ export class DataService {
     return this.httpClient.get<Vacation[]>(this.url + this.uVacation, {withCredentials: true});
   }// getVacationsArray()
 
+  getLoggedUserVacationsArray(): Observable<Vacation[]> {
+    return this.httpClient.get<Vacation[]>(this.url + this.uVacation + '/my', {withCredentials: true});
+  }// getLoggedUserVacationsArray()
+
   getSalaryArray(): Observable<Salary[]> {
     return this.httpClient.get<Salary[]>(this.url + this.uSalary, {withCredentials: true});
   }// getSalaryArray()
@@ -151,8 +182,15 @@ export class DataService {
     return this.httpClient.get<Contractor[]>(this.url + this.uContractor, {withCredentials: true});
   }// getContractorArray()
 
-  getUserID(): Observable<number> {
-    return this.httpClient.get<number>(this.url + this.uUsers + '/getID', {withCredentials: true});
+  setUserID(): void {
+    this.http.get(this.url + this.uUsers + '/getID', {withCredentials: true}).subscribe(
+      res => this.userID = res.json(),
+      err => console.log(err)
+    );
+  }// getUserID()
+
+  getUserID(): number {
+    return this.userID;
   }// getUserID()
 
   changeInstructionAssign(id: number, type: boolean): any {
@@ -162,6 +200,10 @@ export class DataService {
       return this.http.delete(this.url + this.uInst + '/' + id + '/enroll', new RequestOptions({withCredentials: true}));
     }// if
   }// postInstructionAssign()
+
+  getUsersArray(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.url + this.uUsers, {withCredentials: true});
+  }// getUsersArray()
 
   // -------------------------------------------- DEBUG --------------------------------------------
 

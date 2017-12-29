@@ -59,7 +59,12 @@ export class EditConctractorComponent implements OnInit {
     this.dataService.updateContractor(this.contractor.id, body).subscribe(
       () => {},
       err => this.messageService.add({severity: 'error', summary: 'Edycja kontrahenta', detail: 'Nie udało się edytować kontrahenta!'}),
-      () => this.messageService.add({severity: 'success', summary: 'Edycja kontrahenta', detail: 'Edytowano kontrahenta!'})
+      () => {
+        this.messageService.add({severity: 'success', summary: 'Edycja kontrahenta', detail: 'Edytowano kontrahenta!'});
+        this.dataService.setContractorEditDialogVisible(false);
+        this.editForm.reset();
+        this.dataService.setReload(true);
+      }
     );
   }// onSubmit()
 

@@ -5,7 +5,7 @@
 
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="instructions.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedInctruction" [contextMenu]="cm"> <!-- (onRowSelect)="dataService.setDialogVisible(true)"> -->
+<p-dataTable class="text-center" [value]="instructions" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedInctruction" [contextMenu]="cm">
   <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>
@@ -34,13 +34,14 @@
 
   <p-column header="Uczestnictwo" [sortable]="true"> <!-- Uczestnictwo -->
     <ng-template let-data="rowData" pTemplate="body">
-      <div *ngIf="data.no_of_seats > 0">
-        <button pButton type="button" *ngIf="!isAssigned(data.id)" label="Zapisz się" class="ui-button-success" (click)="changeAssign(data.id, true)"></button>
-        <button pButton type="button" *ngIf="isAssigned(data.id)" label="Wypisz się" class="ui-button-danger" (click)="changeAssign(data.id, false)"></button>
-      </div>
-      <div *ngIf="data.no_of_seats <= 0">
-        <span style="color: grey;">Brak wolnych miejsc</span>
-      </div>
+    <div *ngIf="!data.cancelled">
+      <button pButton type="button" *ngIf="!isAssigned(data.id) && data.no_of_seats > 0" label="Zapisz się" class="ui-button-success" (click)="changeAssign(data.id, true)"></button>
+      <button pButton type="button" *ngIf="isAssigned(data.id) && data.no_of_seats >= 0" label="Wypisz się" class="ui-button-danger" (click)="changeAssign(data.id, false)"></button>
+      <span style="color: grey;" *ngIf="!isAssigned(data.id) && data.no_of_seats <= 0">Brak miejsc</span>
+    </div>
+    <div *ngIf="data.cancelled">
+      <span style="color: red;">ANULOWANO</span>
+    </div>
     </ng-template>
   </p-column>
 

@@ -1,9 +1,10 @@
 <p-growl></p-growl>
+<app-add-salary *ngIf="dataService.getSalaryAddDialogVisible()"></app-add-salary>
 
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="salaries.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]"
-  [(selection)]="selectedUsers" dataKey="id"> <!-- [editable]="true" (onEditComplete)="onEdit($event.data)" [headerCheckboxToggleAllPages]="true"> -->
+<p-dataTable class="text-center" [value]="salaries" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]"
+  [(selection)]="selectedSalaries" dataKey="id" [editable]="true" (onEditComplete)="onEdit($event.data)" [headerCheckboxToggleAllPages]="true">
 
   <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
@@ -20,16 +21,17 @@
   </p-column>
 
   <!-- <p-column field="email" header="E-mail" [sortable]="true"></p-column> <! E-mail > -->
-  <p-column field="employment_arrangement" header="Rodzaj zatrudnienia" [sortable]="true"></p-column>
-  <p-column field="base_salary" header="Pensja" [sortable]="true"> <!-- [editable]="true"> --></p-column>
-  <p-column field="seniority" header="Staż pracy" [sortable]="true"></p-column>
-  <p-column field="salary_supplement" header="Dodatek" [sortable]="true"> <!-- [editable]="true"> --></p-column>
-  <p-column field="employment_status" header="Status" [sortable]="true"></p-column>
+  <p-column field="employment_arrangement" header="Rodzaj zatrudnienia" [sortable]="true" [editable]="true"></p-column>
+  <p-column field="base_salary" header="Pensja" [sortable]="true" [editable]="true"></p-column>
+  <p-column field="seniority" header="Staż pracy" [sortable]="true" [editable]="true"></p-column>
+  <p-column field="salary_supplement" header="Podwyżka" [sortable]="true" [editable]="true"></p-column>
+  <p-column field="employment_status" header="Status" [sortable]="true" [editable]="true"></p-column>
 
   <p-footer>
     <div class="ui-helper-clearfix">
       <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getSalary()"></button>
-      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj wynagrodzenie"></button>
+      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj wynagrodzenie" (click)="dataService.setSalaryAddDialogVisible(true)"></button>
+      <button type="button" pButton icon="fa-close" label="Usun" style="float: left;" pTooltip="Usun wiersz" (click)="onDelete()"></button>
       <!-- <button type="button" pButton icon="fa-file-pdf-o" style="float: left;" pTooltip="Pobierz PDF" (click)="getPdf()"></button> -->
     </div>
   </p-footer>

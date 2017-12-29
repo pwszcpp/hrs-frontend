@@ -5,7 +5,7 @@
 
 <h1 class="nazwa">{{title}}</h1>
 
-<p-dataTable class="text-center" [value]="contractors.content" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedContractor" [contextMenu]="cm">
+<p-dataTable class="text-center" [value]="contractors" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedContractor" [contextMenu]="cm">
   <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>

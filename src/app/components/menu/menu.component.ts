@@ -14,8 +14,11 @@ export class MenuComponent implements OnInit {
     public dataService: DataService,
     public loginService: LoginService
   ) {
-  }
+  }// constructor()
 
   ngOnInit() {
-  }
+    if (this.loginService.isLoggedIn()) {
+      this.dataService.setUserID();
+    }// if
+  }// ngOnInit()
 }

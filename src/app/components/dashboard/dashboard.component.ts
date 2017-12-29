@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { MenuItem } from 'primeng/primeng';
@@ -26,8 +26,6 @@ export class DashboardComponent implements OnInit {
     private loginService: LoginService,
     private messageService: MessageService
   ) {
-    this.getInstructions();
-    this.getInstructionsAssign();
   }// constructor()
 
   ngOnInit(): void {
@@ -35,12 +33,23 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
+    this.getInstructions();
+    this.getInstructionsAssign();
+
     this.items = [
       {label: 'Edytuj', icon: 'fa-pencil', command: (event) => this.dataService.setDialogVisible(true)},
       {label: 'Usun', icon: 'fa-trash', command: (event) => this.onDelete()},
       // {label: 'Pobierz PDF', icon: 'fa-file-pdf-o', command: (event) => this.getPdf(this.inst)}
     ];
   }// ngOnInit()
+
+  ngDoCheck() {
+    if (this.dataService.getReload()) {
+      this.getInstructions();
+      this.getInstructionsAssign();
+      this.dataService.setReload(false);
+    }// if
+  }
 
   getInstructions(): void {
     this.dataService.getInstructionsArray().subscribe(

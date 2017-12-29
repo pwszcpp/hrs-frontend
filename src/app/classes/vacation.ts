@@ -1,6 +1,5 @@
 export class Vacation {
   constructor (
-    public users_id: number,
     public leave_dimension: number,
     public overdue_leave: number,
     public days_used: number,
@@ -9,6 +8,8 @@ export class Vacation {
     public end_date: string,
     public agreed: boolean,
     public disagree_reason: string,
-    public id?: number,
+    public users_id?: number,
+    public user?: any,
+    public id?: number
   ) {}
 }

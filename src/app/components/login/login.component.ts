@@ -37,8 +37,9 @@ export class LoginComponent implements OnInit {
   }
 
   getValidErrors(value: FormControl): string {
-    return value.errors.required ?
-    'Wypełnienie pola jest wymagane!' : value.errors.email ? 'Niepoprawna forma e-mail!' : '';
+    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
+    value.errors.email ? 'Niepoprawna forma e-mail!' :
+    '';
   }
 
   onReset(): void {

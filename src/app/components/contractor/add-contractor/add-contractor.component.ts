@@ -49,6 +49,7 @@ export class AddContractorComponent implements OnInit {
         this.messageService.add({severity: 'success', summary: 'Dodawanie kontrahenta', detail: 'Dodano kontrahenta!'});
         this.conReg.reset();
         this.dataService.setContractorAddDialogVisible(false);
+        this.dataService.setReload(true);
       }
     );
   }// onRegister()

@@ -59,8 +59,8 @@
     <div class="form-group"> <!-- Anulowano -->
       <label for="cancelled">Anulowano</label>
       <select class="col-xs-4-select form-control" id="cancelled" formControlName="cancelled">
-        <option value="0">Tak</option>
-        <option value="1">Nie</option>
+        <option value="true">Tak</option>
+        <option value="false">Nie</option>
       </select>
       <div class="text-danger" *ngIf="dialForm.get('cancelled').invalid && (dialForm.get('cancelled').dirty || dialForm.get('cancelled').touched)">
         <small *ngIf="dialForm.get('cancelled').errors">{{getValidErrors(dialForm.get('cancelled'))}}</small>

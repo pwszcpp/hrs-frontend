@@ -36,17 +36,19 @@ export class RegisterComponent implements OnInit {
       // surname: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       address: ['', Validators.compose([Validators.required])],
       position: ['', Validators.compose([Validators.required])],
       taxOffice: ['', Validators.compose([Validators.required])],
-      employmentStartDate: ['', Validators.compose([Validators.required])]
+      employmentStartDate: ['', Validators.required]
     });
   }
 
   getValidErrors(value: FormControl) {
-    return value.errors.required ? 'Wypełnienie pola jest wymagane!' : value.errors.email ?
-    'Niepoprawna forma e-mail!' : value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength : '';
+    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
+    value.errors.email ? 'Niepoprawna forma e-mail!' :
+    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
+    '';
   }
 
   onReset(): void {

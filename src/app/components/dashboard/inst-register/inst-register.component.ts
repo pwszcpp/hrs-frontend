@@ -68,7 +68,8 @@ export class InstRegisterComponent implements OnInit {
       () => {
         this.messageService.add({severity: 'success', summary: 'Rejestracja szkolenia', detail: 'Zarejestrowano szkolenie!'});
         this.onReset();
-        this.dataService.setDialogVisible(false);
+        this.dataService.setInstDialogVisible(false);
+        this.dataService.setReload(true);
       }
     );
   }// onRegister

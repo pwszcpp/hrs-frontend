@@ -35,6 +35,7 @@ import { SalaryComponent } from './components/salary/salary.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
 import { AddContractorComponent } from './components/contractor/add-contractor/add-contractor.component';
 import { EditConctractorComponent } from './components/contractor/edit-conctractor/edit-conctractor.component';
+import { AddSalaryComponent } from './components/salary/add-salary/add-salary.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
     SalaryComponent,
     ContractorComponent,
     AddContractorComponent,
-    EditConctractorComponent
+    EditConctractorComponent,
+    AddSalaryComponent
   ],
   imports: [
     RouterModule.forRoot(

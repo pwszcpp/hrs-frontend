@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 
@@ -20,7 +20,9 @@ export class VacationComponent implements OnInit {
   minDate = new Date();
   maxDate = new Date();
   pl: any;
-  userID: number;
+  adminMode: boolean;
+  dialog: boolean;
+  selectedVacation: Vacation;
 
   constructor(
     private router: Router,
@@ -37,18 +39,40 @@ export class VacationComponent implements OnInit {
       this.router.navigate(['/login']);
     }// if
 
+    this.adminMode = false;
+    this.dialog = false;
     this.getVacations();
-    this.dataService.getUserID().subscribe(
-      res => this.userID = res,
-      err => console.log(err)
-    );
   }// ngOnInit()
 
+  ngOnChanges() {
+    if (this.dataService.getReload()) {
+      this.getVacations();
+      this.dataService.setReload(false);
+    }// if
+  }
+
   getVacations(): void {
-    this.dataService.getVacationsArray().subscribe(
-      res => this.vacations = res,
-      err => console.log(err)
-    );
+    if (this.adminMode) {
+      this.dataService.getVacationsArray().subscribe(
+        res => this.vacations = res,
+        err => console.log(err),
+        () => {
+          const temp = [];
+
+          for (let i = 0; i < this.vacations.length; i++) {
+            if (this.vacations[i].disagree_reason === '' && this.vacations[i].agreed === false) {
+              temp.push(this.vacations[i]);
+            }// if
+          }// for
+          this.vacations = temp;
+        }
+      );
+    }else {
+      this.dataService.getLoggedUserVacationsArray().subscribe(
+        res => this.vacations = res,
+        err => console.log(err)
+      );
+    }// if
   }// getVacations()
 
   setPolishCalendar(): void {
@@ -71,16 +95,17 @@ export class VacationComponent implements OnInit {
       this.vacations[i].end_date === this.dataService.convertDate(this.date[1])) {
         return true;
       }// if
+      return true;
     }// for
 
     return false;
   }// isInArray()
 
   onCreate(): void {
-    if (this.date != null && this.date[0] != null && this.date[1] != null && !this.isInArray()) {
+    this.isInArray();
+    if (this.date != null && this.date[0] != null && this.date[1] != null) { // && !this.isInArray()) {
       const today = new Date();
       const body = new Vacation(
-        this.userID,
         26,
         13,
         7,
@@ -88,8 +113,7 @@ export class VacationComponent implements OnInit {
         this.dataService.convertDate(this.date[0]),
         this.dataService.convertDate(this.date[1]),
         false,
-        null,
-        null,
+        ''
       );
 
       this.dataService.postVacation(body).subscribe(
@@ -112,25 +136,45 @@ export class VacationComponent implements OnInit {
     return val ? 'Zaakceptowano' : val == null ? 'Czeka na rozpatrzenie' : 'Nie zaakceptowano';
   }// getAccept()
 
-  /* setAdminMode(value: boolean): void {
+  setAdminMode(value: boolean): void {
     this.adminMode = value;
-    this.vacations = this.getAdminModeArray(value);
+    this.getVacations();
   }// setAdminMode()
 
-  setStatus(id: number, vacation: Vacation, value: boolean): void {
-    if (vacation.userId !== this.user) {
-      const body: Vacation = vacation;
-      body.accept = value;
+  setStatus(data: Vacation, value: boolean): void {
+    const body = data;
+    body.agreed = value;
+    body.users_id = body.user.id;
 
-      this.dataService.putIntoServer(id, body, 'vacation').subscribe(
+    if (value) {
+      this.dataService.updateVacation(body.id, body).subscribe(
         () => {},
-        err => console.log(err),
+        err => this.messageService.add({severity: 'error', summary: 'Edycja urlopu', detail: 'Nie udało się edytować urlopu!'}),
         () => {
-          this.getVacations();
+          this.messageService.add({severity: 'success', summary: 'Edycja urlopu', detail: 'Edytowano urlop!'});
+          this.dataService.setReload(true);
         }
       );
     } else {
-      this.messageService.add({severity: 'warn', summary: 'Zmiana statusu urlopu', detail: 'Nie możesz zatwierdzać własnych urlopów!'});
-    }
-  }// setStatus() */
+      this.dialog = true;
+      this.selectedVacation = data;
+    }// if
+  }// setStatus()
+
+  createWithDisagreeReason(reason: string): void {
+    const body = this.selectedVacation;
+    body.agreed = false;
+    body.disagree_reason = reason;
+    body.users_id = body.user.id;
+
+    this.dataService.updateVacation(body.id, body).subscribe(
+      () => {},
+      err => this.messageService.add({severity: 'error', summary: 'Edycja urlopu', detail: 'Nie udało się edytować urlopu!'}),
+      () => {
+        this.messageService.add({severity: 'success', summary: 'Edycja urlopu', detail: 'Edytowano urlop!'});
+        this.dialog = false;
+        this.dataService.setReload(true);
+      }
+    );
+  }// createWithDisagreeReason()
 }

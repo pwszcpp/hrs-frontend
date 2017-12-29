@@ -30,16 +30,15 @@ export class TableRowEditComponent implements OnInit {
       location: [''],
       startDate: [''],
       endDate: [''],
-      cost: [''],
+      cost: ['', Validators.min(0)],
       consent: [''],
-      cancelled: ['', Validators.required],
+      cancelled: [''],
       no_of_seats: ['']
     });
   }// createForms()
 
-  getValidErrors(value: FormControl): string {
-    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
-    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
+  getValidErrors(value: FormControl): any {
+    return value.errors.required ? 'To pole jest wymagane!' :
     value.errors.min ? 'Liczba musi być większa niż 0!' :
     '';
   }// getValidErrors()
@@ -53,7 +52,7 @@ export class TableRowEditComponent implements OnInit {
       (this.dialForm.get('endDate').value !== '' ? this.dialForm.get('endDate').value : this.inst.endDate),
       (this.dialForm.get('cost').value !== '' ? this.dialForm.get('cost').value : this.inst.cost),
       (this.dialForm.get('consent').value !== '' ? this.dialForm.get('consent').value : this.inst.consent),
-      this.dialForm.get('cancelled').value,
+      (this.dialForm.get('cancelled').value !== '' ? this.dialForm.get('cancelled').value : this.inst.cancelled),
       (this.dialForm.get('no_of_seats').value !== '' ? this.dialForm.get('no_of_seats').value : this.inst.no_of_seats),
     );
 
@@ -64,6 +63,7 @@ export class TableRowEditComponent implements OnInit {
         this.dialForm.reset();
         this.messageService.add({severity: 'success', summary: 'Edycja szkolenia', detail: 'Pomyslnie edytowano szkolenie!'});
         this.dataService.setDialogVisible(false);
+        this.dataService.setReload(true);
       },
     );
   }// onSubmit()

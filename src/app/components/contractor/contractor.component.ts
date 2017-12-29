@@ -1,5 +1,5 @@
 import { MenuItem } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { DataService } from '../../services/data.service';
 import { MessageService } from 'primeng/components/common/messageservice';
@@ -31,6 +31,13 @@ export class ContractorComponent implements OnInit {
       {label: 'Usun', icon: 'fa-close', command: (event) => this.onDelete()}
     ];
   }
+
+  ngDoCheck() {
+    if (this.dataService.getReload()) {
+      this.getContractors();
+      this.dataService.setReload(false);
+    }// if
+  }// ()
 
   getContractors(): void {
     this.dataService.getContractorArray().subscribe(
