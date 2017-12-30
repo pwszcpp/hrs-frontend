@@ -22,13 +22,13 @@
     <ng-template let-data="rowData" pTemplate="body">
       <div *ngIf="!adminMode">
         <span *ngIf="data.agreed" style="color: green">{{getAccept(data.agreed)}}</span>
-        <span *ngIf="!data.agreed && data.disagree_reason != ''" style="color: red" pTooltip="Powód: {{data.disagree_reason}}">{{getAccept(data.agreed)}}</span>
+        <span *ngIf="!data.agreed && data.disagree_reason != ''" style="color: red" pTooltip="Powód: {{data.disagree_reason}}" tooltipPosition="left">{{getAccept(data.agreed)}}</span>
         <span *ngIf="!data.agreed && data.disagree_reason == ''" style="color: grey;">Czeka na rozpatrzenie</span>
       </div>
 
       <div *ngIf="adminMode">
         <button type="button" class="ui-button-success" pButton icon="fa-check" label="Zatwierdź" *ngIf="getAccept(data.disagree_reason).includes('')" (click)="setStatus(data, true)"></button>
-        <button type="button" class="ui-button-danger" pButton icon="fa-times" label="Odrzuć" *ngIf="getAccept(data.disagree_reason).includes('')" (click)="setStatus(data, false)"></button>
+        <button type="button" class="ui-button-danger" pButton icon="fa-times" label="Odrzuć" *ngIf="getAccept(data.disagree_reason).includes('')" (click)="dialog = true && selectedVacation = data"></button>
       </div>
     </ng-template>
   </p-column>
@@ -54,7 +54,7 @@
   <input #reason class="col-xs-4 form-control" type="text" placeholder="Powód odrzucenia urlopu" id="disagree_reason">
 
   <p-footer>
-      <button type="button" pButton icon="fa-check" (click)="createWithDisagreeReason(reason.value)" label="Wyslij"></button>
+      <button type="button" pButton icon="fa-check" (click)="setStatus(selectedVacation, false, reason.value)" label="Wyslij"></button>
       <button type="button" pButton icon="fa-close" (click)="dialog = false" label="Anuluj"></button>
     </p-footer>
 </p-dialog>

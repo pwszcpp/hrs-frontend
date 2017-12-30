@@ -46,8 +46,7 @@ export class AddSalaryComponent implements OnInit {
   getUsers(): void {
     this.dataService.getUsersArray().subscribe(
       res => this.users = res,
-      err => console.log(err),
-      () => {}
+      err => console.log(err)
     );
   }// getUsers()
 

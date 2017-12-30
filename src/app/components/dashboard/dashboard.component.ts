@@ -13,7 +13,7 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./dashboard.component.css'],
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, DoCheck {
   title = 'Szkolenia';
   instructions: Instruction[] = [];
   instructionsAssign = [];

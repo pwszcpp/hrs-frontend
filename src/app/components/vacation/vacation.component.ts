@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 
@@ -13,7 +13,7 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./vacation.component.css'],
 })
 
-export class VacationComponent implements OnInit {
+export class VacationComponent implements OnInit, DoCheck {
   title = 'Urlopy';
   vacations: Vacation[] = [];
   date: Date[];
@@ -44,7 +44,7 @@ export class VacationComponent implements OnInit {
     this.getVacations();
   }// ngOnInit()
 
-  ngOnChanges() {
+  ngDoCheck() {
     if (this.dataService.getReload()) {
       this.getVacations();
       this.dataService.setReload(false);
@@ -95,7 +95,6 @@ export class VacationComponent implements OnInit {
       this.vacations[i].end_date === this.dataService.convertDate(this.date[1])) {
         return true;
       }// if
-      return true;
     }// for
 
     return false;
@@ -103,7 +102,7 @@ export class VacationComponent implements OnInit {
 
   onCreate(): void {
     this.isInArray();
-    if (this.date != null && this.date[0] != null && this.date[1] != null) { // && !this.isInArray()) {
+    if (this.date != null && this.date[0] != null && this.date[1] != null && !this.isInArray()) {
       const today = new Date();
       const body = new Vacation(
         26,
@@ -141,7 +140,7 @@ export class VacationComponent implements OnInit {
     this.getVacations();
   }// setAdminMode()
 
-  setStatus(data: Vacation, value: boolean): void {
+  setStatus(data: Vacation, value: boolean, reason?: string): void {
     const body = data;
     body.agreed = value;
     body.users_id = body.user.id;
@@ -156,25 +155,18 @@ export class VacationComponent implements OnInit {
         }
       );
     } else {
-      this.dialog = true;
-      this.selectedVacation = data;
+      body.disagree_reason = reason;
+
+      this.dataService.updateVacation(body.id, body).subscribe(
+        () => {},
+        err => this.messageService.add({severity: 'error', summary: 'Edycja urlopu', detail: 'Nie udało się edytować urlopu!'}),
+        () => {
+          this.messageService.add({severity: 'success', summary: 'Edycja urlopu', detail: 'Edytowano urlop!'});
+          this.dialog = false;
+          this.dataService.setReload(true);
+          this.selectedVacation = null;
+        }
+      );
     }// if
   }// setStatus()
-
-  createWithDisagreeReason(reason: string): void {
-    const body = this.selectedVacation;
-    body.agreed = false;
-    body.disagree_reason = reason;
-    body.users_id = body.user.id;
-
-    this.dataService.updateVacation(body.id, body).subscribe(
-      () => {},
-      err => this.messageService.add({severity: 'error', summary: 'Edycja urlopu', detail: 'Nie udało się edytować urlopu!'}),
-      () => {
-        this.messageService.add({severity: 'success', summary: 'Edycja urlopu', detail: 'Edytowano urlop!'});
-        this.dialog = false;
-        this.dataService.setReload(true);
-      }
-    );
-  }// createWithDisagreeReason()
 }

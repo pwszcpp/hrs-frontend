@@ -13,7 +13,7 @@ import { Salary } from '../../classes/salary';
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css']
 })
-export class SalaryComponent implements OnInit {
+export class SalaryComponent implements OnInit, DoCheck {
   title = 'Pensje';
   salaries: Salary[] = [];
   selectedSalaries: Salary[] = [];

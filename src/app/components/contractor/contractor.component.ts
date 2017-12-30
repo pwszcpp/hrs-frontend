@@ -11,7 +11,7 @@ import { Contractor } from '../../classes/contractor';
   templateUrl: './contractor.component.html',
   styleUrls: ['./contractor.component.css']
 })
-export class ContractorComponent implements OnInit {
+export class ContractorComponent implements OnInit, DoCheck {
   title = 'Kontrahenci';
   contractors: Contractor[] = [];
   items: MenuItem[];
