@@ -100,6 +100,20 @@ export class DataService {
     }
   }// convertDate()
 
+  setPolishCalendar(): any {
+    return {
+      firstDayOfWeek: 1,
+      dayNames: [ 'Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota' ],
+      dayNamesShort: [ 'Nd', 'Pon', 'Wt', 'Sr', 'Czw', 'Pt', 'Sb' ],
+      dayNamesMin: [ 'N', 'P', 'W', 'S', 'C', 'P', 'S' ],
+      monthNames: [ 'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
+        'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień' ],
+      monthNamesShort: [ 'Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Czer', 'Lip', 'Sier', 'Wrz', 'Paz', 'Lis', 'Gru' ],
+      today: 'Dzisiaj',
+      clear: 'Wyczyść'
+    };
+  }// setPolishCalendar()
+
   // -------------------------------------------- INTEGRACJA Z BACKENDEM --------------------------------------------
   postUser(body: User): any {
     return this.http.post(this.url + this.uUsers, body, new RequestOptions({withCredentials: true}));

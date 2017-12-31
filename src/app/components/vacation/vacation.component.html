@@ -14,7 +14,7 @@
     </ng-template>
   </p-column>
 
-  <p-column field="create_date" header="Stworzono" [sortable]="true"></p-column>
+  <p-column field="create_date" header="Utworzono" [sortable]="true"></p-column>
   <p-column field="start_date" header="Od" [sortable]="true"></p-column>
   <p-column field="end_date" header="Do" [sortable]="true"></p-column>
 
@@ -35,7 +35,7 @@
 
   <p-footer>
     <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getVacations()"></button>
+      <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="getVacations()"></button>
       <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode" (click)="setAdminMode(true)"></button>
       <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode" (click)="setAdminMode(false)"></button>
 
@@ -54,7 +54,7 @@
   <input #reason class="col-xs-4 form-control" type="text" placeholder="Powód odrzucenia urlopu" id="disagree_reason">
 
   <p-footer>
-      <button type="button" pButton icon="fa-check" (click)="setStatus(selectedVacation, false, reason.value)" label="Wyslij"></button>
+      <button type="button" pButton icon="fa-check" (click)="setStatus(selectedVacation, false, reason.value)" label="Wyślij"></button>
       <button type="button" pButton icon="fa-close" (click)="dialog = false" label="Anuluj"></button>
     </p-footer>
 </p-dialog>

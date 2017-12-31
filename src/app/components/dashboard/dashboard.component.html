@@ -6,7 +6,7 @@
 <h1 class="nazwa">{{title}}</h1>
 
 <p-dataTable class="text-center" [value]="instructions" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" selectionMode="single" [(selection)]="selectedInctruction" [contextMenu]="cm">
-  <p-column header="Lp." [sortable]="true"> <!-- Lp. -->
+  <p-column header="Lp."> <!-- Lp. -->
     <ng-template let-i="rowIndex" pTemplate="body">
       <span>{{i + 1}}</span>
     </ng-template>
@@ -16,23 +16,19 @@
 
   <p-column field="company" header="Firma prowadząca" [sortable]="true"></p-column> <!-- Nazwa firmy -->
   <p-column field="location" header="Miejsce szkolenia" [sortable]="true"></p-column> <!-- Lokacja -->
-  <p-column field="startDate" header="Data rozpoczecia" [sortable]="true"></p-column> <!-- Data od -->
-  <p-column field="endDate" header="Data zakonczenia" [sortable]="true"></p-column> <!-- Data do -->
+  <p-column field="startDate" header="Data rozpoczęcia" [sortable]="true"></p-column> <!-- Data od -->
+  <p-column field="endDate" header="Data zakończenia" [sortable]="true"></p-column> <!-- Data do -->
 
-  <p-column header="Koszt od osoby" [sortable]="true"> <!-- Koszt -->
-    <ng-template let-data="rowData" pTemplate="body">
-      <span>{{data.cost}} zł</span>
-    </ng-template>
-  </p-column>
+  <p-column field="cost" header="Koszt od osoby" [sortable]="true"></p-column> <!-- Koszt -->
 
-  <p-column field="consent" header="Zgoda managera" [sortable]="true"> <!-- Menadzer -->
+  <p-column field="consent" header="Zgoda menadżera" [sortable]="true"> <!-- Menadzer -->
     <ng-template let-data="rowData" pTemplate="body">
       <span *ngIf="data.consent" style="color: green;">Tak</span>
       <span *ngIf="!data.consent" style="color: red;">Nie</span>
     </ng-template>
   </p-column>
 
-  <p-column header="Uczestnictwo" [sortable]="true"> <!-- Uczestnictwo -->
+  <p-column header="Uczestnictwo"> <!-- Uczestnictwo -->
     <ng-template let-data="rowData" pTemplate="body">
     <div *ngIf="!data.cancelled">
       <button pButton type="button" *ngIf="!isAssigned(data.id) && data.no_of_seats > 0" label="Zapisz się" class="ui-button-success" (click)="changeAssign(data.id, true)"></button>
@@ -53,7 +49,7 @@
 
   <p-footer>
     <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="onRefresh()"></button>
+      <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="onRefresh()"></button>
       <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj szkolenie" (click)="dataService.setInstDialogVisible(true)"></button>
     </div>
   </p-footer>

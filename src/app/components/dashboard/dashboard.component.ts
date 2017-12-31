@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit, DoCheck {
 
     this.items = [
       {label: 'Edytuj', icon: 'fa-pencil', command: (event) => this.dataService.setDialogVisible(true)},
-      {label: 'Usun', icon: 'fa-trash', command: (event) => this.onDelete()},
+      {label: 'Usuń', icon: 'fa-trash', command: (event) => this.onDelete()},
       // {label: 'Pobierz PDF', icon: 'fa-file-pdf-o', command: (event) => this.getPdf(this.inst)}
     ];
   }// ngOnInit()

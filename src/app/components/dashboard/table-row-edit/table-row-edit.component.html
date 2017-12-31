@@ -1,4 +1,4 @@
-<p-dialog header="Edycja rekordu" [visible]="dataService.getDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setDialogVisible(false)">
+<p-dialog [minWidth]="300" header="Edycja rekordu" [visible]="dataService.getDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setDialogVisible(false)">
   <form [formGroup]="dialForm" novaldiate>
     <div class="form-group">
       <label for="theme">Temat szkolenia:</label>
@@ -25,16 +25,16 @@
     </div>
 
     <div class="form-group">
-      <label for="startDate">Data rozpoczecia szkolenia:</label>
-      <input class="col-xs-4 form-control" type="date" id="startDate" formControlName="startDate">
+      <label for="startDate">Data rozpoczęcia szkolenia:</label>
+      <br><p-calendar class="col-xs-4" [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="startDate" formControlName="startDate"></p-calendar>
       <div class="text-danger" *ngIf="dialForm.get('startDate').invalid && (dialForm.get('startDate').dirty || dialForm.get('startDate').touched)">
         <small *ngIf="dialForm.get('startDate').errors">{{getValidErrors(dialForm.get('startDate'))}}</small>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="endDate">Data zakonczenia szkolenia:</label>
-      <input class="col-xs-4 form-control" type="date" id="endDate" formControlName="endDate">
+      <label for="endDate">Data zakończenia szkolenia:</label>
+      <br><p-calendar class="col-xs-4" [(ngModel)]="date2" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="endDate" formControlName="endDate"></p-calendar>
       <div class="text-danger" *ngIf="dialForm.get('endDate').invalid && (dialForm.get('endDate').dirty || dialForm.get('endDate').touched)">
           <small *ngIf="dialForm.get('endDate').errors">{{getValidErrors(dialForm.get('endDate'))}}</small>
         </div>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="form-group">
-      <label for="no_of_seats">Ilosc miejsc:</label>
+      <label for="no_of_seats">Ilość miejsc:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="{{inst.no_of_seats}}" id="no_of_seats" formControlName="no_of_seats">
       <div class="text-danger" *ngIf="dialForm.get('no_of_seats').invalid && (dialForm.get('no_of_seats').dirty || dialForm.get('no_of_seats').touched)">
           <small *ngIf="dialForm.get('no_of_seats').errors">{{getValidErrors(dialForm.get('no_of_seats'))}}</small>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="form-group"> <!-- Anulowano -->
-      <label for="cancelled">Anulowano</label>
+      <label for="cancelled">Anulowano:</label>
       <select class="col-xs-4-select form-control" id="cancelled" formControlName="cancelled">
         <option value="true">Tak</option>
         <option value="false">Nie</option>

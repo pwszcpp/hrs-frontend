@@ -8,13 +8,13 @@
 
   <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-  <p-column header="Lp." [sortable]="true"> <!-- ID -->
+  <p-column header="Lp."> <!-- ID -->
     <ng-template let-index="rowIndex" pTemplate="body">
       <span>{{index + 1}}</span>
     </ng-template>
   </p-column>
 
-  <p-column header="Pracownik (id)" [sortable]="true"> <!-- Pracownik -->
+  <p-column header="Pracownik" [sortable]="true"> <!-- Pracownik -->
     <ng-template let-data="rowData" pTemplate="body">
       <span>{{data.user.username}}</span>
     </ng-template>
@@ -29,9 +29,9 @@
 
   <p-footer>
     <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa-refresh" label="Odswież" style="float: right;" pTooltip="Odswież tabelę" (click)="getSalary()"></button>
+      <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="getSalary()"></button>
       <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj wynagrodzenie" (click)="dataService.setSalaryAddDialogVisible(true)"></button>
-      <button type="button" pButton icon="fa-close" label="Usun" style="float: left;" pTooltip="Usun wiersz" (click)="onDelete()"></button>
+      <button type="button" pButton icon="fa-close" label="Usuń" style="float: left;" pTooltip="Usuń wiersz" (click)="onDelete()"></button>
       <!-- <button type="button" pButton icon="fa-file-pdf-o" style="float: left;" pTooltip="Pobierz PDF" (click)="getPdf()"></button> -->
     </div>
   </p-footer>

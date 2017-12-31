@@ -30,7 +30,7 @@ export class VacationComponent implements OnInit, DoCheck {
     private messageService: MessageService,
     private loginService: LoginService
   ) {
-    this.setPolishCalendar();
+    this.pl = this.dataService.setPolishCalendar();
     this.minDate.setDate(this.minDate.getDate() + 1);
   }
 
@@ -74,20 +74,6 @@ export class VacationComponent implements OnInit, DoCheck {
       );
     }// if
   }// getVacations()
-
-  setPolishCalendar(): void {
-    this.pl = {
-      firstDayOfWeek: 1,
-      dayNames: [ 'Niedziela', 'Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota' ],
-      dayNamesShort: [ 'Nd', 'Pon', 'Wt', 'Sr', 'Czw', 'Pt', 'Sb' ],
-      dayNamesMin: [ 'N', 'P', 'W', 'S', 'C', 'P', 'S' ],
-      monthNames: [ 'Styczen', 'Luty', 'Marzec', 'Kwiecien', 'Maj', 'Czerwiec',
-        'Lipiec', 'Sierpien', 'Wrzesien', 'Pazdziernik', 'Listopad', 'Grudzien' ],
-      monthNamesShort: [ 'Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Czer', 'Lip', 'Sier', 'Wrz', 'Paz', 'Lis', 'Gru' ],
-      today: 'Dzisiaj',
-      clear: 'Wyczysc'
-    };
-  }
 
   isInArray(): boolean {
     for (let i = 0; i < this.vacations.length; i++) {

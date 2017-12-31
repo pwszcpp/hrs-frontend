@@ -67,7 +67,7 @@
 
   <div class="form-group"> <!-- Rozpoczęcie pracy -->
     <label for="employmentStartDate">Data rozpoczęcia pracy</label>
-    <input class="col-xs-4 form-control" type="date" placeholder="Data rozpoczęcia pracy" id="employmentStartDate" formControlName="employmentStartDate">
+    <p-calendar [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="employmentStartDate" formControlName="employmentStartDate"></p-calendar>
     <div class="text-danger" *ngIf="regForm.get('employmentStartDate').invalid && (regForm.get('employmentStartDate').dirty || regForm.get('employmentStartDate').touched)">
       <small *ngIf="regForm.get('employmentStartDate').errors">{{getValidErrors(regForm.get('employmentStartDate'))}}</small>
     </div>

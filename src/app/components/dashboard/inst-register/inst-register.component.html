@@ -1,7 +1,7 @@
-<p-dialog header="Dodawanie szkolenia" [visible]="dataService.getInstDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setInstDialogVisible(false)">
+<p-dialog [minWidth]="300" header="Dodawanie szkolenia" [visible]="dataService.getInstDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setInstDialogVisible(false)">
   <form [formGroup]="instReg" novalidate>
     <div class="form-group"> <!-- Temat Szkolenia -->
-      <label for="theme">Temat szkolenia</label>
+      <label for="theme">Temat szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Wprowadź temat" id="theme" formControlName="theme">
       <div class="text-danger" *ngIf="instReg.get('theme').invalid && (instReg.get('theme').dirty || instReg.get('theme').touched)">
         <small *ngIf="instReg.get('theme').errors">{{getValidErrors(instReg.get('theme'))}}</small>
@@ -9,7 +9,7 @@
     </div>
 
     <div class="form-group"> <!-- Nazwa firmy prowadzącej -->
-      <label for="Firma">Nazwa firmy prowadzącej</label>
+      <label for="Firma">Nazwa firmy prowadzącej:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Firma prowadząca" id="inputFirma" formControlName="company">
       <div class="text-danger" *ngIf="instReg.get('company').invalid && (instReg.get('company').dirty || instReg.get('company').touched)">
         <small *ngIf="instReg.get('company').errors">{{getValidErrors(instReg.get('company'))}}</small>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="form-group"> <!-- Miejsce szkolenia -->
-      <label for="Miejsce">Miejsce szkolenia</label>
+      <label for="Miejsce">Miejsce szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Miejsce" id="inputMiejsce" formControlName="location">
       <div class="text-danger" *ngIf="instReg.get('location').invalid && (instReg.get('location').dirty || instReg.get('location').touched)">
         <small *ngIf="instReg.get('location').errors">{{getValidErrors(instReg.get('location'))}}</small>
@@ -25,31 +25,31 @@
     </div>
 
     <div class="form-group"> <!-- Data od -->
-      <label for="Dataod">Data szkolenia od</label>
-      <input class="col-xs-4 form-control" type="date" placeholder="Data od" id="inputDataod" formControlName="startDate">
+      <label for="startDate">Data rozpoczęcia szkolenia:</label>
+      <br><p-calendar class="col-xs-4" [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="startDate" formControlName="startDate"></p-calendar>
       <div class="text-danger" *ngIf="instReg.get('startDate').invalid && (instReg.get('startDate').dirty || instReg.get('startDate').touched)">
         <small *ngIf="instReg.get('startDate').errors">{{getValidErrors(instReg.get('startDate'))}}</small>
       </div>
     </div>
 
     <div class="form-group"> <!-- Data do -->
-      <label for="Datado">Data szkolenia do</label>
-      <input class="col-xs-4 form-control" type="date" placeholder="Data do" id="inputDatado" formControlName="endDate">
+      <label for="endDate">Data zakończenia szkolenia:</label>
+      <br><p-calendar class="col-xs-4" [(ngModel)]="date2" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="endDate" formControlName="endDate"></p-calendar>
       <div class="text-danger" *ngIf="instReg.get('endDate').invalid && (instReg.get('endDate').dirty || instReg.get('endDate').touched)">
         <small *ngIf="instReg.get('endDate').errors">{{getValidErrors(instReg.get('endDate'))}}</small>
       </div>
     </div>
 
     <div class="form-group"> <!-- Cena -->
-      <label for="Cena">Cena od osoby</label>
+      <label for="Cena">Cena od osoby:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="Cena od osoby" id="inputCena" formControlName="cost">
       <div class="text-danger" *ngIf="instReg.get('cost').invalid && (instReg.get('cost').dirty || instReg.get('cost').touched)">
         <small *ngIf="instReg.get('cost').errors">{{getValidErrors(instReg.get('cost'))}}</small>
       </div>
     </div>
 
-    <div class="form-group"> <!-- Cena -->
-      <label for="Miejsca">Ilosc Miejsc</label>
+    <div class="form-group"> <!-- Ilosc Miejsc -->
+      <label for="Miejsca">Ilość miejsc:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="Ilosc miejsc" id="inputMiejsca" formControlName="no_of_seats">
       <div class="text-danger" *ngIf="instReg.get('no_of_seats').invalid && (instReg.get('no_of_seats').dirty || instReg.get('no_of_seats').touched)">
         <small *ngIf="instReg.get('no_of_seats').errors">{{getValidErrors(instReg.get('no_of_seats'))}}</small>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="form-group"> <!-- Zgoda menadżera -->
-      <label for="Zgoda">Zgoda menadżera</label>
+      <label for="Zgoda">Zgoda menadżera:</label>
       <select class="col-xs-4-select form-control" formControlName="consent">
         <option value="true">Tak</option>
         <option value="false">Nie</option>

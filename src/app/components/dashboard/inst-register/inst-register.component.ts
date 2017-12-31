@@ -12,6 +12,10 @@ import { Instruction } from '../../../classes/instruction';
 
 export class InstRegisterComponent implements OnInit {
   instReg: FormGroup;
+  date: Date;
+  date2: Date;
+  minDate = new Date();
+  pl: any;
 
   constructor(
     private fb: FormBuilder,
@@ -21,6 +25,7 @@ export class InstRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForms();
+    this.pl = this.dataService.setPolishCalendar();
   }// ngOnInit()
 
   createForms(): void  {
@@ -52,8 +57,8 @@ export class InstRegisterComponent implements OnInit {
       this.instReg.get('theme').value,
       this.instReg.get('company').value,
       this.instReg.get('location').value,
-      this.instReg.get('startDate').value,
-      this.instReg.get('endDate').value,
+      this.dataService.convertDate(this.date),
+      this.dataService.convertDate(this.date2),
       this.instReg.get('cost').value,
       this.instReg.get('consent').value,
       1,

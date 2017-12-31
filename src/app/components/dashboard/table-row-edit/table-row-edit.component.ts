@@ -12,6 +12,10 @@ import { MessageService } from 'primeng/components/common/messageservice';
 export class TableRowEditComponent implements OnInit {
   dialForm: FormGroup;
   @Input() inst: Instruction;
+  date: Date;
+  date2: Date;
+  minDate = new Date();
+  pl: any;
 
   constructor(
     private fb: FormBuilder,
@@ -21,6 +25,7 @@ export class TableRowEditComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
+    this.pl = this.dataService.setPolishCalendar();
   }// ngOnInit()
 
   createForms(): void {
@@ -38,8 +43,7 @@ export class TableRowEditComponent implements OnInit {
   }// createForms()
 
   getValidErrors(value: FormControl): any {
-    return value.errors.required ? 'To pole jest wymagane!' :
-    value.errors.min ? 'Liczba musi być większa niż 0!' :
+    return value.errors.min ? 'Liczba musi być większa niż 0!' :
     '';
   }// getValidErrors()
 
@@ -48,8 +52,8 @@ export class TableRowEditComponent implements OnInit {
       (this.dialForm.get('theme').value !== '' ? this.dialForm.get('theme').value : this.inst.theme),
       (this.dialForm.get('company').value !== '' ? this.dialForm.get('company').value : this.inst.company),
       (this.dialForm.get('location').value !== '' ? this.dialForm.get('location').value : this.inst.location),
-      (this.dialForm.get('startDate').value !== '' ? this.dialForm.get('startDate').value : this.inst.startDate),
-      (this.dialForm.get('endDate').value !== '' ? this.dialForm.get('endDate').value : this.inst.endDate),
+      (this.dialForm.get('startDate').value ? this.dataService.convertDate(this.date) : this.inst.startDate),
+      (this.dialForm.get('endDate').value ? this.dataService.convertDate(this.date2) : this.inst.endDate),
       (this.dialForm.get('cost').value !== '' ? this.dialForm.get('cost').value : this.inst.cost),
       (this.dialForm.get('consent').value !== '' ? this.dialForm.get('consent').value : this.inst.consent),
       (this.dialForm.get('cancelled').value !== '' ? this.dialForm.get('cancelled').value : this.inst.cancelled),

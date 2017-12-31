@@ -1,7 +1,7 @@
 <p-dialog header="Edycja kontrahenta" [visible]="dataService.getContractorEditDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setContractorEditDialogVisible(false)">
   <form [formGroup]="editForm" novalidate>
     <div class="form-group"> <!-- Nazwa -->
-      <label for="name">Nazwa</label>
+      <label for="name">Nazwa:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{contractor.name}}" id="name" formControlName="name">
       <div class="text-danger" *ngIf="editForm.get('name').invalid && (editForm.get('name').dirty || editForm.get('name').touched)">
         <small *ngIf="editForm.get('name').errors">{{getValidErrors(editForm.get('name'))}}</small>
@@ -9,7 +9,7 @@
     </div>
 
     <div class="form-group"> <!-- Adres -->
-      <label for="address">Adres</label>
+      <label for="address">Adres:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{contractor.address}}" id="address" formControlName="address">
       <div class="text-danger" *ngIf="editForm.get('address').invalid && (editForm.get('address').dirty || editForm.get('address').touched)">
         <small *ngIf="editForm.get('address').errors">{{getValidErrors(editForm.get('address'))}}</small>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="form-group"> <!-- NIP -->
-      <label for="nip_number">Numer NIP</label>
+      <label for="nip_number">Numer NIP:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="{{contractor.nip_number}}" id="nip_number" formControlName="nip_number">
       <div class="text-danger" *ngIf="editForm.get('nip_number').invalid && (editForm.get('nip_number').dirty || editForm.get('nip_number').touched)">
         <small *ngIf="editForm.get('nip_number').errors">{{getValidErrors(editForm.get('nip_number'))}}</small>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group"> <!-- REGON -->
-      <label for="regon_number">Numer REGON</label>
+      <label for="regon_number">Numer REGON:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="{{contractor.regon_number}}" id="regon_number" formControlName="regon_number">
       <div class="text-danger" *ngIf="editForm.get('regon_number').invalid && (editForm.get('regon_number').dirty || editForm.get('regon_number').touched)">
         <small *ngIf="editForm.get('regon_number').errors">{{getValidErrors(editForm.get('regon_number'))}}</small>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group"> <!-- Numer konta bankowego -->
-      <label for="bank_account_number">Numer konta bankowego</label>
+      <label for="bank_account_number">Numer konta bankowego:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="{{contractor.bank_account_number}}" id="bank_account_number" formControlName="bank_account_number">
       <div class="text-danger" *ngIf="editForm.get('bank_account_number').invalid && (editForm.get('bank_account_number').dirty || editForm.get('bank_account_number').touched)">
         <small *ngIf="editForm.get('bank_account_number').errors">{{getValidErrors(editForm.get('bank_account_number'))}}</small>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group"> <!-- Forma płatnosci -->
-      <label for="payment_form">Forma płatnosci</label>
+      <label for="payment_form">Forma płatności:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{contractor.payment_form}}" id="payment_form" formControlName="payment_form">
       <div class="text-danger" *ngIf="editForm.get('payment_form').invalid && (editForm.get('payment_form').dirty || editForm.get('payment_form').touched)">
         <small *ngIf="editForm.get('payment_form').errors">{{getValidErrors(editForm.get('payment_form'))}}</small>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="form-group"> <!-- Vat? -->
-      <label for="vat">Vat</label>
+      <label for="vat">Vat:</label>
       <select class="col-xs-4-select form-control" formControlName="active_taxpayer_VAT_tax">
         <option value="true">Tak</option>
         <option value="false">Nie</option>
@@ -60,7 +60,7 @@
     </div>
 
     <p-footer>
-      <button type="button" pButton icon="fa-check" [disabled]="editForm.pristine" (click)="onSubmit()" label="Wyslij"></button>
+      <button type="button" pButton icon="fa-check" [disabled]="editForm.pristine" (click)="onSubmit()" label="Wyślij"></button>
       <button type="button" pButton icon="fa-close" (click)="dataService.setContractorEditDialogVisible(false)" label="Anuluj"></button>
     </p-footer>
   </form>

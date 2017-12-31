@@ -13,11 +13,14 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   title = 'Rejestracja użytkownika';
   regForm: FormGroup;
+  date: Date;
+  minDate = new Date();
+  pl: any;
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private dataService: DataService,
+    public dataService: DataService,
     private loginService: LoginService,
     private router: Router
   ) { }
@@ -28,6 +31,7 @@ export class RegisterComponent implements OnInit {
     }// if
 
     this.createForms();
+    this.pl = this.dataService.setPolishCalendar();
   }
 
   createForms() {
@@ -56,7 +60,10 @@ export class RegisterComponent implements OnInit {
   }// onReset()
 
   onSubmit(): void {
-    this.dataService.postUser(this.regForm.value).subscribe(
+    const body = this.regForm.value;
+    body.employmentStartDate = this.dataService.convertDate(body.employmentStartDate);
+
+    this.dataService.postUser(body).subscribe(
       () => {},
       err => {
         this.messageService.add({severity: 'danger', summary: 'Rejestracja', detail: 'Wystąpił błąd podczas rejestracji uzytkownika!'});
@@ -66,6 +73,5 @@ export class RegisterComponent implements OnInit {
         this.messageService.add({severity: 'success', summary: 'Rejestracja', detail: 'Zarejestrowano użytkownika!'});
       }
     );
-    // this.messageService.add({severity: 'success', summary: 'Rejestracja', detail: 'Zarejestrowano użytkownika!'});
   }// onSubmit()
 }
