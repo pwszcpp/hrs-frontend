@@ -30,22 +30,26 @@ export class TableRowEditComponent implements OnInit {
 
   createForms(): void {
     this.dialForm = this.fb.group({
-      theme: [''],
-      company: [''],
-      location: [''],
+      theme: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(20)])],
+      company: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(20)])],
+      location: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(20)])],
       startDate: [''],
       endDate: [''],
-      cost: ['', Validators.min(0)],
+      cost: ['', Validators.compose([Validators.min(0), Validators.max(100000)])],
       consent: [''],
       cancelled: [''],
-      no_of_seats: ['']
+      no_of_seats: ['', Validators.compose([Validators.min(0), Validators.max(1000)])]
     });
   }// createForms()
 
-  getValidErrors(value: FormControl): any {
-    return value.errors.min ? 'Liczba musi być większa niż 0!' :
+  getValidErrors(value: FormControl): string {
+    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
+    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
+    value.errors.min ? 'Liczba musi być większa niż ' + value.errors.min.min + '!' :
+    value.errors.max ? 'Liczba musi być mniejsza niż ' + value.errors.max.max + '!' :
     '';
-  }// getValidErrors()
+  }
 
   onSubmit(): void {
     const body = new Instruction(

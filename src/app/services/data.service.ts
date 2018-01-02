@@ -18,7 +18,6 @@ export class DataService {
   uVacation = '/leave';
   uSalary = '/salary';
   uContractor = '/contractors';
-  userID: number;
   reload: boolean;
 
   instruction: Instruction;
@@ -195,17 +194,6 @@ export class DataService {
   getContractorArray(): Observable<Contractor[]> {
     return this.httpClient.get<Contractor[]>(this.url + this.uContractor, {withCredentials: true});
   }// getContractorArray()
-
-  setUserID(): void {
-    this.http.get(this.url + this.uUsers + '/getID', {withCredentials: true}).subscribe(
-      res => this.userID = res.json(),
-      err => console.log(err)
-    );
-  }// getUserID()
-
-  getUserID(): number {
-    return this.userID;
-  }// getUserID()
 
   changeInstructionAssign(id: number, type: boolean): any {
     if (type) {

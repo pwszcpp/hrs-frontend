@@ -39,7 +39,7 @@
       <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode" (click)="setAdminMode(true)"></button>
       <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode" (click)="setAdminMode(false)"></button>
 
-      <p-calendar [(ngModel)]="date" [locale]="pl" selectionMode="range" dateFormat="yy-mm-dd" showButtonBar="true"
+      <p-calendar [showIcon]="true" [(ngModel)]="date" [locale]="pl" selectionMode="range" dateFormat="yy-mm-dd" showButtonBar="true"
         [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" [minDate]="minDate" readonlyInput="true" pTooltip="Dodaj urlop" placeholder="Rozpocznij urlop">
         <p-footer>
           <button type="button" pButton label="Dodaj urlop" icon="fa-plus" (click)="onCreate()"></button>

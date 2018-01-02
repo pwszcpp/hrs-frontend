@@ -30,21 +30,23 @@ export class InstRegisterComponent implements OnInit {
 
   createForms(): void  {
     this.instReg = this.fb.group({
-      theme: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      company: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      location: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      startDate: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      endDate: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      cost: ['', Validators.compose([Validators.required, Validators.min(0)])],
+      theme: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      company: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      location: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      cost: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(100000)])],
       consent: ['', Validators.required],
-      no_of_seats: ['', Validators.compose([Validators.required, Validators.min(0)])]
+      no_of_seats: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(1000)])]
     });
   }
 
   getValidErrors(value: FormControl): string {
     return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
-    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
-    value.errors.min ? 'Liczba musi być większa niż 0!' :
+    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
+    value.errors.min ? 'Liczba musi być większa niż ' + value.errors.min.min + '!' :
+    value.errors.max ? 'Liczba musi być mniejsza niż ' + value.errors.max.max + '!' :
     '';
   }
 

@@ -23,21 +23,23 @@ export class AddContractorComponent implements OnInit {
 
   createForms(): void  {
     this.conReg = this.fb.group({
-      name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      address: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      nip_number: ['', Validators.compose([Validators.required, Validators.min(9), Validators.max(10000000000)])],
-      regon_number: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      bank_account_number: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      payment_form: ['', Validators.required],
+      name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      nip_number: ['', Validators.compose([Validators.required, Validators.min(999999999), Validators.max(10000000000)])],
+      regon_number: ['', Validators.compose([Validators.required, Validators.min(99999999), Validators.max(1000000000)])],
+      bank_account_number: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(10000000000)])],
+        // Validators.min(9999999999999999999999999), Validators.max(100000000000000000000000000)])],
+      payment_form: ['', Validators.required, , Validators.maxLength(20)],
       active_taxpayer_VAT_tax: ['', Validators.required]
     });
   }// createForms()
 
   getValidErrors(value: FormControl): string {
     return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
-    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
-    value.errors.max ? 'Liczba musi być mniejsza niż 10000000000!' :
-    value.errors.min ? 'Liczba musi być większa niż 0!' :
+    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
+    value.errors.max ? 'Podany numer jest niewłaściwy!' :
+    value.errors.min ? 'Podany numer jest niewłaściwy!' :
     '';
   }// getValidErrors()
 

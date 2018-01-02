@@ -25,21 +25,22 @@ export class EditConctractorComponent implements OnInit {
 
   createForms(): void  {
     this.editForm = this.fb.group({
-      name: [''],
-      address: [''],
-      nip_number: [''],
-      regon_number: [''],
-      bank_account_number: [''],
-      payment_form: [''],
+      name: ['', Validators.maxLength(20)],
+      address: ['', Validators.maxLength(20)],
+      nip_number: ['', Validators.compose([Validators.min(999999999), Validators.max(10000000000)])],
+      regon_number: ['', Validators.compose([Validators.min(99999999), Validators.max(1000000000)])],
+      bank_account_number: ['', Validators.compose([Validators.min(0), Validators.max(10000000000)])],
+        // Validators.min(9999999999999999999999999), Validators.max(100000000000000000000000000)])],
+      payment_form: ['', Validators.maxLength(20)],
       active_taxpayer_VAT_tax: ['']
     });
   }// createForms()
 
   getValidErrors(value: FormControl): string {
-    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
-    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
-    value.errors.max ? 'Liczba musi być mniejsza niż 10000000000!' :
-    value.errors.min ? 'Liczba musi być większa niż 0!' :
+    return value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
+    value.errors.max ? 'Podany numer jest niewłaściwy!' :
+    value.errors.min ? 'Podany numer jest niewłaściwy!' :
     '';
   }// getValidErrors()
 

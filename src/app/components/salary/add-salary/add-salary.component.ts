@@ -28,18 +28,20 @@ export class AddSalaryComponent implements OnInit {
   createForms(): void  {
     this.salForm = this.fb.group({
       users_id: ['', Validators.compose([Validators.required])],
-      employment_arrangement: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
-      base_salary: ['', Validators.compose([Validators.required, Validators.min(0)])],
-      seniority: ['', Validators.compose([Validators.required, Validators.min(0)])],
-      salary_supplement: ['', Validators.compose([Validators.required, Validators.min(0)])],
-      employment_status: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      employment_arrangement: ['', Validators.compose([Validators.required, Validators.minLength(0), Validators.maxLength(20)])],
+      base_salary: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(10000)])],
+      seniority: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(1000)])],
+      salary_supplement: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(10000)])],
+      employment_status: ['', Validators.compose([Validators.required, Validators.minLength(0), Validators.maxLength(20)])],
     });
   }// createForms()
 
   getValidErrors(value: FormControl): string {
     return value.errors.required ? 'Pole jest wymagane!' :
-    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
-    value.errors.min ? 'Liczba musi być większa niż 0!' :
+    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
+    value.errors.min ? 'Liczba musi być większa niż ' + value.errors.min.min + '!' :
+    value.errors.max ? 'Liczba musi być mniejsza niż ' + value.errors.max.max + '!' :
     '';
   }// getValidErrors()
 
