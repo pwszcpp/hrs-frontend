@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { DataService } from '../../services/data.service';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+import { Position } from '../../classes/position';
+import { User } from '../../classes/user';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +18,8 @@ export class RegisterComponent implements OnInit {
   date: Date;
   minDate = new Date();
   pl: any;
+  positions: Position[] = [];
+  roles =  [];
 
   constructor(
     private fb: FormBuilder,
@@ -26,24 +30,26 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.loginService.isLoggedIn()) {
+    if (!this.loginService.isLoggedIn() || !this.dataService.isAdmin()) {
       this.router.navigate(['/login']);
     }// if
 
     this.createForms();
     this.pl = this.dataService.setPolishCalendar();
+    this.getPositions();
+    this.getRoles();
   }
 
   createForms() {
     this.regForm = this.fb.group({
-      // name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      // surname: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      forename: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      surname: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      address: ['', Validators.compose([Validators.required])],
-      position: ['', Validators.compose([Validators.required])],
-      taxOffice: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(20)])],
+      address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])],
+      position_id: ['', Validators.compose([Validators.required])],
+      role: ['', Validators.compose([Validators.required])],
       employmentStartDate: ['', Validators.required]
     });
   }
@@ -51,7 +57,8 @@ export class RegisterComponent implements OnInit {
   getValidErrors(value: FormControl) {
     return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
     value.errors.email ? 'Niepoprawna forma e-mail!' :
-    value.errors.minlength ? 'Wymagana minimalna ilosc znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
     '';
   }
 
@@ -60,13 +67,22 @@ export class RegisterComponent implements OnInit {
   }// onReset()
 
   onSubmit(): void {
-    const body = this.regForm.value;
-    body.employmentStartDate = this.dataService.convertDate(body.employmentStartDate);
+    const body = new User(
+      this.regForm.get(['forename']).value,
+      this.regForm.get(['surname']).value,
+      this.regForm.get(['email']).value,
+      this.regForm.get(['username']).value,
+      this.regForm.get(['password']).value,
+      this.regForm.get(['address']).value,
+      this.regForm.get(['position_id']).value,
+      this.dataService.convertDate(this.regForm.get(['employmentStartDate']).value),
+      this.regForm.get(['role']).value
+    );
 
     this.dataService.postUser(body).subscribe(
       () => {},
       err => {
-        this.messageService.add({severity: 'danger', summary: 'Rejestracja', detail: 'Wystąpił błąd podczas rejestracji uzytkownika!'});
+        this.messageService.add({severity: 'warn', summary: 'Rejestracja', detail: 'Wystąpił błąd podczas rejestracji uzytkownika!'});
       },
       () => {
         this.regForm.reset();
@@ -74,4 +90,18 @@ export class RegisterComponent implements OnInit {
       }
     );
   }// onSubmit()
+
+  getPositions(): void {
+    this.dataService.getPositionsArray().subscribe(
+      res => this.positions = res,
+      err => console.log(err)
+    );
+  }// getPositions()
+
+  getRoles(): void {
+    this.dataService.getRolesArray().subscribe(
+      res => this.roles = res,
+      err => console.log(err)
+    );
+  }// getRoles()
 }

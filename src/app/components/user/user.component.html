@@ -1,0 +1,39 @@
+<p-growl></p-growl>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+<app-edit-user [user]="selectedUser" [positions]="positions" [roles]="roles" *ngIf="dataService.getUserEditDialogVisible()"></app-edit-user>
+
+<h1 class="nazwa">{{title}}</h1>
+
+<p-dataTable class="text-center" [value]="users" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" dataKey="id" [editable]="true" [(selection)]="selectedUser" selectionMode="single" [contextMenu]="cm"> <!-- (onEditComplete)="onEdit($event.data)"> -->
+
+  <p-column header="Lp."> <!-- ID -->
+    <ng-template let-index="rowIndex" pTemplate="body">
+      <span>{{index + 1}}</span>
+    </ng-template>a
+  </p-column>
+
+  <p-column field="forename" header="Imię" [sortable]="true" [editable]="true"></p-column> <!-- Imię -->
+  <p-column field="surname" header="Nazwisko" [sortable]="true" [editable]="true"></p-column> <!-- Nazwisko -->
+  <p-column field="email" header="E-mail" [sortable]="true" [editable]="true"></p-column> <!-- E-mail -->
+  <p-column field="username" header="Nazwa użytkownika" [sortable]="true" [editable]="true"></p-column> <!-- Username -->
+  <p-column field="address" header="Adres" [sortable]="true" [editable]="true"></p-column> <!-- Adres -->
+  <p-column field="employmentStartDate" header="Data rozpoczęcia pracy" [sortable]="true"></p-column> <!-- Data rozpoczecia pracy -->
+
+  <p-column header="Stanowisko"> <!-- Stanowisko -->
+    <ng-template let-data="rowData" pTemplate="body">
+      <span>{{getPosition(data.positions)}}</span>
+    </ng-template>
+  </p-column>
+
+  <p-column header="Rola"> <!-- Rola -->
+    <ng-template let-data="rowData" let-i="rowIndex" pTemplate="body">
+      <span>{{checkRole(data.role)}}</span>
+    </ng-template>
+  </p-column>
+
+  <p-footer>
+    <div class="ui-helper-clearfix">
+      <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="getUsers() && getRoles()"></button>
+    </div>
+  </p-footer>
+</p-dataTable>

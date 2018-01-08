@@ -1,24 +1,24 @@
 <p-growl></p-growl>
 <h1 class="nazwa">{{title}}</h1>
 <form class="rejestru" [formGroup]="regForm" (ngSubmit)="onSubmit()">
-  <!-- <div class="form-group">  <!- Imię ->
-    <label for="Name">Podaj imię</label>
-    <input class="col-xs-4 form-control" type="text" placeholder="Imię" id="inputName" formControlName="name">
-    <div class="text-danger" *ngIf="regForm.get('name').invalid && (regForm.get('name').dirty || regForm.get('name').touched)">
-      <small *ngIf="regForm.get('name').errors">{{getValidErrors(regForm.get('name'))}}</small>
+  <div class="form-group">  <!-- Imię -->
+    <label for="forename">Imię:</label>
+    <input class="col-xs-4 form-control" type="text" placeholder="Imię" id="forename" formControlName="forename">
+    <div class="text-danger" *ngIf="regForm.get('forename').invalid && (regForm.get('forename').dirty || regForm.get('forename').touched)">
+      <small *ngIf="regForm.get('forename').errors">{{getValidErrors(regForm.get('forename'))}}</small>
     </div>
   </div>
 
-  <div class="form-group"> <!- Nazwisko ->
-    <label for="Lastname">Podaj nazwisko</label>
-    <input class="col-xs-4 form-control" type="text" placeholder="Nazwisko" id="inputLastname" formControlName="surname">
+  <div class="form-group"> <!-- Nazwisko -->
+    <label for="surname">Nazwisko:</label>
+    <input class="col-xs-4 form-control" type="text" placeholder="Nazwisko" id="surname" formControlName="surname">
     <div class="text-danger" *ngIf="regForm.get('surname').invalid && (regForm.get('surname').dirty || regForm.get('surname').touched)">
         <small *ngIf="regForm.get('surname').errors">{{getValidErrors(regForm.get('surname'))}}</small>
       </div>
-  </div> -->
+  </div>
 
   <div class="form-group"> <!-- Login -->
-    <label for="Login">Login</label>
+    <label for="Login">Login:</label>
     <input class="col-xs-4 form-control" type="text" placeholder="Login" id="inputLogin" formControlName="username">
     <div class="text-danger" *ngIf="regForm.get('username').invalid && (regForm.get('username').dirty || regForm.get('username').touched)">
         <small *ngIf="regForm.get('username').errors">{{getValidErrors(regForm.get('username'))}}</small>
@@ -26,7 +26,7 @@
   </div>
 
   <div class="form-group"> <!-- Email -->
-    <label for="Email">Adres email</label>
+    <label for="Email">Adres email:</label>
     <input class="col-xs-4 form-control" type="email" placeholder="Adres Email" id="inputEmail" formControlName="email">
     <div class="text-danger" *ngIf="regForm.get('email').invalid && (regForm.get('email').dirty || regForm.get('email').touched)">
         <small *ngIf="regForm.get('email').errors">{{getValidErrors(regForm.get('email'))}}</small>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="form-group"> <!-- Hasło -->
-    <label for="Password">Hasło</label>
+    <label for="Password">Hasło:</label>
     <input class="col-xs-4 form-control" type="password" placeholder="Hasło" id="inputPassword" formControlName="password">
     <div class="text-danger" *ngIf="regForm.get('password').invalid && (regForm.get('password').dirty || regForm.get('password').touched)">
         <small *ngIf="regForm.get('password').errors">{{getValidErrors(regForm.get('password'))}}</small>
@@ -42,31 +42,35 @@
   </div>
 
   <div class="form-group"> <!-- Adres -->
-    <label for="address">Adres</label>
+    <label for="address">Adres:</label>
     <input class="col-xs-4 form-control" type="text" placeholder="Adres" id="address" formControlName="address">
     <div class="text-danger" *ngIf="regForm.get('address').invalid && (regForm.get('address').dirty || regForm.get('address').touched)">
         <small *ngIf="regForm.get('address').errors">{{getValidErrors(regForm.get('address'))}}</small>
       </div>
   </div>
 
-  <div class="form-group"> <!-- Stanowisko -->
-    <label for="position">Stanowisko</label>
-    <input class="col-xs-4 form-control" type="text" placeholder="Stanowisko" id="position" formControlName="position">
-    <div class="text-danger" *ngIf="regForm.get('position').invalid && (regForm.get('position').dirty || regForm.get('position').touched)">
-        <small *ngIf="regForm.get('position').errors">{{getValidErrors(regForm.get('position'))}}</small>
-      </div>
+  <div class="form-group"> <!-- Rola -->
+    <label for="role">Rola:</label>
+    <select class="col-xs-4-select form-control" id="role" formControlName="role">
+      <option *ngFor="let role of roles" value="{{role.bit}}">{{role.role}}</option>
+    </select>
+    <div class="text-danger" *ngIf="regForm.get('role').invalid && (regForm.get('role').dirty || regForm.get('role').touched)">
+      <small *ngIf="regForm.get('role').errors">{{getValidErrors(regForm.get('role'))}}</small>
+    </div>
   </div>
 
-  <div class="form-group"> <!-- Oddzial rozliczeniowy -->
-    <label for="taxOffice">Oddział rozliczeniowy</label>
-    <input class="col-xs-4 form-control" type="text" placeholder="Oddział rozliczeniowy" id="taxOffice" formControlName="taxOffice">
-    <div class="text-danger" *ngIf="regForm.get('taxOffice').invalid && (regForm.get('taxOffice').dirty || regForm.get('taxOffice').touched)">
-        <small *ngIf="regForm.get('taxOffice').errors">{{getValidErrors(regForm.get('taxOffice'))}}</small>
-      </div>
+  <div class="form-group"> <!-- Stanowisko -->
+    <label for="position_id">Stanowisko:</label>
+    <select class="col-xs-4-select form-control" id="position_id" formControlName="position_id">
+      <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
+    </select>
+    <div class="text-danger" *ngIf="regForm.get('position_id').invalid && (regForm.get('position_id').dirty || regForm.get('position_id').touched)">
+      <small *ngIf="regForm.get('position_id').errors">{{getValidErrors(regForm.get('position_id'))}}</small>
+    </div>
   </div>
 
   <div class="form-group"> <!-- Rozpoczęcie pracy -->
-    <label for="employmentStartDate">Data rozpoczęcia pracy</label>
+    <label for="employmentStartDate">Data rozpoczęcia pracy:</label>
     <p-calendar [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="employmentStartDate" formControlName="employmentStartDate"></p-calendar>
     <div class="text-danger" *ngIf="regForm.get('employmentStartDate').invalid && (regForm.get('employmentStartDate').dirty || regForm.get('employmentStartDate').touched)">
       <small *ngIf="regForm.get('employmentStartDate').errors">{{getValidErrors(regForm.get('employmentStartDate'))}}</small>
@@ -75,8 +79,8 @@
 
   <div class="center">
     <button type="submit" class="btn btn-primary btn-xs" [disabled]="regForm.invalid">Rejestruj</button>
-    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()" [disabled]="!regForm.get('username').value && !regForm.get('email').value && !regForm.get('password').value && !regForm.get('address').value && !regForm.get('position').value && !regForm.get('taxOffice').value && !regForm.get('employmentStartDate').value">
-      <!-- [disabled]="!regForm.get('name').value && !regForm.get('surname').value && !regForm.get('username').value && !regForm.get('email').value && !regForm.get('password').value"> -->
+    <button type="button" class="btn btn-primary btn-xs" (click)="onReset()" [disabled]="!regForm.get('username').value && !regForm.get('email').value && !regForm.get('password').value && !regForm.get('address').value && !regForm.get('position_id').value && !regForm.get('employmentStartDate').value &&
+      !regForm.get('forename').value && !regForm.get('surname').value && !regForm.get('role').value">
       Resetuj
     </button>
   </div>

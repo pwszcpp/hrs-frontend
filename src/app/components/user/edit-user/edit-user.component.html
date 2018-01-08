@@ -1,0 +1,84 @@
+<p-dialog [minWidth]="300" header="Edycja rekordu" [visible]="dataService.getUserEditDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setUserEditDialogVisible(false)">
+  <form [formGroup]="userForm" novaldiate>
+    <div class="form-group">  <!-- Imię -->
+      <label for="forename">Imię:</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="{{user.forename}}" id="forename" formControlName="forename">
+      <div class="text-danger" *ngIf="userForm.get('forename').invalid && (userForm.get('forename').dirty || userForm.get('forename').touched)">
+        <small *ngIf="userForm.get('forename').errors">{{getValidErrors(userForm.get('forename'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Nazwisko -->
+      <label for="surname">Nazwisko:</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="{{user.surname}}" id="surname" formControlName="surname">
+      <div class="text-danger" *ngIf="userForm.get('surname').invalid && (userForm.get('surname').dirty || userForm.get('surname').touched)">
+          <small *ngIf="userForm.get('surname').errors">{{getValidErrors(userForm.get('surname'))}}</small>
+        </div>
+    </div>
+
+    <div class="form-group"> <!-- Login -->
+      <label for="Login">Login:</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="{{user.username}}" id="inputLogin" formControlName="username">
+      <div class="text-danger" *ngIf="userForm.get('username').invalid && (userForm.get('username').dirty || userForm.get('username').touched)">
+          <small *ngIf="userForm.get('username').errors">{{getValidErrors(userForm.get('username'))}}</small>
+        </div>
+    </div>
+
+    <div class="form-group"> <!-- Email -->
+      <label for="Email">Adres email:</label>
+      <input class="col-xs-4 form-control" type="email" placeholder="{{user.email}}" id="inputEmail" formControlName="email">
+      <div class="text-danger" *ngIf="userForm.get('email').invalid && (userForm.get('email').dirty || userForm.get('email').touched)">
+          <small *ngIf="userForm.get('email').errors">{{getValidErrors(userForm.get('email'))}}</small>
+        </div>
+    </div>
+
+    <div class="form-group"> <!-- Hasło -->
+      <label for="Password">Hasło:</label>
+      <input class="col-xs-4 form-control" type="password" placeholder="**********" id="inputPassword" formControlName="password">
+      <div class="text-danger" *ngIf="userForm.get('password').invalid && (userForm.get('password').dirty || userForm.get('password').touched)">
+          <small *ngIf="userForm.get('password').errors">{{getValidErrors(userForm.get('password'))}}</small>
+        </div>
+    </div>
+
+    <div class="form-group"> <!-- Adres -->
+      <label for="address">Adres:</label>
+      <input class="col-xs-4 form-control" type="text" placeholder="{{user.address}}" id="address" formControlName="address">
+      <div class="text-danger" *ngIf="userForm.get('address').invalid && (userForm.get('address').dirty || userForm.get('address').touched)">
+          <small *ngIf="userForm.get('address').errors">{{getValidErrors(userForm.get('address'))}}</small>
+        </div>
+    </div>
+
+    <div class="form-group"> <!-- Rola -->
+      <label for="role">Rola:</label>
+      <select class="col-xs-4-select form-control" id="role" formControlName="role">
+        <option *ngFor="let role of roles" value="{{role.bit}}">{{role.role}}</option>
+      </select>
+      <div class="text-danger" *ngIf="userForm.get('role').invalid && (userForm.get('role').dirty || userForm.get('role').touched)">
+        <small *ngIf="userForm.get('role').errors">{{getValidErrors(userForm.get('role'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Stanowisko -->
+      <label for="position_id">Stanowisko:</label>
+      <select class="col-xs-4-select form-control" id="position_id" formControlName="position_id">
+        <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
+      </select>
+      <div class="text-danger" *ngIf="userForm.get('position_id').invalid && (userForm.get('position_id').dirty || userForm.get('position_id').touched)">
+        <small *ngIf="userForm.get('position_id').errors">{{getValidErrors(userForm.get('position_id'))}}</small>
+      </div>
+    </div>
+
+    <div class="form-group"> <!-- Rozpoczęcie pracy -->
+      <label for="employmentStartDate">Data rozpoczęcia pracy:</label>
+      <br><p-calendar [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{user.employmentStartDate}}" id="employmentStartDate" formControlName="employmentStartDate"></p-calendar>
+      <div class="text-danger" *ngIf="userForm.get('employmentStartDate').invalid && (userForm.get('employmentStartDate').dirty || userForm.get('employmentStartDate').touched)">
+        <small *ngIf="userForm.get('employmentStartDate').errors">{{getValidErrors(userForm.get('employmentStartDate'))}}</small>
+      </div>
+    </div>
+
+    <p-footer>
+      <button type="button" pButton icon="fa-check" [disabled]="userForm.pristine || userForm.invalid" (click)="onSubmit()" label="Zapisz"></button>
+      <button type="button" pButton icon="fa-close" (click)="dataService.setUserEditDialogVisible(false)" label="Anuluj"></button>
+    </p-footer>
+  </form>
+</p-dialog>

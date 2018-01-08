@@ -49,7 +49,7 @@ export class TableRowEditComponent implements OnInit {
     value.errors.min ? 'Liczba musi być większa niż ' + value.errors.min.min + '!' :
     value.errors.max ? 'Liczba musi być mniejsza niż ' + value.errors.max.max + '!' :
     '';
-  }
+  }// getValidErrors()
 
   onSubmit(): void {
     const body = new Instruction(

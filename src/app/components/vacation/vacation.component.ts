@@ -23,6 +23,7 @@ export class VacationComponent implements OnInit, DoCheck {
   adminMode: boolean;
   dialog: boolean;
   selectedVacation: Vacation;
+  user: User;
 
   constructor(
     private router: Router,
@@ -42,6 +43,10 @@ export class VacationComponent implements OnInit, DoCheck {
     this.adminMode = false;
     this.dialog = false;
     this.getVacations();
+    this.dataService.getUser().subscribe(
+      res => this.user = res,
+      err => console.log(err)
+    );
   }// ngOnInit()
 
   ngDoCheck() {
@@ -60,7 +65,8 @@ export class VacationComponent implements OnInit, DoCheck {
           const temp = [];
 
           for (let i = 0; i < this.vacations.length; i++) {
-            if (this.vacations[i].disagree_reason === '' && this.vacations[i].agreed === false) {
+            if (this.vacations[i].disagree_reason === '' && this.vacations[i].agreed === false &&
+            this.vacations[i].user.username !== this.user.username) {
               temp.push(this.vacations[i]);
             }// if
           }// for

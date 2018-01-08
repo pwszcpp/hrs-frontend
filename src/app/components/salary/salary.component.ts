@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 import { DataService } from '../../services/data.service';
-import { User } from '../../classes/user';
 import { Salary } from '../../classes/salary';
+import { LoginService } from '../../services/login.service';
 // import * as pdfMake from 'pdfmake/build/pdfmake';
 // import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
@@ -22,12 +22,17 @@ export class SalaryComponent implements OnInit, DoCheck {
   constructor(
     public dataService: DataService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private loginService: LoginService
   ) {
     // pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
   ngOnInit() {
+    if (!this.loginService.isLoggedIn() || !this.dataService.isAdmin()) {
+      this.router.navigate(['/login']);
+    }// if
+
     this.getSalary();
   }// ngOnInit()
 
@@ -36,7 +41,7 @@ export class SalaryComponent implements OnInit, DoCheck {
       this.getSalary();
       this.dataService.setReload(false);
     }// if
-  }
+  }// ngDoCheck()
 
   getSalary(): void {
     this.dataService.getSalaryArray().subscribe(

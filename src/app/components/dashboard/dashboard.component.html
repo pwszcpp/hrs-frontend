@@ -21,7 +21,7 @@
 
   <p-column field="cost" header="Koszt od osoby" [sortable]="true"></p-column> <!-- Koszt -->
 
-  <p-column field="consent" header="Zgoda menadżera" [sortable]="true"> <!-- Menadzer -->
+  <p-column field="consent" header="Zgoda menadżera" [sortable]="true" *ngIf="dataService.isAdmin()"> <!-- Menadzer -->
     <ng-template let-data="rowData" pTemplate="body">
       <span *ngIf="data.consent" style="color: green;">Tak</span>
       <span *ngIf="!data.consent" style="color: red;">Nie</span>
@@ -50,7 +50,7 @@
   <p-footer>
     <div class="ui-helper-clearfix">
       <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="onRefresh()"></button>
-      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj szkolenie" (click)="dataService.setInstDialogVisible(true)"></button>
+      <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj szkolenie" (click)="dataService.setInstDialogVisible(true)" *ngIf="dataService.isAdmin()"></button>
     </div>
   </p-footer>
 </p-dataTable>

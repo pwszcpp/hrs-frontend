@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 
 @Injectable()
 export class LoginService {
+  role: string;
 
   constructor(
     private http: Http,
@@ -25,6 +26,17 @@ export class LoginService {
     return false;
   }
 
+  getRole(): string {
+    return this.role != null ? this.role : '';
+  }// getRole()
+
+  getRoleFromServer(): void {
+    this.http.get('http://localhost:8081/users/getRole', new RequestOptions({withCredentials: true})).subscribe(
+      res => this.role = res.json(),
+      err => console.log(err)
+    );
+  }// getRoleFromServer()
+
   public login(username, password): void {
     const body = new FormData();
 
@@ -39,6 +51,7 @@ export class LoginService {
         localStorage.setItem('Session', this.getCookie('Session'));
         this.router.navigate(['/dashboard']);
         this.messageService.add({severity: 'success', summary: 'Logowanie', detail: 'Zalogowano!'});
+        this.getRoleFromServer();
       }
     );
   }

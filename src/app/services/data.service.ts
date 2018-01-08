@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { LoginService } from './login.service';
 
 import { Instruction } from '../classes/instruction';
 import { Vacation } from '../classes/vacation';
 import { User} from '../classes/user';
 import { Salary } from '../classes/salary';
 import { Contractor } from '../classes/contractor';
+import { Position } from '../classes/position';
 
 @Injectable()
 export class DataService {
@@ -18,6 +20,7 @@ export class DataService {
   uVacation = '/leave';
   uSalary = '/salary';
   uContractor = '/contractors';
+  uPositions = '/positions';
   reload: boolean;
 
   instruction: Instruction;
@@ -26,11 +29,14 @@ export class DataService {
   contractorAddDialog: boolean;
   contractorEditDialog: boolean;
   salaryAddDialog: boolean;
+  userEditDialog: boolean;
+  positionAddDialog: boolean;
 
   constructor(
     private httpClient: HttpClient,
     private http: Http,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private loginService: LoginService
   ) {}
 
   setReload(value: boolean): void {
@@ -88,6 +94,22 @@ export class DataService {
   setSalaryAddDialogVisible(value: boolean): void {
     this.salaryAddDialog = value;
   }// setSalaryAddDialogVisible()
+
+  getUserEditDialogVisible(value: boolean): boolean {
+    return this.userEditDialog;
+  }// getUserEditDialogVisible()
+
+  setUserEditDialogVisible(value: boolean): void {
+    this.userEditDialog = value;
+  }// setUserEditDialogVisible()
+
+  getPositionAddDialogVisible(value: boolean): boolean {
+    return this.positionAddDialog;
+  }// getPositionAddDialogVisible()
+
+  setPositionAddDialogVisible(value: boolean): void {
+    this.positionAddDialog = value;
+  }// setPositionAddDialogVisible()
 
   convertDate(date: Date): string {
     if (date.toLocaleDateString()[1] !== '.') {
@@ -151,9 +173,21 @@ export class DataService {
     return this.http.put(this.url + this.uVacation + '/' + id, body, new RequestOptions({withCredentials: true}));
   }// updateVacation()
 
+  updateUser(id: number, body: User): any {
+    return this.http.put(this.url + this.uUsers + '/' + id, body, new RequestOptions({withCredentials: true}));
+  }// updateUser()
+
+  updatePosition(id: number, body: Position): any {
+    return this.http.put(this.url + this.uPositions + '/' + id, body, new RequestOptions({withCredentials: true}));
+  }// updatePosition()
+
   deleteUser(id: number): any {
     return this.http.delete(this.url + this.uUsers + '/' + id, new RequestOptions({withCredentials: true}));
   }// deleteContractor()
+
+  deletePosition(id: number): any {
+    return this.http.delete(this.url + this.uPositions + '/' + id, new RequestOptions({withCredentials: true}));
+  }// deletePosition()
 
   deleteVacation(id: number): any {
     return this.http.delete(this.url + this.uVacation + '/' + id, new RequestOptions({withCredentials: true}));
@@ -206,6 +240,26 @@ export class DataService {
   getUsersArray(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.url + this.uUsers, {withCredentials: true});
   }// getUsersArray()
+
+  getPositionsArray(): Observable<Position[]> {
+    return this.httpClient.get<Position[]>(this.url + this.uPositions, {withCredentials: true});
+  }// getPositionsArray()
+
+  getRolesArray(): Observable<string[]> {
+    return this.httpClient.get<string[]>(this.url + this.uUsers + '/getRoles', {withCredentials: true});
+  }// getRolesArray()
+
+  getUser(): Observable<User> {
+    return this.httpClient.get<User>(this.url + this.uUsers + '/getUser', {withCredentials: true});
+  }// getUser()
+
+  // -------------------------------------------- Admin Mode --------------------------------------------
+
+  isAdmin(): boolean {
+    return this.loginService.getRole() === '' ? false :
+    this.loginService.getRole().length > 1 ? true :
+    false;
+  }// isAdmin()
 
   // -------------------------------------------- DEBUG --------------------------------------------
 

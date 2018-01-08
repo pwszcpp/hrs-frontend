@@ -1,14 +1,15 @@
 export class User {
   constructor(
-    // public name: string,
-    // public surname: string,
+    public forename: string,
+    public surname: string,
     public email: string,
     public username: string,
     public password: string,
     public address: string,
-    public position: string,
-    public taxOffice: string,
+    public position_id: number,
     public employmentStartDate: string,
-    public id?: number
+    public role: number,
+    public id?: number,
+    public positions?: any
   ) {}
 }

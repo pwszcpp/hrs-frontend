@@ -3,6 +3,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { DataService } from '../../services/data.service';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { Router } from '@angular/router';
 
 import { Contractor } from '../../classes/contractor';
 
@@ -21,9 +22,14 @@ export class ContractorComponent implements OnInit, DoCheck {
     private loginService: LoginService,
     public dataService: DataService,
     private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    if (!this.dataService.isAdmin()) {
+      this.router.navigate(['/login']);
+    }// if
+
     this.getContractors();
 
     this.items = [

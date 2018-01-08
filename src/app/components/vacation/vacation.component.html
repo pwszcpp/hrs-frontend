@@ -8,7 +8,7 @@
     </ng-template>
   </p-column>
 
-  <p-column header="Pracownik">
+  <p-column header="Pracownik" *ngIf="adminMode">
     <ng-template let-data="rowData" pTemplate="body">
       <span>{{data.user.username}}</span>
     </ng-template>
@@ -36,8 +36,10 @@
   <p-footer>
     <div class="ui-helper-clearfix">
       <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="getVacations()"></button>
-      <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode" (click)="setAdminMode(true)"></button>
-      <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode" (click)="setAdminMode(false)"></button>
+      <div *ngIf="dataService.isAdmin()">
+        <button type="button" pButton icon="fa-unlock" label="Edycja" style="float: left;" *ngIf="!adminMode" (click)="setAdminMode(true)"></button>
+        <button type="button" pButton icon="fa-lock" label="Edycja" style="float: left;" *ngIf="adminMode" (click)="setAdminMode(false)"></button>
+      </div>
 
       <p-calendar [showIcon]="true" [(ngModel)]="date" [locale]="pl" selectionMode="range" dateFormat="yy-mm-dd" showButtonBar="true"
         [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" [minDate]="minDate" readonlyInput="true" pTooltip="Dodaj urlop" placeholder="Rozpocznij urlop">

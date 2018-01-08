@@ -36,6 +36,10 @@ import { ContractorComponent } from './components/contractor/contractor.componen
 import { AddContractorComponent } from './components/contractor/add-contractor/add-contractor.component';
 import { EditConctractorComponent } from './components/contractor/edit-conctractor/edit-conctractor.component';
 import { AddSalaryComponent } from './components/salary/add-salary/add-salary.component';
+import { PositionComponent } from './components/position/position.component';
+import { UserComponent } from './components/user/user.component';
+import { AddPositionComponent } from './components/position/add-position/add-position.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -45,9 +49,11 @@ const appRoutes: Routes = [
   // { path: 'inst-register', component: InstRegisterComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'invoice', component: InvoiceComponent },
-  { path: 'vacation', component: VacationComponent },
-  { path: 'users', component: SalaryComponent },
-  { path: 'contractors', component: ContractorComponent }
+  { path: 'vacations', component: VacationComponent },
+  { path: 'salaries', component: SalaryComponent },
+  { path: 'contractors', component: ContractorComponent },
+  { path: 'users', component: UserComponent },
+  { path: 'positions', component: PositionComponent }
 ];
 
 @NgModule({
@@ -66,7 +72,11 @@ const appRoutes: Routes = [
     ContractorComponent,
     AddContractorComponent,
     EditConctractorComponent,
-    AddSalaryComponent
+    AddSalaryComponent,
+    PositionComponent,
+    UserComponent,
+    AddPositionComponent,
+    EditUserComponent
   ],
   imports: [
     RouterModule.forRoot(
