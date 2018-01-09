@@ -4,7 +4,7 @@
       <label for="theme">Temat szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{inst.theme}}" id="topic" formControlName="theme">
       <div class="text-danger" *ngIf="dialForm.get('theme').invalid && (dialForm.get('theme').dirty || dialForm.get('theme').touched)">
-        <small *ngIf="dialForm.get('theme').errors">{{getValidErrors(dialForm.get('theme'))}}</small>
+        <small *ngIf="dialForm.get('theme').errors">{{dataService.getValidErrors(dialForm.get('theme'))}}</small>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <label for="company">Nazwa firmy prowadzącej:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{inst.company}}" id="company" formControlName="company">
       <div class="text-danger" *ngIf="dialForm.get('company').invalid && (dialForm.get('company').dirty || dialForm.get('company').touched)">
-        <small *ngIf="dialForm.get('company').errors">{{getValidErrors(dialForm.get('company'))}}</small>
+        <small *ngIf="dialForm.get('company').errors">{{dataService.getValidErrors(dialForm.get('company'))}}</small>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <label for="location">Miejsce szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{inst.location}}" id="location" formControlName="location">
       <div class="text-danger" *ngIf="dialForm.get('location').invalid && (dialForm.get('location').dirty || dialForm.get('location').touched)">
-          <small *ngIf="dialForm.get('location').errors">{{getValidErrors(dialForm.get('location'))}}</small>
+          <small *ngIf="dialForm.get('location').errors">{{dataService.getValidErrors(dialForm.get('location'))}}</small>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
       <label for="startDate">Data rozpoczęcia szkolenia:</label>
       <br><p-calendar class="col-xs-4" [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="startDate" formControlName="startDate"></p-calendar>
       <div class="text-danger" *ngIf="dialForm.get('startDate').invalid && (dialForm.get('startDate').dirty || dialForm.get('startDate').touched)">
-        <small *ngIf="dialForm.get('startDate').errors">{{getValidErrors(dialForm.get('startDate'))}}</small>
+        <small *ngIf="dialForm.get('startDate').errors">{{dataService.getValidErrors(dialForm.get('startDate'))}}</small>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
       <label for="endDate">Data zakończenia szkolenia:</label>
       <br><p-calendar class="col-xs-4" [(ngModel)]="date2" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="endDate" formControlName="endDate"></p-calendar>
       <div class="text-danger" *ngIf="dialForm.get('endDate').invalid && (dialForm.get('endDate').dirty || dialForm.get('endDate').touched)">
-          <small *ngIf="dialForm.get('endDate').errors">{{getValidErrors(dialForm.get('endDate'))}}</small>
+          <small *ngIf="dialForm.get('endDate').errors">{{dataService.getValidErrors(dialForm.get('endDate'))}}</small>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
       <label for="cost">Koszt od osoby:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="{{inst.cost}}" id="cost" formControlName="cost">
       <div class="text-danger" *ngIf="dialForm.get('cost').invalid && (dialForm.get('cost').dirty || dialForm.get('cost').touched)">
-          <small *ngIf="dialForm.get('cost').errors">{{getValidErrors(dialForm.get('cost'))}}</small>
+          <small *ngIf="dialForm.get('cost').errors">{{dataService.getValidErrors(dialForm.get('cost'))}}</small>
         </div>
     </div>
 

@@ -6,7 +6,7 @@
           <option *ngFor="let user of users" value="{{user.id}}">{{user.username}}</option>
         </select>
       <div class="text-danger" *ngIf="salForm.get('users_id').invalid && (salForm.get('users_id').dirty || salForm.get('users_id').touched)">
-        <small *ngIf="salForm.get('users_id').errors">{{getValidErrors(salForm.get('users_id'))}}</small>
+        <small *ngIf="salForm.get('users_id').errors">{{dataService.getValidErrors(salForm.get('users_id'))}}</small>
       </div>
     </div>
 
@@ -14,7 +14,7 @@
       <label for="employment_arrangement">Rodzaj zatrudnienia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Rodzaj zatrudnienia" id="employment_arrangement" formControlName="employment_arrangement">
       <div class="text-danger" *ngIf="salForm.get('employment_arrangement').invalid && (salForm.get('employment_arrangement').dirty || salForm.get('employment_arrangement').touched)">
-        <small *ngIf="salForm.get('employment_arrangement').errors">{{getValidErrors(salForm.get('employment_arrangement'))}}</small>
+        <small *ngIf="salForm.get('employment_arrangement').errors">{{dataService.getValidErrors(salForm.get('employment_arrangement'))}}</small>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
       <label for="base_salary">Pensja:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="0" id="base_salary" formControlName="base_salary">
       <div class="text-danger" *ngIf="salForm.get('base_salary').invalid && (salForm.get('base_salary').dirty || salForm.get('base_salary').touched)">
-        <small *ngIf="salForm.get('base_salary').errors">{{getValidErrors(salForm.get('base_salary'))}}</small>
+        <small *ngIf="salForm.get('base_salary').errors">{{dataService.getValidErrors(salForm.get('base_salary'))}}</small>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
       <label for="seniority">Staż pracy:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="0" id="seniority" formControlName="seniority">
       <div class="text-danger" *ngIf="salForm.get('seniority').invalid && (salForm.get('seniority').dirty || salForm.get('seniority').touched)">
-        <small *ngIf="salForm.get('seniority').errors">{{getValidErrors(salForm.get('seniority'))}}</small>
+        <small *ngIf="salForm.get('seniority').errors">{{dataService.getValidErrors(salForm.get('seniority'))}}</small>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
       <label for="salary_supplement">Podwyżka:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="0" id="salary_supplement" formControlName="salary_supplement">
       <div class="text-danger" *ngIf="salForm.get('salary_supplement').invalid && (salForm.get('salary_supplement').dirty || salForm.get('salary_supplement').touched)">
-        <small *ngIf="salForm.get('salary_supplement').errors">{{getValidErrors(salForm.get('salary_supplement'))}}</small>
+        <small *ngIf="salForm.get('salary_supplement').errors">{{dataService.getValidErrors(salForm.get('salary_supplement'))}}</small>
       </div>
     </div>
 
@@ -46,18 +46,12 @@
       <label for="employment_status">Status:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Status" id="employment_status" formControlName="employment_status">
       <div class="text-danger" *ngIf="salForm.get('employment_status').invalid && (salForm.get('employment_status').dirty || salForm.get('employment_status').touched)">
-        <small *ngIf="salForm.get('employment_status').errors">{{getValidErrors(salForm.get('employment_status'))}}</small>
+        <small *ngIf="salForm.get('employment_status').errors">{{dataService.getValidErrors(salForm.get('employment_status'))}}</small>
       </div>
     </div>
 
     <p-footer>
       <button type="button" pButton icon="fa-check" [disabled]="salForm.invalid" (click)="onAdd()" label="Dodaj"></button>
-
-      <!-- <button type="button" pButton (click)="onReset()" label="Resetuj" icon="fa-eraser"
-      [disabled]="!salForm.get('theme').value && !salForm.get('company').value && !salForm.get('location').value && !salForm.get('startDate').value &&
-        !salForm.get('endDate').value && !salForm.get('cost').value && !salForm.get('consent').value && !salForm.get('no_of_seats').value">
-      </button> -->
-
       <button type="button" pButton icon="fa-close" (click)="dataService.setSalaryAddDialogVisible(false)" label="Anuluj"></button>
     </p-footer>
   </form>

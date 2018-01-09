@@ -4,7 +4,7 @@
       <label for="forename">Imię:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{user.forename}}" id="forename" formControlName="forename">
       <div class="text-danger" *ngIf="userForm.get('forename').invalid && (userForm.get('forename').dirty || userForm.get('forename').touched)">
-        <small *ngIf="userForm.get('forename').errors">{{getValidErrors(userForm.get('forename'))}}</small>
+        <small *ngIf="userForm.get('forename').errors">{{dataService.getValidErrors(userForm.get('forename'))}}</small>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <label for="surname">Nazwisko:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{user.surname}}" id="surname" formControlName="surname">
       <div class="text-danger" *ngIf="userForm.get('surname').invalid && (userForm.get('surname').dirty || userForm.get('surname').touched)">
-          <small *ngIf="userForm.get('surname').errors">{{getValidErrors(userForm.get('surname'))}}</small>
+          <small *ngIf="userForm.get('surname').errors">{{dataService.getValidErrors(userForm.get('surname'))}}</small>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
       <label for="Login">Login:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{user.username}}" id="inputLogin" formControlName="username">
       <div class="text-danger" *ngIf="userForm.get('username').invalid && (userForm.get('username').dirty || userForm.get('username').touched)">
-          <small *ngIf="userForm.get('username').errors">{{getValidErrors(userForm.get('username'))}}</small>
+          <small *ngIf="userForm.get('username').errors">{{dataService.getValidErrors(userForm.get('username'))}}</small>
         </div>
     </div>
 
@@ -28,23 +28,23 @@
       <label for="Email">Adres email:</label>
       <input class="col-xs-4 form-control" type="email" placeholder="{{user.email}}" id="inputEmail" formControlName="email">
       <div class="text-danger" *ngIf="userForm.get('email').invalid && (userForm.get('email').dirty || userForm.get('email').touched)">
-          <small *ngIf="userForm.get('email').errors">{{getValidErrors(userForm.get('email'))}}</small>
+          <small *ngIf="userForm.get('email').errors">{{dataService.getValidErrors(userForm.get('email'))}}</small>
         </div>
     </div>
 
-    <div class="form-group"> <!-- Hasło -->
+    <!-- <div class="form-group"> <!- Hasło ->
       <label for="Password">Hasło:</label>
       <input class="col-xs-4 form-control" type="password" placeholder="**********" id="inputPassword" formControlName="password">
       <div class="text-danger" *ngIf="userForm.get('password').invalid && (userForm.get('password').dirty || userForm.get('password').touched)">
-          <small *ngIf="userForm.get('password').errors">{{getValidErrors(userForm.get('password'))}}</small>
+          <small *ngIf="userForm.get('password').errors">{{dataService.getValidErrors(userForm.get('password'))}}</small>
         </div>
-    </div>
+    </div> -->
 
     <div class="form-group"> <!-- Adres -->
       <label for="address">Adres:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="{{user.address}}" id="address" formControlName="address">
       <div class="text-danger" *ngIf="userForm.get('address').invalid && (userForm.get('address').dirty || userForm.get('address').touched)">
-          <small *ngIf="userForm.get('address').errors">{{getValidErrors(userForm.get('address'))}}</small>
+          <small *ngIf="userForm.get('address').errors">{{dataService.getValidErrors(userForm.get('address'))}}</small>
         </div>
     </div>
 
@@ -54,7 +54,7 @@
         <option *ngFor="let role of roles" value="{{role.bit}}">{{role.role}}</option>
       </select>
       <div class="text-danger" *ngIf="userForm.get('role').invalid && (userForm.get('role').dirty || userForm.get('role').touched)">
-        <small *ngIf="userForm.get('role').errors">{{getValidErrors(userForm.get('role'))}}</small>
+        <small *ngIf="userForm.get('role').errors">{{dataService.getValidErrors(userForm.get('role'))}}</small>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
         <option *ngFor="let position of positions" value="{{position.id}}">{{position.name}}</option>
       </select>
       <div class="text-danger" *ngIf="userForm.get('position_id').invalid && (userForm.get('position_id').dirty || userForm.get('position_id').touched)">
-        <small *ngIf="userForm.get('position_id').errors">{{getValidErrors(userForm.get('position_id'))}}</small>
+        <small *ngIf="userForm.get('position_id').errors">{{dataService.getValidErrors(userForm.get('position_id'))}}</small>
       </div>
     </div>
 
@@ -72,7 +72,7 @@
       <label for="employmentStartDate">Data rozpoczęcia pracy:</label>
       <br><p-calendar [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{user.employmentStartDate}}" id="employmentStartDate" formControlName="employmentStartDate"></p-calendar>
       <div class="text-danger" *ngIf="userForm.get('employmentStartDate').invalid && (userForm.get('employmentStartDate').dirty || userForm.get('employmentStartDate').touched)">
-        <small *ngIf="userForm.get('employmentStartDate').errors">{{getValidErrors(userForm.get('employmentStartDate'))}}</small>
+        <small *ngIf="userForm.get('employmentStartDate').errors">{{dataService.getValidErrors(userForm.get('employmentStartDate'))}}</small>
       </div>
     </div>
 

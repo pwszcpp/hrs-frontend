@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { LoginService } from './login.service';
+import { FormControl } from '@angular/forms';
 
 import { Instruction } from '../classes/instruction';
 import { Vacation } from '../classes/vacation';
@@ -31,6 +32,7 @@ export class DataService {
   salaryAddDialog: boolean;
   userEditDialog: boolean;
   positionAddDialog: boolean;
+  positionEditDialog: boolean;
 
   constructor(
     private httpClient: HttpClient,
@@ -111,6 +113,14 @@ export class DataService {
     this.positionAddDialog = value;
   }// setPositionAddDialogVisible()
 
+  getPositionEditDialogVisible(value: boolean): boolean {
+    return this.positionEditDialog;
+  }// getPositionEditDialogVisible()
+
+  setPositionEditDialogVisible(value: boolean): void {
+    this.positionEditDialog = value;
+  }// setPositionEditDialogVisible()
+
   convertDate(date: Date): string {
     if (date.toLocaleDateString()[1] !== '.') {
       return date.toLocaleDateString().slice(6, 10) + '-' +
@@ -135,6 +145,16 @@ export class DataService {
     };
   }// setPolishCalendar()
 
+  getValidErrors(value: FormControl): string {
+    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
+    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
+    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
+    value.errors.min ? 'Liczba musi być większa niż ' + value.errors.min.min + '!' :
+    value.errors.max ? 'Liczba musi być mniejsza niż ' + value.errors.max.max + '!' :
+    value.errors.email ? 'Niepoprawna forma e-mail!' :
+    '';
+  }
+
   // -------------------------------------------- INTEGRACJA Z BACKENDEM --------------------------------------------
   postUser(body: User): any {
     return this.http.post(this.url + this.uUsers, body, new RequestOptions({withCredentials: true}));
@@ -155,6 +175,10 @@ export class DataService {
 
   postContractor(body: Contractor): any {
     return this.http.post(this.url + this.uContractor, body, new RequestOptions({withCredentials: true}));
+  }// postContractor()
+
+  postPosition(body: Position): any {
+    return this.http.post(this.url + this.uPositions, body, new RequestOptions({withCredentials: true}));
   }// postContractor()
 
   updateInstruction(id: number, body: Instruction): any {

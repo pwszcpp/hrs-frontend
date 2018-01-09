@@ -4,7 +4,7 @@
       <label for="theme">Temat szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Wprowadź temat" id="theme" formControlName="theme">
       <div class="text-danger" *ngIf="instReg.get('theme').invalid && (instReg.get('theme').dirty || instReg.get('theme').touched)">
-        <small *ngIf="instReg.get('theme').errors">{{getValidErrors(instReg.get('theme'))}}</small>
+        <small *ngIf="instReg.get('theme').errors">{{dataService.getValidErrors(instReg.get('theme'))}}</small>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <label for="Firma">Nazwa firmy prowadzącej:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Firma prowadząca" id="inputFirma" formControlName="company">
       <div class="text-danger" *ngIf="instReg.get('company').invalid && (instReg.get('company').dirty || instReg.get('company').touched)">
-        <small *ngIf="instReg.get('company').errors">{{getValidErrors(instReg.get('company'))}}</small>
+        <small *ngIf="instReg.get('company').errors">{{dataService.getValidErrors(instReg.get('company'))}}</small>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <label for="Miejsce">Miejsce szkolenia:</label>
       <input class="col-xs-4 form-control" type="text" placeholder="Miejsce" id="inputMiejsce" formControlName="location">
       <div class="text-danger" *ngIf="instReg.get('location').invalid && (instReg.get('location').dirty || instReg.get('location').touched)">
-        <small *ngIf="instReg.get('location').errors">{{getValidErrors(instReg.get('location'))}}</small>
+        <small *ngIf="instReg.get('location').errors">{{dataService.getValidErrors(instReg.get('location'))}}</small>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <label for="startDate">Data rozpoczęcia szkolenia:</label>
       <br><p-calendar class="col-xs-4" [(ngModel)]="date" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="startDate" formControlName="startDate"></p-calendar>
       <div class="text-danger" *ngIf="instReg.get('startDate').invalid && (instReg.get('startDate').dirty || instReg.get('startDate').touched)">
-        <small *ngIf="instReg.get('startDate').errors">{{getValidErrors(instReg.get('startDate'))}}</small>
+        <small *ngIf="instReg.get('startDate').errors">{{dataService.getValidErrors(instReg.get('startDate'))}}</small>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
       <label for="endDate">Data zakończenia szkolenia:</label>
       <br><p-calendar class="col-xs-4" [(ngModel)]="date2" [showIcon]="true" [locale]="pl" readonlyInput="true" dateFormat="yy-mm-dd" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2030" placeholder="{{dataService.convertDate(minDate)}}" [minDate]="minDate" id="endDate" formControlName="endDate"></p-calendar>
       <div class="text-danger" *ngIf="instReg.get('endDate').invalid && (instReg.get('endDate').dirty || instReg.get('endDate').touched)">
-        <small *ngIf="instReg.get('endDate').errors">{{getValidErrors(instReg.get('endDate'))}}</small>
+        <small *ngIf="instReg.get('endDate').errors">{{dataService.getValidErrors(instReg.get('endDate'))}}</small>
       </div>
     </div>
 
@@ -44,7 +44,7 @@
       <label for="Cena">Cena od osoby:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="Cena od osoby" id="inputCena" formControlName="cost">
       <div class="text-danger" *ngIf="instReg.get('cost').invalid && (instReg.get('cost').dirty || instReg.get('cost').touched)">
-        <small *ngIf="instReg.get('cost').errors">{{getValidErrors(instReg.get('cost'))}}</small>
+        <small *ngIf="instReg.get('cost').errors">{{dataService.getValidErrors(instReg.get('cost'))}}</small>
       </div>
     </div>
 
@@ -52,7 +52,7 @@
       <label for="Miejsca">Ilość miejsc:</label>
       <input class="col-xs-4 form-control" type="number" placeholder="Ilosc miejsc" id="inputMiejsca" formControlName="no_of_seats">
       <div class="text-danger" *ngIf="instReg.get('no_of_seats').invalid && (instReg.get('no_of_seats').dirty || instReg.get('no_of_seats').touched)">
-        <small *ngIf="instReg.get('no_of_seats').errors">{{getValidErrors(instReg.get('no_of_seats'))}}</small>
+        <small *ngIf="instReg.get('no_of_seats').errors">{{dataService.getValidErrors(instReg.get('no_of_seats'))}}</small>
       </div>
     </div>
 
@@ -63,18 +63,12 @@
         <option value="false">Nie</option>
       </select>
       <div class="text-danger" *ngIf="instReg.get('consent').invalid && (instReg.get('consent').dirty || instReg.get('consent').touched)">
-        <small *ngIf="instReg.get('consent').errors">{{getValidErrors(instReg.get('consent'))}}</small>
+        <small *ngIf="instReg.get('consent').errors">{{dataService.getValidErrors(instReg.get('consent'))}}</small>
       </div>
     </div>
 
     <p-footer>
       <button type="button" pButton icon="fa-check" [disabled]="instReg.invalid" (click)="onRegister()" label="Dodaj"></button>
-
-      <!-- <button type="button" pButton (click)="onReset()" label="Resetuj" icon="fa-eraser"
-      [disabled]="!instReg.get('theme').value && !instReg.get('company').value && !instReg.get('location').value && !instReg.get('startDate').value &&
-        !instReg.get('endDate').value && !instReg.get('cost').value && !instReg.get('consent').value && !instReg.get('no_of_seats').value">
-      </button> -->
-
       <button type="button" pButton icon="fa-close" (click)="dataService.setInstDialogVisible(false)" label="Anuluj"></button>
     </p-footer>
   </form>

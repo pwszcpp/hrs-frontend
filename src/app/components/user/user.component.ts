@@ -110,34 +110,4 @@ export class UserComponent implements OnInit, DoCheck {
       }
     );
   }// onDelete()
-
-  /* addPositions(positions: any): number {
-    let temp = 0;
-
-    for (let i = 0; i < positions.length; i++) {
-      temp += positions[i].id;
-    }// for
-
-    return temp;
-  }// addPositions()
-
-  onEdit(event: User): void {
-    const body = new User(
-      event.forename,
-      event.surname,
-      event.email,
-      event.username,
-      '1234',
-      event.address,
-      this.addPositions(event.positions),
-      event.employmentStartDate,
-      event.role
-    );
-
-    this.dataService.updateUser(event.id, body).subscribe(
-      () => {},
-      err => this.messageService.add({severity: 'error', summary: 'Edycja użytkownika', detail: 'Nie udało się edytować użytkownika!'}),
-      () => this.messageService.add({severity: 'success', summary: 'Edycja użytkownika', detail: 'Edytowano użytkownika!'})
-    );
-  }// onEdit() */
 }

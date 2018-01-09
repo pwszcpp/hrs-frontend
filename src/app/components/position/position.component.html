@@ -1,3 +1,27 @@
-<p>
-  position works!
-</p>
+<p-growl></p-growl>
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+<app-edit-position [position]="selectedPosition" *ngIf="dataService.getPositionEditDialogVisible()"></app-edit-position>
+<app-add-position *ngIf="dataService.getPositionAddDialogVisible()"></app-add-position>
+
+<h1 class="nazwa">{{title}}</h1>
+
+<p-dataTable class="text-center" [value]="positions" [responsive]="true" [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,25]" dataKey="id" [(selection)]="selectedPosition" selectionMode="single" [contextMenu]="cm"> <!-- (onEditComplete)="onEdit($event.data)"> -->
+
+  <p-column header="Lp."> <!-- ID -->
+    <ng-template let-index="rowIndex" pTemplate="body">
+      <span>{{index + 1}}</span>
+    </ng-template>a
+  </p-column>
+
+  <p-column field="name" header="Nazwa" [sortable]="true"></p-column> <!-- Nazwa -->
+  <p-column field="min_salary" header="Minimalna pensja" [sortable]="true"></p-column> <!-- Minimalna pensja -->
+  <p-column field="max_salary" header="Maksymalna pensja" [sortable]="true"></p-column> <!-- Maksymalna pensja -->
+  <p-column field="max_percent_salary_supplement" header="Maksymalny % podwyżki" [sortable]="true"></p-column> <!-- Maksymalny % podwyżki -->
+
+  <p-footer>
+    <div class="ui-helper-clearfix">
+        <button type="button" pButton icon="fa-plus" label="Dodaj" style="float: left;" pTooltip="Dodaj stanowisko" (click)="dataService.setPositionAddDialogVisible(true)"></button>
+      <button type="button" pButton icon="fa-refresh" label="Odśwież" style="float: right;" pTooltip="Odśwież tabelę" (click)="getPositions()"></button>
+    </div>
+  </p-footer>
+</p-dataTable>

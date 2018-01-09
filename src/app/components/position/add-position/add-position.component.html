@@ -1,3 +1,40 @@
-<p>
-  add-position works!
-</p>
+<p-dialog [minWidth]="300" header="Dodawanie stanowiska" [visible]="dataService.getPositionAddDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setPositionAddDialogVisible(false)">
+    <form [formGroup]="addForm" novalidate>
+      <div class="form-group"> <!-- Nazwa -->
+        <label for="name">Nazwa:</label>
+        <input class="col-xs-4 form-control" type="text" placeholder="Nazwa" id="name" formControlName="name">
+        <div class="text-danger" *ngIf="addForm.get('name').invalid && (addForm.get('name').dirty || addForm.get('name').touched)">
+          <small *ngIf="addForm.get('name').errors">{{dataService.getValidErrors(addForm.get('name'))}}</small>
+        </div>
+      </div>
+
+      <div class="form-group"> <!-- Minimalna pensja -->
+        <label for="min_salary">Minimalna pensja:</label>
+        <input class="col-xs-4 form-control" type="number" placeholder="Minimalna pensja" id="min_salary" formControlName="min_salary">
+        <div class="text-danger" *ngIf="addForm.get('min_salary').invalid && (addForm.get('min_salary').dirty || addForm.get('min_salary').touched)">
+          <small *ngIf="addForm.get('min_salary').errors">{{dataService.getValidErrors(addForm.get('min_salary'))}}</small>
+        </div>
+      </div>
+
+      <div class="form-group"> <!-- Maksymalna pensja -->
+        <label for="max_salary">Maksymalna pensja:</label>
+        <input class="col-xs-4 form-control" type="number" placeholder="Maksymalna pensja" id="max_salary" formControlName="max_salary">
+        <div class="text-danger" *ngIf="addForm.get('max_salary').invalid && (addForm.get('max_salary').dirty || addForm.get('max_salary').touched)">
+          <small *ngIf="addForm.get('max_salary').errors">{{dataService.getValidErrors(addForm.get('max_salary'))}}</small>
+        </div>
+      </div>
+
+      <div class="form-group"> <!-- Maksymalny % podwyżki -->
+        <label for="max_percent_salary_supplement">Maksymalny % podwyżki:</label>
+        <input class="col-xs-4 form-control" type="number" placeholder="Maksymalny % podwyżki" id="max_percent_salary_supplement" formControlName="max_percent_salary_supplement">
+        <div class="text-danger" *ngIf="addForm.get('max_percent_salary_supplement').invalid && (addForm.get('max_percent_salary_supplement').dirty || addForm.get('max_percent_salary_supplement').touched)">
+          <small *ngIf="addForm.get('max_percent_salary_supplement').errors">{{dataService.getValidErrors(addForm.get('max_percent_salary_supplement'))}}</small>
+        </div>
+      </div>
+
+      <p-footer>
+        <button type="button" pButton icon="fa-check" [disabled]="addForm.invalid" (click)="onAdd()" label="Dodaj"></button>
+        <button type="button" pButton icon="fa-close" (click)="dataService.setPositionAddDialogVisible(false)" label="Anuluj"></button>
+      </p-footer>
+    </form>
+  </p-dialog>

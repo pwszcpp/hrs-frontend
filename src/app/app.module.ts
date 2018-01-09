@@ -40,6 +40,7 @@ import { PositionComponent } from './components/position/position.component';
 import { UserComponent } from './components/user/user.component';
 import { AddPositionComponent } from './components/position/add-position/add-position.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { EditPositionComponent } from './components/position/edit-position/edit-position.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full'},
@@ -76,7 +77,8 @@ const appRoutes: Routes = [
     PositionComponent,
     UserComponent,
     AddPositionComponent,
-    EditUserComponent
+    EditUserComponent,
+    EditPositionComponent
   ],
   imports: [
     RouterModule.forRoot(

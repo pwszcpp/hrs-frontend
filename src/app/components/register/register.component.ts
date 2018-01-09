@@ -54,14 +54,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  getValidErrors(value: FormControl) {
-    return value.errors.required ? 'Wypełnienie pola jest wymagane!' :
-    value.errors.email ? 'Niepoprawna forma e-mail!' :
-    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
-    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
-    '';
-  }
-
   onReset(): void {
     this.regForm.reset();
   }// onReset()

@@ -1,0 +1,40 @@
+<p-dialog [minWidth]="300" header="Edycja rekordu" [visible]="dataService.getPositionEditDialogVisible()" modal="modal" [responsive]="true" (onHide)="dataService.setPositionEditDialogVisible(false)">
+    <form [formGroup]="posForm" novaldiate>
+      <div class="form-group">  <!-- Nazwa -->
+        <label for="name">Nazwa:</label>
+        <input class="col-xs-4 form-control" type="text" placeholder="{{position.name}}" id="name" formControlName="name">
+        <div class="text-danger" *ngIf="posForm.get('name').invalid && (posForm.get('name').dirty || posForm.get('name').touched)">
+          <small *ngIf="posForm.get('name').errors">{{dataService.getValidErrors(posForm.get('name'))}}</small>
+        </div>
+      </div>
+
+      <div class="form-group"> <!-- Minimalna pensja -->
+        <label for="min_salary">Minimalna pensja:</label>
+        <input class="col-xs-4 form-control" type="number" placeholder="{{position.min_salary}}" id="min_salary" formControlName="min_salary">
+        <div class="text-danger" *ngIf="posForm.get('min_salary').invalid && (posForm.get('min_salary').dirty || posForm.get('min_salary').touched)">
+            <small *ngIf="posForm.get('min_salary').errors">{{dataService.getValidErrors(posForm.get('min_salary'))}}</small>
+          </div>
+      </div>
+
+      <div class="form-group"> <!-- Maksymalna pensja -->
+        <label for="max_salary">Maksymalna pensja:</label>
+        <input class="col-xs-4 form-control" type="number" placeholder="{{position.max_salary}}" id="max_salary" formControlName="max_salary">
+        <div class="text-danger" *ngIf="posForm.get('max_salary').invalid && (posForm.get('max_salary').dirty || posForm.get('max_salary').touched)">
+            <small *ngIf="posForm.get('max_salary').errors">{{dataService.getValidErrors(posForm.get('max_salary'))}}</small>
+          </div>
+      </div>
+
+      <div class="form-group"> <!-- Maksymalny % podwyżki -->
+        <label for="max_percent_salary_supplement">Maksymalny % podwyżki:</label>
+        <input class="col-xs-4 form-control" type="number" placeholder="{{position.max_percent_salary_supplement}}" id="max_percent_salary_supplement" formControlName="max_percent_salary_supplement">
+        <div class="text-danger" *ngIf="posForm.get('max_percent_salary_supplement').invalid && (posForm.get('max_percent_salary_supplement').dirty || posForm.get('max_percent_salary_supplement').touched)">
+            <small *ngIf="posForm.get('max_percent_salary_supplement').errors">{{dataService.getValidErrors(posForm.get('max_percent_salary_supplement'))}}</small>
+          </div>
+      </div>
+
+      <p-footer>
+        <button type="button" pButton icon="fa-check" [disabled]="posForm.pristine || posForm.invalid" (click)="onSubmit()" label="Zapisz"></button>
+        <button type="button" pButton icon="fa-close" (click)="dataService.setPositionEditDialogVisible(false)" label="Anuluj"></button>
+      </p-footer>
+    </form>
+  </p-dialog>

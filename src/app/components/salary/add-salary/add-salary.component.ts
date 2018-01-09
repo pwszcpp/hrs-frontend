@@ -36,15 +36,6 @@ export class AddSalaryComponent implements OnInit {
     });
   }// createForms()
 
-  getValidErrors(value: FormControl): string {
-    return value.errors.required ? 'Pole jest wymagane!' :
-    value.errors.minlength ? 'Wymagana minimalna ilość znaków: ' + value.errors.minlength.requiredLength :
-    value.errors.maxlength ? 'Wymagana maksymalna ilość znaków: ' + value.errors.maxlength.requiredLength :
-    value.errors.min ? 'Liczba musi być większa niż ' + value.errors.min.min + '!' :
-    value.errors.max ? 'Liczba musi być mniejsza niż ' + value.errors.max.max + '!' :
-    '';
-  }// getValidErrors()
-
   getUsers(): void {
     this.dataService.getUsersArray().subscribe(
       res => this.users = res,

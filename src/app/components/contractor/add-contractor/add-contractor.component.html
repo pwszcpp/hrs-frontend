@@ -61,12 +61,6 @@
 
     <p-footer>
       <button type="button" pButton icon="fa-check" [disabled]="conReg.invalid" (click)="onRegister()" label="Dodaj"></button>
-
-      <!-- <button type="button" pButton (click)="onReset()" label="Resetuj" icon="fa-eraser"
-      [disabled]="!conReg.get('name').value && !conReg.get('address').value && !conReg.get('nip_number').value && !conReg.get('regon_number').value &&
-        !conReg.get('bank_account_number').value && !conReg.get('payment_form').value && !conReg.get('active_taxpayer_VAT_tax').value">
-      </button> -->
-
       <button type="button" pButton icon="fa-close" (click)="dataService.setContractorAddDialogVisible(false)" label="Anuluj"></button>
     </p-footer>
   </form>
